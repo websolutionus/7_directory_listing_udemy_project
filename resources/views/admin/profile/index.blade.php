@@ -22,7 +22,9 @@
               <h4>Update Profile</h4>
             </div>
             <div class="card-body">
-                <form action="">
+                <form action="{{ route('admin.profile.update') }}" method="POST">
+                    @csrf
+                    @method('PUT')
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
