@@ -29,8 +29,6 @@ return new class extends Migration
             $table->text('in_link')->nullable();
             $table->text('wa_link')->nullable();
             $table->text('instra_link')->nullable();
-
-
             $table->rememberToken();
             $table->timestamps();
         });
