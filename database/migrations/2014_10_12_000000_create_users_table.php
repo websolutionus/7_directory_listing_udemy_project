@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->enum('user_type', ['user', 'admin'])->default('user');
             $table->string('avatar')->default('/default/avatar.png');
-            $table->string('banner')->default('/default/breadcrumb.png');
+            $table->string('banner')->default('/default/breadcrumb.jpg');
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone')->nullable();
