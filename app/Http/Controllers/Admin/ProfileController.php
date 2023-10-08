@@ -26,8 +26,8 @@ class ProfileController extends Controller
         $bannerPath = $this->uploadImage($request, 'banner');
 
         $user = Auth::user();
-        $user->avatar = !empty($avatarPath) ? $avatarPath : '';
-        $user->banner = !empty($bannerPath) ? $bannerPath : '';
+        $user->avatar = !empty($avatarPath) ? $avatarPath : $request->old_avatar;
+        $user->banner = !empty($bannerPath) ? $bannerPath : $request->old_banner;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone = $request->phone;
