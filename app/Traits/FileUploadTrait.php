@@ -7,7 +7,7 @@ use File;
 
 trait FileUploadTrait
 {
-    function uploadImage(Request $request, $inputName, $oldPath = null, $path = '/uploads')
+    function uploadImage(Request $request, string $inputName, string $oldPath = null, string $path = '/uploads') : ?string
     {
         if($request->hasFile($inputName)){
             $image = $request->{$inputName};
@@ -22,7 +22,8 @@ trait FileUploadTrait
             }
 
             return $path . '/' . $imageName;
-
         }
+
+        return null;
     }
 }

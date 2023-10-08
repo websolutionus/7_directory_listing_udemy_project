@@ -47,71 +47,71 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="name" required>
+                                <input type="text" class="form-control" name="name" value="{{ $user->name }}" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Email <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="email" required>
+                                <input type="text" class="form-control" name="email" value="{{ $user->email }}" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Phone <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="phone" required>
+                                <input type="text" class="form-control" name="phone" value="{{ $user->phone }}" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Addess <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="address" required>
+                                <input type="text" class="form-control" name="address" value="{{ $user->address }}" required>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="">About <span class="text-danger">*</span></label>
-                                <textarea name="about" class="form-control" required></textarea>
+                                <textarea name="about" class="form-control" required>{!! $user->about !!}</textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Website</label>
-                                <input type="text" class="form-control" name="website">
+                                <input type="text" class="form-control" name="website" value="{{ $user->website }}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Facebook</label>
-                                <input type="text" class="form-control" name="fb_link">
+                                <input type="text" class="form-control" name="fb_link" value="{{ $user->fb_link }}">
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">X</label>
-                                <input type="text" class="form-control" name="x_link">
+                                <input type="text" class="form-control" name="x_link" value="{{ $user->x_link }}">
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Linkedin</label>
-                                <input type="text" class="form-control" name="in_link">
+                                <input type="text" class="form-control" name="in_link" value="{{ $user->in_link }}">
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Whatsapp</label>
-                                <input type="text" class="form-control" name="wa_link">
+                                <input type="text" class="form-control" name="wa_link" value="{{ $user->wa_link }}">
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Instragram</label>
-                                <input type="text" class="form-control" name="instra_link">
+                                <input type="text" class="form-control" name="instra_link" value="{{ $user->insta_link }}">
                             </div>
                         </div>
                         <div class="col-md-6">
