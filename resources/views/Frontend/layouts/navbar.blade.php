@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-xl-6 col-md-5">
                     <div class="wsus__topbar_right">
-                        <a href="sign_in.html"><i class="fas fa-user"></i> Login</a>
+                        <a href="{{ route('login') }}"><i class="fas fa-user"></i> Login</a>
                     </div>
                 </div>
             </div>
