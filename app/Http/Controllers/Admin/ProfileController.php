@@ -22,8 +22,8 @@ class ProfileController extends Controller
 
     function update(ProfileUpdateRequest $request) : RedirectResponse {
 
-        $avatarPath = $this->uploadImage($request, 'avatar');
-        $bannerPath = $this->uploadImage($request, 'banner');
+        $avatarPath = $this->uploadImage($request, 'avatar', $request->old_avatar);
+        $bannerPath = $this->uploadImage($request, 'banner', $request->old_banner);
 
         $user = Auth::user();
         $user->avatar = !empty($avatarPath) ? $avatarPath : $request->old_avatar;
@@ -40,6 +40,9 @@ class ProfileController extends Controller
         $user->wa_link = $request->wa_link;
         $user->instra_link = $request->instra_link;
         $user->save();
+
+        toastr()->success('Updated Successfully!');
+
         return redirect()->back();
     }
 }
