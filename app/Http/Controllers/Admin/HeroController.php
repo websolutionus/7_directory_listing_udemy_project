@@ -15,17 +15,18 @@ class HeroController extends Controller
     use FileUploadTrait;
 
     function index() : View {
-        return view('admin.hero.index');
+        $hero = Hero::first();
+        return view('admin.hero.index', compact('hero'));
     }
 
     function update(HeroUpdateRequest $request) : RedirectResponse {
 
-        $imagePath = $this->uploadImage($request, 'background');
+        $imagePath = $this->uploadImage($request, 'background', $request->old_background);
 
         Hero::updateOrCreate(
             ['id' => 1],
             [
-                'background' => !empty($imagePath) ? $imagePath : '',
+                'background' => !empty($imagePath) ? $imagePath : $request->old_background,
                 'title' => $request->title,
                 'sub_title' => $request->sub_title
             ]

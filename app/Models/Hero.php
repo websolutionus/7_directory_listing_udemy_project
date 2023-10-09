@@ -9,5 +9,5 @@ class Hero extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['background', 'title', 'sub_title'];
+    protected $fillable = ['id', 'background', 'title', 'sub_title'];
 }
