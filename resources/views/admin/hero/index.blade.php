@@ -22,7 +22,9 @@
                         <h4>Update Hero</h4>
                     </div>
                     <div class="card-body">
-                        <form action="">
+                        <form action="{{ route('admin.hero.update') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
                             <div class="form-group">
                                 <label for="">Background</label>
                                 <div id="image-preview" class="image-preview avatar-preview">
