@@ -26,18 +26,50 @@
                             <form action="{{ route('admin.hero.update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                                <div class="form-group">
-                                    <label for="">Background</label>
-                                    <div id="image-preview" class="image-preview">
-                                        <label for="image-upload" id="image-label">Choose File</label>
-                                        <input type="file" name="background" id="image-upload" />
-                                        <input type="hidden" name="old_background" value="">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Icon Image <span class="text-danger">*</span></label>
+                                            <div id="image-preview" class="image-preview">
+                                                <label for="image-upload" id="image-label">Choose File</label>
+                                                <input type="file" name="icon_image" id="image-upload" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Background Image <span
+                                                    class="text-danger">*</span></label>
+                                            <div id="image-preview" class="image-preview">
+                                                <label for="image-upload" id="image-label">Choose File</label>
+                                                <input type="file" name="background_image" id="image-upload" />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Title <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="title">
+                                    <label for="">Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="name">
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="">Show at Home <span class="text-danger">*</span></label>
+                                    <select name="show_at_home" class="form-control">
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Status <span class="text-danger">*</span></label>
+                                    <select name="status" class="form-control">
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                </div>
+
+
+
 
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">Create</button>
@@ -54,6 +86,5 @@
 @endsection
 
 @push('scripts')
-    <script>
-    </script>
+    <script></script>
 @endpush
