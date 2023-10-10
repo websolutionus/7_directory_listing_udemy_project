@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\DataTables\CategoryDataTable;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -11,9 +13,9 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() :View
+    public function index(CategoryDataTable $dataTable) : View | JsonResponse
     {
-        return view('admin.category.index');
+        return $dataTable->render('admin.category.index');
     }
 
     /**

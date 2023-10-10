@@ -16,7 +16,7 @@
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('admin/assets/css/components.css') }}">
-
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
 </head>
 
 <body>

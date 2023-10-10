@@ -21,7 +21,7 @@
                             <h4>All Categories</h4>
                         </div>
                         <div class="card-body">
-
+                            {{ $dataTable->table() }}
                         </div>
                     </div>
                 </div>
@@ -32,6 +32,5 @@
 @endsection
 
 @push('scripts')
-    <script>
-    </script>
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 @endpush
