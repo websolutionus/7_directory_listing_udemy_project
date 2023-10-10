@@ -1,13 +1,11 @@
-<section id="wsus__banner">
+<section id="wsus__banner" style="background: url({{ asset($hero->background) }})">
     <div class="wsus__banner_overlay">
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-xl-6 col-lg-7">
                     <div class="wsus__banner_text">
-                        <h1>Let us help you Find Buy & Own Dreams</h1>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos quasi facilis, cupiditate
-                            rem voluptates omnis repellat consectetur nihil quod a, illo nemo eveniet iste, minima
-                            delectus doloribus! Praesentium, maiores iusto? </p>
+                        <h1>{!! @$hero->title !!}</h1>
+                        <p>{!! @$hero->sub_title !!}</p>
                     </div>
                 </div>
 
