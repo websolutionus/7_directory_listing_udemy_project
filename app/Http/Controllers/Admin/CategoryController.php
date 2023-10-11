@@ -4,12 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\CategoryDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CategoryStoreRequest;
+use App\Models\Category;
+use App\Traits\FileUploadTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Str;
 
 class CategoryController extends Controller
 {
+    use FileUploadTrait;
     /**
      * Display a listing of the resource.
      */
@@ -29,9 +34,23 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryStoreRequest $request)
     {
-        //
+        $iconPath = $this->uploadImage($request, 'image_icon');
+        $backgroundPath = $this->uploadImage($request, 'background_image');
+
+        $category = new Category();
+        $category->image_icon = $iconPath;
+        $category->background_image = $backgroundPath;
+        $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
+        $category->show_at_home = $request->show_at_home;
+        $category->status = $request->status;
+        $category->save();
+
+        toastr()->success('Created Successfully!');
+
+        return to_route('admin.category.index');
     }
 
     /**
