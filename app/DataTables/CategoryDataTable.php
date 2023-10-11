@@ -22,7 +22,19 @@ class CategoryDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'category.action')
+            ->addColumn('action', function($query){
+                $edit = '<a href="" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>';
+                $delete = '<a href="" class="btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
+
+                return $edit.$delete;
+            })
+            ->addColumn('icon', function($query){
+                return '<img width="70" src="'.asset($query->image_icon).'" >';
+            })
+            ->addColumn('background', function($query){
+                return '<img width="80" src="'.asset($query->background_image).'" >';
+            })
+            ->rawColumns(['icon', 'background', 'action'])
             ->setRowId('id');
     }
 
@@ -62,15 +74,17 @@ class CategoryDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+
+            Column::make('id')->width(100),
+            Column::make('icon')->width(200),
+            Column::make('background')->width(200),
+
+            Column::make('name'),
             Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            ->exportable(false)
+            ->printable(false)
+            ->width(150)
+            ->addClass('text-center'),
         ];
     }
 
