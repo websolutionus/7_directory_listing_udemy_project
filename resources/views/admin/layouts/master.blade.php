@@ -78,6 +78,7 @@
 
         $('body').on('click', '.delete-item', function(e) {
             e.preventDefault();
+            let url = $(this).attr('href');
 
             Swal.fire({
                 title: 'Are you sure?',
@@ -89,11 +90,27 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
+
+                    $.ajax({
+                        method: 'DELETE',
+                        url: url,
+                        data: {_token: "{{ csrf_token() }}"},
+                        success: function(response) {
+                            if(response.status === 'success'){
+                                Swal.fire(
+                                    'Deleted!',
+                                    response.message,
+                                    'success'
+                                )
+                                window.location.reload();
+                            }
+                        },
+                        error: function(xhr, status, error){
+                            console.log(error);
+                        }
+
+                    })
+
                 }
             })
 

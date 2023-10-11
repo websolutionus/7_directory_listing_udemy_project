@@ -28,4 +28,13 @@ trait FileUploadTrait
 
         return null;
     }
+
+    function deleteFile($path) : void {
+        // Delete previous image from storage
+        $exculudedFolder = '/default';
+
+        if($path && File::exists(public_path($path)) && strpos($path, $exculudedFolder) !== 0){
+            File::delete(public_path($path));
+        }
+    }
 }
