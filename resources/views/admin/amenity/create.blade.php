@@ -23,11 +23,14 @@
                             <h4>Create Amenity</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('admin.category.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.amenity.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                     <label for="">Icon <span class="text-danger">*</span></label>
-                                    <div role="iconpicker" data-align="left" data-unselected-class="btn-primary"></div>
+                                    <div role="iconpicker" data-align="left"
+                                    data-selected-class="btn-primary"
+                                    data-unselected-class=""
+                                    name="icon" ></div>
                                 </div>
 
                                 <div class="form-group">
