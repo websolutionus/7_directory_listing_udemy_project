@@ -103,6 +103,12 @@
                                     'success'
                                 )
                                 window.location.reload();
+                            }else if (response.status === 'error'){
+                                Swal.fire(
+                                    'Somthing wen\'t wrong!',
+                                    response.message,
+                                    'error'
+                                )
                             }
                         },
                         error: function(xhr, status, error){
