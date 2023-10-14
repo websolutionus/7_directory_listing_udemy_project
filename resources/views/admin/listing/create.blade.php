@@ -54,7 +54,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">category <span class="text-danger">*</span></label>
-                                            <select name="status" class="form-control" name="category" required>
+                                            <select class="form-control" name="category" required>
                                                 <option value="">Select</option>
                                                 @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -65,7 +65,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Location <span class="text-danger">*</span></label>
-                                            <select name="status" class="form-control" name="location" required>
+                                            <select class="form-control" name="location" required>
                                                 <option value="">Select</option>
                                                 @foreach ($locations as $location)
                                                 <option value="{{ $location->id }}">{{ $location->name }}</option>
