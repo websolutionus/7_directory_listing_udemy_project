@@ -17,7 +17,7 @@ class ListingStoreRequest extends FormRequest
         return [
             'image' => ['required', 'image', 'max:3000'],
             'thumbnail_image' => ['required', 'image', 'max:3000'],
-            'title' => ['required', 'string', 'max:255'],
+            'title' => ['required', 'string', 'max:255', 'unique:listings,title'],
             'category' => ['required', 'integer'],
             'location' => ['required', 'integer'],
             'address' => ['required', 'string', 'max:255'],
@@ -28,7 +28,7 @@ class ListingStoreRequest extends FormRequest
             'x_link' => ['nullable','url'],
             'linkedin_link' => ['nullable','url'],
             'whatsapp_link' => ['nullable','url'],
-            'attachment' => ['nullable','mimes:png,jpg,csv,pdf'],
+            'attachment' => ['nullable','mimes:png,jpg,csv,pdf', 'max:10000'],
             'amenities.*' => ['nullable', 'integer'],
             'description' => ['required'],
             'google_map_embed_code' => ['nullable'],
