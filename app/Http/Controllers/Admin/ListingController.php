@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\ListingStoreRequest;
 use App\Models\Amenity;
 use App\Models\Category;
 use App\Models\Listing;
+use App\Models\ListingAmenity;
 use App\Models\Location;
 use App\Traits\FileUploadTrait;
 use Auth;
@@ -75,6 +76,13 @@ class ListingController extends Controller
         $listing->expire_date = date('Y-m-d');
 
         $listing->save();
+
+        foreach($request->amenities as $amenityId) {
+            $amenity = new ListingAmenity();
+            $amenity->listing_id = $listing->id;
+            $amenity->amenity_id = $amenityId;
+            $amenity->save();
+        }
 
         toastr()->success('Created Successfully!');
 
