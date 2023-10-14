@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\ListingDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\Amenity;
 use App\Models\Category;
 use App\Models\Location;
 use Illuminate\Http\JsonResponse;
@@ -27,7 +28,8 @@ class ListingController extends Controller
     {
         $categories = Category::all();
         $locations = Location::all();
-        return view('admin.listing.create', compact('categories', 'locations'));
+        $amenities = Amenity::all();
+        return view('admin.listing.create', compact('categories', 'locations', 'amenities'));
     }
 
     /**

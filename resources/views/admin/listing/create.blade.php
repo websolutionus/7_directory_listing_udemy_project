@@ -135,21 +135,60 @@
                                 <div class="form-group">
                                     <label>Amenities</label>
                                     <select class="form-control select2" multiple="">
-                                      <option>Option 1</option>
-                                      <option>Option 2</option>
-                                      <option>Option 3</option>
-                                      <option>Option 4</option>
-                                      <option>Option 5</option>
-                                      <option>Option 6</option>
+                                        @foreach ($amenities as $amenity)
+                                        <option value="{{ $amenity->id }}" >{{ $amenity->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="">Status <span class="text-danger">*</span></label>
-                                    <select name="status" class="form-control">
-                                        <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
-                                    </select>
+                                    <label for="">Description <span class="text-danger"></span></label>
+                                    <textarea name="" class="summernote"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Google Map Embed Code <span class="text-danger"></span></label>
+                                    <textarea name="" class="form-control"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Seo Title <span class="text-danger"></span></label>
+                                    <input type="text" class="form-control" name="title">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="">Seo Description <span class="text-danger"></span></label>
+                                    <textarea name="" class="form-control"></textarea>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Status <span class="text-danger">*</span></label>
+                                            <select name="status" class="form-control">
+                                                <option value="1">Active</option>
+                                                <option value="0">Inactive</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Is Featured <span class="text-danger"></span></label>
+                                            <select name="status" class="form-control">
+                                                <option value="0">No</option>
+                                                <option value="1">Yes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="">Is Verified <span class="text-danger"></span></label>
+                                            <select name="status" class="form-control">
+                                                <option value="0">No</option>
+                                                <option value="1">Yes</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
 
 
