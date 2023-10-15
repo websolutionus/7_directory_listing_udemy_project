@@ -29,6 +29,7 @@
                                 <div class="form-group">
                                     <label for="">Image <code>(Multi image supported)</code></label>
                                     <input type="file" class="form-control" name="images[]" multiple>
+                                    <input type="hidden" value="{{ request()->id }}" name="listing_id">
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">Upload</button>

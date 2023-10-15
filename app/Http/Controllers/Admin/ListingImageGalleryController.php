@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ListingImageGallery;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -25,13 +26,25 @@ class ListingImageGalleryController extends Controller
     {
         $request->validate([
             'images' => ['required'],
-            'images.*' => ['image', 'max:3000']
+            'images.*' => ['image', 'max:3000'],
+            'listing_id' => ['required']
         ],[
             'images.*.image' => 'One or more selected files are not valid images.',
             'images.*.max' => 'One or more images exceed the maximum file size (3MB).',
         ]);
 
+        $imagePaths = $this->uploadMultipleImage($request, 'images');
 
+        foreach($imagePaths as $path) {
+            $image = new ListingImageGallery();
+            $image->listing_id = $request->listing_id;
+            $image->image = $path;
+            $image->save();
+        }
+
+        toastr()->success('Updated Successfully!');
+
+        return redirect()->back();
     }
 
     /**
