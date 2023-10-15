@@ -33,7 +33,7 @@
                                             <label for="">Image <span class="text-danger">*</span></label>
                                             <div id="image-preview" class="image-preview preview-1">
                                                 <label for="image-upload" id="image-label">Choose File</label>
-                                                <input type="file" name="image" id="image-upload" required />
+                                                <input type="file" name="image" id="image-upload" />
                                                 <input type="hidden" name="old_image" value="{{ $listing->image }}" />
 
                                             </div>
@@ -44,7 +44,7 @@
                                             <label for="">Thumbnail Image <span class="text-danger">*</span></label>
                                             <div id="image-preview-2" class="image-preview preview-2">
                                                 <label for="image-upload-2" id="image-label-2">Choose File</label>
-                                                <input type="file" name="thumbnail_image" id="image-upload-2" required />
+                                                <input type="file" name="thumbnail_image" id="image-upload-2" />
                                                 <input type="hidden" name="old_thumbnail_image" value="{{ $listing->thumbnail_image }}" />
 
                                             </div>
@@ -139,6 +139,7 @@
                                         <div class="form-group">
                                             <label for="">Attacement <span class="text-danger"></span></label>
                                             <input type="file" class="form-control" name="attachment">
+                                            <input type="hidden" class="form-control" name="old_attachment" value="{{ $listing->attachment }}">
                                         </div>
                                     </div>
                                 </div>
@@ -204,7 +205,7 @@
 
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Create</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
 
                             </form>
