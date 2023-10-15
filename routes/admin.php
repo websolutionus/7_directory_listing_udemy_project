@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\ListingController;
 use App\Http\Controllers\Admin\ListingImageGallery;
 use App\Http\Controllers\Admin\ListingImageGalleryController;
+use App\Http\Controllers\Admin\ListingVideoGalleryController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -47,4 +48,7 @@ Route::group([
 
     /** Listing Image Gallery Routes */
     Route::resource('/listing-image-gallery', ListingImageGalleryController::class);
+
+    /** Listing Video Gallery Routes */
+    Route::resource('/listing-video-gallery', ListingVideoGalleryController::class);
 });
