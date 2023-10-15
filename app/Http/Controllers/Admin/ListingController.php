@@ -91,19 +91,16 @@ class ListingController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id) : View
     {
-        //
+        $listing = Listing::findOrFail($id);
+
+        $categories = Category::all();
+        $locations = Location::all();
+        $amenities = Amenity::all();
+        return view('admin.listing.edit', compact('categories', 'locations', 'amenities', 'listing'));
     }
 
     /**
