@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ListingImageGalleryController extends Controller
 {
+    use FileUploadTrait;
     /**
      * Display a listing of the resource.
      */
@@ -17,19 +19,19 @@ class ListingImageGalleryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'images' => ['required'],
+            'images.*' => ['image', 'max:3000']
+        ],[
+            'images.*.image' => 'One or more selected files are not valid images.',
+            'images.*.max' => 'One or more images exceed the maximum file size (3MB).',
+        ]);
+
+
     }
 
     /**

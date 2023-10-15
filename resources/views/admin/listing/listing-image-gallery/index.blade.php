@@ -24,10 +24,14 @@
 
                         </div>
                         <div class="card-body">
-                            <form action="" enctype="multipart/form-data">
+                            <form action="{{ route('admin.listing-image-gallery.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
                                 <div class="form-group">
                                     <label for="">Image <code>(Multi image supported)</code></label>
                                     <input type="file" class="form-control" name="images[]" multiple>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Upload</button>
                                 </div>
                             </form>
                         </div>
