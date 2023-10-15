@@ -131,7 +131,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        @if ($listing->attacement)
+                                        @if ($listing->file)
                                         <div>
                                             <i class="fas fa-file-alt" style="font-size: 70px"></i>
                                         </div>

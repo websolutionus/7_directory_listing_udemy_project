@@ -145,12 +145,14 @@ class ListingController extends Controller
 
         $listing->save();
 
-        // foreach($request->amenities as $amenityId) {
-        //     $amenity = new ListingAmenity();
-        //     $amenity->listing_id = $listing->id;
-        //     $amenity->amenity_id = $amenityId;
-        //     $amenity->save();
-        // }
+        ListingAmenity::where('listing_id', $listing->id)->delete();
+
+        foreach($request->amenities as $amenityId) {
+            $amenity = new ListingAmenity();
+            $amenity->listing_id = $listing->id;
+            $amenity->amenity_id = $amenityId;
+            $amenity->save();
+        }
 
         toastr()->success('Updated Successfully!');
 
