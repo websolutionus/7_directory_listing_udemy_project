@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\ListingController;
+use App\Http\Controllers\Admin\ListingImageGallery;
+use App\Http\Controllers\Admin\ListingImageGalleryController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -43,4 +45,6 @@ Route::group([
     /** Listing Routes */
     Route::resource('/listing', ListingController::class);
 
+    /** Listing Image Gallery Routes */
+    Route::resource('/listing-image-gallery', ListingImageGalleryController::class);
 });
