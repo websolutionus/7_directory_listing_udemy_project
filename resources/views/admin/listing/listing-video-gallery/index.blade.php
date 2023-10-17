@@ -57,21 +57,25 @@
                                   <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Image</th>
+                                    <th scope="col">Url</th>
                                     <th scope="col">Action</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($images as $image)
+                                    @foreach ($videos as $video)
                                     <tr>
                                       <th scope="row">{{ ++$loop->index }}</th>
                                       <td>
-                                        <img width="100px" src="{{ asset($image->image) }}" alt="">
+                                        <img width="100px" src="" alt="">
                                       </td>
                                       <td>
-                                        <a href="{{ route('admin.listing-image-gallery.destroy', $image->id) }}" class="btn btn-sm btn-danger delete-item"><i class="fas fa-trash"></i></a>
+                                        <a target="_blank" href="{{ $video->video_url }}">{{ $video->video_url }}</a>
+                                      </td>
+                                      <td>
+                                        <a href="{{ route('admin.listing-video-gallery.destroy', $video->id) }}" class="btn btn-sm btn-danger delete-item"><i class="fas fa-trash"></i></a>
                                       </td>
                                     </tr>
-                                    @endforeach --}}
+                                    @endforeach
 
                                 </tbody>
                               </table>

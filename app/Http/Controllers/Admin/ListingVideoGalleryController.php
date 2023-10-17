@@ -12,9 +12,10 @@ class ListingVideoGalleryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() : View
+    public function index(Request $request) : View
     {
-        return view('admin.listing.listing-video-gallery.index');
+        $videos = ListingVideoGallery::where('listing_id', $request->id)->get();
+        return view('admin.listing.listing-video-gallery.index', compact('videos'));
     }
 
 
@@ -39,34 +40,18 @@ class ListingVideoGalleryController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $image = ListingVideoGallery::findOrFail($id);
+            $image->delete();
+
+            return response(['status' => 'success', 'message' => 'Deleted successfully!']);
+        }catch(\Exception $e){
+            logger($e);
+            return response(['status' => 'error', 'message' => $e->getMessage()]);
+        }
     }
 }
