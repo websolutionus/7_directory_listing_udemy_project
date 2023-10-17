@@ -9,6 +9,7 @@ use App\Models\ListingSchedule;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class ListingScheduleController extends Controller
@@ -36,5 +37,36 @@ class ListingScheduleController extends Controller
         toastr()->success('Created Successfully!');
 
         return to_route('admin.listing-schedule.index', ['id' => $listingId]);
+    }
+
+    function edit(string $id) : View {
+        $schedule = ListingSchedule::findOrFail($id);
+        return view('admin.listing.listing-schedule.edit', compact('schedule'));
+    }
+
+    function update(ListingScheduleStoreReqeust $request, string $id) : RedirectResponse {
+
+        $schedule = ListingSchedule::findOrFail($id);
+        $schedule->day = $request->day;
+        $schedule->start_time = $request->start_time;
+        $schedule->end_time = $request->end_time;
+        $schedule->status = $request->status;
+        $schedule->save();
+
+        toastr()->success('Update Successfully!');
+
+        return to_route('admin.listing-schedule.index', ['id' => $schedule->listing_id]);
+    }
+
+    function destroy(string $id) : Response {
+        try {
+            $schedule = ListingSchedule::findOrFail($id);
+            $schedule->delete();
+
+            return response(['status' => 'success', 'message' => 'Deleted successfully!']);
+        }catch(\Exception $e){
+            logger($e);
+            return response(['status' => 'error', 'message' => $e->getMessage()]);
+        }
     }
 }
