@@ -55,4 +55,6 @@ Route::group([
 
     /** Listing Schedule Routes */
     Route::get('/listing-schedule', [ListingScheduleController::class, 'index'])->name('listing-schedule.index');
+    Route::get('/listing-schedule/{listing_id}', [ListingScheduleController::class, 'create'])->name('listing-schedule.create');
+
 });
