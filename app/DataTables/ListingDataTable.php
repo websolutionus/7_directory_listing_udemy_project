@@ -33,6 +33,7 @@ class ListingDataTable extends DataTable
                 <div class="dropdown-menu dropleft" x-placement="left-start" style="position: absolute; transform: translate3d(-2px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
                   <a class="dropdown-item" href="'.route('admin.listing-image-gallery.index', ['id' => $query->id]).'">Image Gallery</a>
                   <a class="dropdown-item" href="'.route('admin.listing-video-gallery.index', ['id' => $query->id]).'">Video Gallery</a>
+                  <a class="dropdown-item" href="'.route('admin.listing-schedule.index', ['id' => $query->id]).'">Sehedule</a>
 
                 </div>
               </div>';
