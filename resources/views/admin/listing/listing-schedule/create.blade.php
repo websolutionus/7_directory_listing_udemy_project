@@ -31,11 +31,24 @@
                                     <select name="show_at_home" class="form-control select2" required>
                                         <option value="">Choose</option>
                                         @foreach (config('listing-schedule.days') as $day)
-                                        <option value="{{ $day }}">{{ $day }}</option>
+                                            <option value="{{ $day }}">{{ $day }}</option>
                                         @endforeach
-
-
                                     </select>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Start Time<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control timepicker">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="">End Time<span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control timepicker">
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -63,14 +76,16 @@
 
 @push('scripts')
     <script>
-        $.uploadPreview({
-            input_field: "#image-upload-2", // Default: .image-upload
-            preview_box: "#image-preview-2", // Default: .image-preview
-            label_field: "#image-label-2", // Default: .image-label
-            label_default: "Choose File", // Default: Choose File
-            label_selected: "Change File", // Default: Change File
-            no_label: false, // Default: false
-            success_callback: null // Default: null
+        $('.timepicker').timepicker({
+            timeFormat: 'h:mm p',
+            interval: 60,
+            minTime: '1',
+            maxTime: '11:00pm',
+            defaultTime: '11',
+            startTime: '10:00',
+            dynamic: false,
+            dropdown: true,
+            scrollbar: true
         });
     </script>
 @endpush
