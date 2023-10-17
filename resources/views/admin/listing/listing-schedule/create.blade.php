@@ -23,12 +23,12 @@
                             <h4>Create Schedule</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('admin.location.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.listing-schedule.store', $listingId) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="form-group">
                                     <label for="">Day<span class="text-danger">*</span></label>
-                                    <select name="show_at_home" class="form-control select2" required>
+                                    <select name="day" class="form-control select2" required>
                                         <option value="">Choose</option>
                                         @foreach (config('listing-schedule.days') as $day)
                                             <option value="{{ $day }}">{{ $day }}</option>
@@ -40,13 +40,13 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Start Time<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control timepicker">
+                                            <input type="text" class="form-control timepicker" name="start_time">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">End Time<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control timepicker">
+                                            <input type="text" class="form-control timepicker" name="end_time">
                                         </div>
                                     </div>
                                 </div>
@@ -87,5 +87,6 @@
             dropdown: true,
             scrollbar: true
         });
+
     </script>
 @endpush
