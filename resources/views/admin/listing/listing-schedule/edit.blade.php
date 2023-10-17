@@ -9,7 +9,7 @@
             <h1>Listing Schedule</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('admin.dashboard.index') }}">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="{{ route('admin.listing-schedule.index') }}">Listing Schedule</a></div>
+                <div class="breadcrumb-item"><a href="{{ route('admin.listing-schedule.index', $schedule->listing_id) }}">Listing Schedule</a></div>
                 <div class="breadcrumb-item">Update</div>
 
             </div>

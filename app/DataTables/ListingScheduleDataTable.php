@@ -44,7 +44,7 @@ class ListingScheduleDataTable extends DataTable
      */
     public function query(ListingSchedule $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->where('listing_id', $this->listingId)->newQuery();
     }
 
     /**

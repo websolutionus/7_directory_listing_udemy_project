@@ -14,9 +14,10 @@ use Illuminate\View\View;
 
 class ListingScheduleController extends Controller
 {
-    public function index(ListingScheduleDataTable $dataTable) : view | JsonResponse
+    public function index(ListingScheduleDataTable $dataTable, string $listingId) : view | JsonResponse
     {
-        return $dataTable->render('admin.listing.listing-schedule.index');
+        $dataTable->with('listingId', $listingId);
+        return $dataTable->render('admin.listing.listing-schedule.index', compact('listingId'));
     }
 
     function create(Request $request, string $listingId) : View {
@@ -36,7 +37,7 @@ class ListingScheduleController extends Controller
 
         toastr()->success('Created Successfully!');
 
-        return to_route('admin.listing-schedule.index', ['id' => $listingId]);
+        return to_route('admin.listing-schedule.index', $listingId);
     }
 
     function edit(string $id) : View {
@@ -55,7 +56,7 @@ class ListingScheduleController extends Controller
 
         toastr()->success('Update Successfully!');
 
-        return to_route('admin.listing-schedule.index', ['id' => $schedule->listing_id]);
+        return to_route('admin.listing-schedule.index', $schedule->listing_id);
     }
 
     function destroy(string $id) : Response {
