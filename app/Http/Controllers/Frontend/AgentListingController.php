@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Frontend;
 
 use App\DataTables\AgentListingDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\Amenity;
+use App\Models\Category;
+use App\Models\Location;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -21,9 +24,12 @@ class AgentListingController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create() : View
     {
-        //
+        $categories = Category::all();
+        $locations = Location::all();
+        $amenities = Amenity::all();
+        return view('frontend.dashboard.listing.create', compact('categories', 'locations', 'amenities'));
     }
 
     /**

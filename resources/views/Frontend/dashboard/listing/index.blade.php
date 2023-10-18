@@ -10,7 +10,9 @@
                 <div class="col-lg-9">
                     <div class="dashboard_content">
                         <div class="my_listing">
-                            <h4>My Listings</h4>
+                            <h4 style="justify-content: space-between">My Listings
+                                <a href="{{ route('user.listing.create') }}" class="btn btn-success"> Create</a>
+                            </h4>
                             {{ $dataTable->table() }}
                         </div>
 

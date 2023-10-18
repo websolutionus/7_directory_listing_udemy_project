@@ -1759,7 +1759,7 @@ FEATURED LISTING  END
 }
 
 /*===================
-   OUR PACKAGE END	
+   OUR PACKAGE END
 =====================*/
 
 
@@ -1956,7 +1956,7 @@ FEATURED LISTING  END
 
 
 /*===================
-TESTIMONIAL PART START	
+TESTIMONIAL PART START
 =====================*/
 #wsus__testimonial {
 	background: #f9fafc;
@@ -5807,3 +5807,42 @@ AGENT PROFILE END
 .tf__massage_btn:hover {
 	background: var(--colorBlack);
 }
+
+/* 1.14 Image Preview */
+.image-preview, #callback-preview {
+    width: 250px;
+    height: 250px;
+    border: 2px dashed #ddd;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+    background-color: #ffffff;
+    color: #ecf0f1;
+  }
+
+  .image-preview input, #callback-preview input {
+    line-height: 200px;
+    font-size: 200px;
+    position: absolute;
+    opacity: 0;
+    z-index: 10;
+  }
+
+  .image-preview label, #callback-preview label {
+    position: absolute;
+    z-index: 5;
+    opacity: 0.8;
+    cursor: pointer;
+    background-color: #bdc3c7;
+    width: 150px;
+    height: 50px;
+    font-size: 12px;
+    line-height: 50px;
+    text-transform: uppercase;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+  }
