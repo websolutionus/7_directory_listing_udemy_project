@@ -1,5 +1,15 @@
 @extends('frontend.layouts.master')
 
+@push('styles')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<style>
+    label {
+        margin-top: 15px;
+    }
+</style>
+@endpush
+
 @section('contents')
     <section id="dashboard">
         <div class="container">
@@ -132,7 +142,7 @@
 
                                 <div class="form-group">
                                     <label for="">Description <span class="text-danger">*</span></label>
-                                    <textarea name="description" class="summernote" required ></textarea>
+                                    <textarea name="description" class="summernote" ></textarea>
                                 </div>
 
                                 <div class="form-group">
@@ -181,7 +191,7 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <button type="submit" class="read_btn">Create</button>
+                                    <button type="submit" class="read_btn mt-4">Create</button>
                                 </div>
                             </form>
                         </div>
@@ -195,8 +205,17 @@
 
 @push('scripts')
 <script src="{{ asset('admin/assets/modules/upload-preview/assets/js/jquery.uploadPreview.min.js') }}"></script>
+<script src="{{ asset('admin/assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <script>
+    $(document).ready(function() {
+        $('.summernote').summernote();
+    });
+
+    $('.select2').select2();
+
+
     $.uploadPreview({
         input_field: "#image-upload", // Default: .image-upload
         preview_box: "#image-preview", // Default: .image-preview
