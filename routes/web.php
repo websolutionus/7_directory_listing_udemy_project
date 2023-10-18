@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\AgentListingController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\ProfileController;
@@ -31,6 +32,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'user', 'as' => 'user.'], func
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile-password', [ProfileController::class, 'updatePassword'])->name('profile-password.update');
 
+    /** Linsting Routes */
+    Route::resource('/listing', AgentListingController::class);
 
 });
 
