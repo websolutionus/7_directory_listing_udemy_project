@@ -23,7 +23,53 @@ class AgentListingDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'agentlisting.action')
+            ->addColumn('action', function ($query) {
+                $edit = '<a href="' . route('admin.listing.edit', $query->id) . '" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>';
+                $delete = '<a href="' . route('admin.listing.destroy', $query->id) . '" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
+
+
+                $more = '<div class="dropdown">
+                    <button class="btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-cog"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                    </div>';
+
+                return $edit . $delete . $more;
+            })
+            ->addColumn('category', function ($query) {
+                return $query->category->name;
+            })
+            ->addColumn('location', function ($query) {
+                return $query->location->name;
+            })
+            ->addColumn('status', function ($query) {
+                if ($query->status === 1) {
+                    $status = "<span class='badge bg-success'>Active</span>";
+                } else {
+                    $status = "";
+                }
+
+                if ($query->is_featured === 1) {
+                    $featured = "<span class='badge bg-primary'>Featured</span>";
+                } else {
+                    $featured = "";
+                }
+
+                if ($query->is_verified === 1) {
+                    $verified = "<span class='badge bg-info'>Verified</span>";
+                } else {
+                    $verified = "";
+                }
+                return $status . $featured . $verified;
+            })
+
+
+            ->rawColumns(['status', 'action', 'is_featured', 'is_verified', 'image'])
             ->setRowId('id');
     }
 
@@ -41,20 +87,20 @@ class AgentListingDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('agentlisting-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('agentlisting-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -63,15 +109,16 @@ class AgentListingDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
             Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('title'),
+            Column::make('category'),
+            Column::make('location'),
+            Column::make('status')->width(100),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->width(80)
+                ->addClass('text-center'),
         ];
     }
 
