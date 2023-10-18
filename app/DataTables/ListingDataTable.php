@@ -53,7 +53,27 @@ class ListingDataTable extends DataTable
                     return "<span class='badge badge-danger'>Inactive</span>";
                 }
             })
-            ->rawColumns(['status', 'action'])
+            ->addColumn('is_featured', function($query){
+                if($query->is_featured === 1){
+                    return "<span class='badge badge-primary'>Yes</span>";
+                }else{
+                    return "<span class='badge badge-danger'>No</span>";
+                }
+            })
+            ->addColumn('is_verified', function($query){
+                if($query->status === 1){
+                    return "<span class='badge badge-primary'>Yes</span>";
+                }else{
+                    return "<span class='badge badge-danger'>No</span>";
+                }
+            })
+            ->addColumn('image', function($query){
+                return '<img width="60" src="'.asset($query->image).'" >';
+            })
+            ->addColumn('by', function($query){
+                return $query->user?->name;
+            })
+            ->rawColumns(['status', 'action', 'is_featured', 'is_verified', 'image'])
             ->setRowId('id');
     }
 
@@ -95,11 +115,14 @@ class ListingDataTable extends DataTable
         return [
 
             Column::make('id'),
+            Column::make('image'),
             Column::make('title'),
             Column::make('category'),
             Column::make('location'),
             Column::make('status'),
-
+            Column::make('is_featured')->width(80),
+            Column::make('is_verified')->width(80),
+            Column::make('by'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)
