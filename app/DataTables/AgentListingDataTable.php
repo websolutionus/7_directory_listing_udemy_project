@@ -65,7 +65,12 @@ class AgentListingDataTable extends DataTable
                 } else {
                     $verified = "";
                 }
-                return $status . $featured . $verified;
+                if ($query->is_approved === 0) {
+                    $approved = "<span class='badge bg-warning'>Pending</span>";
+                } else {
+                    $approved = "";
+                }
+                return $approved.$status . $featured . $verified;
             })
 
 
@@ -91,7 +96,7 @@ class AgentListingDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
-            ->orderBy(1)
+            ->orderBy(0)
             ->selectStyleSingle()
             ->buttons([
                 Button::make('excel'),

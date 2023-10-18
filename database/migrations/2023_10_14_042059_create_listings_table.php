@@ -39,6 +39,7 @@ return new class extends Migration
             $table->string('seo_title')->nullable();
             $table->string('seo_description')->nullable();
             $table->boolean('status');
+            $table->boolean('is_approved')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -21,7 +21,7 @@
                     <div class="dashboard_content">
                         <div class="my_listing">
                             <h4>Create Listing</h4>
-                            <form action="{{ route('user.profile.update') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('user.listing.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="row">

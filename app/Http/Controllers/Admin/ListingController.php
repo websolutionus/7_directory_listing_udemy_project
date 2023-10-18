@@ -76,7 +76,7 @@ class ListingController extends Controller
         $listing->is_featured = $request->is_featured;
         $listing->is_verified = $request->is_verified;
         $listing->expire_date = date('Y-m-d');
-
+        $listing->is_approved = 1;
         $listing->save();
 
         foreach($request->amenities as $amenityId) {
