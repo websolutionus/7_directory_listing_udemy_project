@@ -33,7 +33,7 @@ class AgentListingDataTable extends DataTable
                     <i class="fas fa-cog"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="'.route('user.listing-image-gallery.index', ['id' => $query->id]).'">Image Gallery</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
