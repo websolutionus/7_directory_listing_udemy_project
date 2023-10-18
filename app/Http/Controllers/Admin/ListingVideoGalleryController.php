@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Listing;
 use App\Models\ListingVideoGallery;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -15,7 +16,8 @@ class ListingVideoGalleryController extends Controller
     public function index(Request $request) : View
     {
         $videos = ListingVideoGallery::where('listing_id', $request->id)->get();
-        return view('admin.listing.listing-video-gallery.index', compact('videos'));
+        $listingTitle = Listing::select('title')->where('id', $request->id)->first();
+        return view('admin.listing.listing-video-gallery.index', compact('videos', 'listingTitle'));
     }
 
 

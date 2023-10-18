@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\ListingScheduleDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ListingScheduleStoreReqeust;
+use App\Models\Listing;
 use App\Models\ListingSchedule;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -17,7 +18,8 @@ class ListingScheduleController extends Controller
     public function index(ListingScheduleDataTable $dataTable, string $listingId) : view | JsonResponse
     {
         $dataTable->with('listingId', $listingId);
-        return $dataTable->render('admin.listing.listing-schedule.index', compact('listingId'));
+        $listingTitle = Listing::select('title')->where('id', $listingId)->first();
+        return $dataTable->render('admin.listing.listing-schedule.index', compact('listingId', 'listingTitle'));
     }
 
     function create(Request $request, string $listingId) : View {

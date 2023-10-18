@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Listing;
 use App\Models\ListingImageGallery;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
@@ -18,7 +19,8 @@ class ListingImageGalleryController extends Controller
     public function index(Request $request) : View
     {
         $images = ListingImageGallery::where('listing_id', $request->id)->get();
-        return view('admin.listing.listing-image-gallery.index', compact('images'));
+        $listingTitle = Listing::select('title')->where('id', $request->id)->first();
+        return view('admin.listing.listing-image-gallery.index', compact('images', 'listingTitle'));
     }
 
     /**

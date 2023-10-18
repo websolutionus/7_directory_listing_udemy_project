@@ -20,7 +20,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>All Schedules</h4>
+                            <h4>All Schedules ( {{ $listingTitle->title }} )</h4>
                             <div class="card-header-action">
                                 <a href="{{ route('admin.listing-schedule.create', $listingId) }}" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
                             </div>
