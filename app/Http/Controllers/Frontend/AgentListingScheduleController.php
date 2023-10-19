@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ListingScheduleStoreReqeust;
 use App\Models\Listing;
 use App\Models\ListingSchedule;
+use Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,17 +18,29 @@ class AgentListingScheduleController extends Controller
 {
     public function index(AgentListingScheduleDataTable $dataTable, string $listingId) : View | JsonResponse
     {
+        $listing = Listing::select('id', 'title', 'user_id')->where('id', $listingId)->first();
+        if($listing->user_id !== Auth::user()->id){
+            abort(403);
+        }
+        $listingTitle = $listing;
+
         $dataTable->with('listingId', $listingId);
-        $listingTitle = Listing::select('title')->where('id', $listingId)->first();
         return $dataTable->render('frontend.dashboard.listing.schedule.index', compact('listingId', 'listingTitle'));
     }
 
     function create(Request $request, string $listingId) : View {
-
+        $listing = Listing::select('id', 'user_id')->where('id', $listingId)->first();
+        if($listing->user_id !== Auth::user()->id){
+            abort(403);
+        }
         return view('frontend.dashboard.listing.schedule.create', compact('listingId'));
     }
 
     function store(ListingScheduleStoreReqeust $request, string $listingId) : RedirectResponse {
+        $listing = Listing::select('id', 'user_id')->where('id', $listingId)->first();
+        if($listing->user_id !== Auth::user()->id){
+            abort(403);
+        }
 
         $schedule = new ListingSchedule();
         $schedule->listing_id = $listingId;
@@ -44,12 +57,22 @@ class AgentListingScheduleController extends Controller
 
     function edit(string $id) : View {
         $schedule = ListingSchedule::findOrFail($id);
+
+        $listing = Listing::select('id', 'user_id')->where('id', $schedule->listing_id)->first();
+        if($listing->user_id !== Auth::user()->id){
+            abort(403);
+        }
+
         return view('frontend.dashboard.listing.schedule.edit', compact('schedule'));
     }
 
     function update(ListingScheduleStoreReqeust $request, string $id) : RedirectResponse {
 
         $schedule = ListingSchedule::findOrFail($id);
+        $listing = Listing::select('id', 'user_id')->where('id', $schedule->listing_id)->first();
+        if($listing->user_id !== Auth::user()->id){
+            abort(403);
+        }
         $schedule->day = $request->day;
         $schedule->start_time = $request->start_time;
         $schedule->end_time = $request->end_time;
@@ -62,8 +85,12 @@ class AgentListingScheduleController extends Controller
     }
 
     function destroy(string $id) : Response {
+        $schedule = ListingSchedule::findOrFail($id);
+        $listing = Listing::select('id', 'user_id')->where('id', $schedule->listing_id)->first();
+        if($listing->user_id !== Auth::user()->id){
+            abort(403);
+        }
         try {
-            $schedule = ListingSchedule::findOrFail($id);
             $schedule->delete();
 
             return response(['status' => 'success', 'message' => 'Deleted successfully!']);
