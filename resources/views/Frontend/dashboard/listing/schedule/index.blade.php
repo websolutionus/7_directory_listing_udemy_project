@@ -11,7 +11,7 @@
                     <div class="dashboard_content">
                         <div class="my_listing">
                             <h4 style="justify-content: space-between">Listing Schedule
-                                <a href="{{ route('user.listing.create') }}" class="btn btn-success"> Create</a>
+                                <a href="{{ route('user.listing-schedule.create', $listingId) }}" class="btn btn-success"> Create</a>
                             </h4>
                             {{ $dataTable->table() }}
                         </div>
