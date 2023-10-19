@@ -20,16 +20,17 @@
                 <div class="col-lg-9">
                     <div class="dashboard_content">
                         <div class="my_listing">
-                            <h4>Image Gallery</h4>
-                            <form action="{{ route('admin.listing-image-gallery.store') }}" method="POST" enctype="multipart/form-data">
+                            <a href="{{ route('user.listing.index') }}" class="btn btn-primary"><i class="fas fa-chevron-left"></i></a>
+                            <h4>Image Gallery ({{  $listingTitle->title }})</h4>
+                            <form action="{{ route('user.listing-image-gallery.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="">Image <code>(Multi image supported)</code></label>
+                                    <label class="mb-2" for="">Image <code>(Multi image supported)</code></label>
                                     <input type="file" class="form-control" name="images[]" multiple>
                                     <input type="hidden" value="{{ request()->id }}" name="listing_id">
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Upload</button>
+                                    <button type="submit" class="read_btn mt-4">Upload</button>
                                 </div>
                             </form>
                         </div>
@@ -49,10 +50,10 @@
                                     <tr>
                                       <th scope="row">{{ ++$loop->index }}</th>
                                       <td>
-                                        <img width="100px" src="{{ asset($image->image) }}" alt="">
+                                        <img style="width: 100px !important" src="{{ asset($image->image) }}" alt="">
                                       </td>
                                       <td>
-                                        <a href="{{ route('admin.listing-image-gallery.destroy', $image->id) }}" class="btn btn-sm btn-danger delete-item"><i class="fas fa-trash"></i></a>
+                                        <a href="{{ route('user.listing-image-gallery.destroy', $image->id) }}" class="btn btn-sm btn-danger delete-item"><i class="fas fa-trash"></i></a>
                                       </td>
                                     </tr>
                                     @endforeach
@@ -72,6 +73,7 @@
 <script src="{{ asset('admin/assets/modules/upload-preview/assets/js/jquery.uploadPreview.min.js') }}"></script>
 <script src="{{ asset('admin/assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     $(document).ready(function() {
@@ -100,5 +102,51 @@
         no_label: false, // Default: false
         success_callback: null // Default: null
     });
+
+    $('body').on('click', '.delete-item', function(e) {
+            e.preventDefault();
+            let url = $(this).attr('href');
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        method: 'DELETE',
+                        url: url,
+                        data: {_token: "{{ csrf_token() }}"},
+                        success: function(response) {
+                            if(response.status === 'success'){
+                                Swal.fire(
+                                    'Deleted!',
+                                    response.message,
+                                    'success'
+                                )
+                                window.location.reload();
+                            }else if (response.status === 'error'){
+                                Swal.fire(
+                                    'Somthing wen\'t wrong!',
+                                    response.message,
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function(xhr, status, error){
+                            console.log(error);
+                        }
+
+                    })
+
+                }
+            })
+
+        })
 </script>
 @endpush
