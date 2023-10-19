@@ -75,7 +75,6 @@ class ListingScheduleDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-
             Column::make('id'),
             Column::make('day'),
             Column::make('start_time'),

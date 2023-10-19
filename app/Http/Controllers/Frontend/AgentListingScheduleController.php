@@ -10,6 +10,7 @@ use App\Models\ListingSchedule;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class AgentListingScheduleController extends Controller
@@ -43,7 +44,7 @@ class AgentListingScheduleController extends Controller
 
     function edit(string $id) : View {
         $schedule = ListingSchedule::findOrFail($id);
-        return view('admin.listing.listing-schedule.edit', compact('schedule'));
+        return view('frontend.dashboard.listing.schedule.edit', compact('schedule'));
     }
 
     function update(ListingScheduleStoreReqeust $request, string $id) : RedirectResponse {
@@ -57,7 +58,7 @@ class AgentListingScheduleController extends Controller
 
         toastr()->success('Update Successfully!');
 
-        return to_route('admin.listing-schedule.index', $schedule->listing_id);
+        return to_route('user.listing-schedule.index', $schedule->listing_id);
     }
 
     function destroy(string $id) : Response {
