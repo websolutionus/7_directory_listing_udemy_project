@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ListingImageGalleryController;
 use App\Http\Controllers\Admin\ListingScheduleController;
 use App\Http\Controllers\Admin\ListingVideoGalleryController;
 use App\Http\Controllers\Admin\LocationController;
+use App\Http\Controllers\Admin\PendingListingController;
 use App\Http\Controllers\Admin\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,8 @@ Route::group([
 
     /** Listing Routes */
     Route::resource('/listing', ListingController::class);
+    /** Pending Listing Routes */
+    Route::get('/pending-listing', [PendingListingController::class, 'index'])->name('pending-listing.index');
 
     /** Listing Image Gallery Routes */
     Route::resource('/listing-image-gallery', ListingImageGalleryController::class);
