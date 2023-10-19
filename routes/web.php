@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Fronentd\AgentListingImageGalleryController;
 use App\Http\Controllers\Frontend\AgentListingController;
+use App\Http\Controllers\Frontend\AgentListingVideoGalleryController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\ProfileController;
@@ -38,7 +39,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'user', 'as' => 'user.'], func
 
     /** Listing Image Gallery Routes */
     Route::resource('/listing-image-gallery', AgentListingImageGalleryController::class);
-
+    /** Listing Video Gallery Routes */
+    Route::resource('/listing-video-gallery', AgentListingVideoGalleryController::class);
 });
 
 require __DIR__.'/auth.php';
