@@ -29,3 +29,11 @@ if(!function_exists('getYtThumbnail')){
         return null;
     }
 }
+
+/** get yt thumbnail*/
+if(!function_exists('truncate')){
+    function truncate(string $text, int $limit = 25) : ?string
+    {
+        return \Str::of($text)->limit($limit);
+    }
+}
