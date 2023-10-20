@@ -144,7 +144,7 @@
                                         <i class="fas fa-star-half-alt"></i>
                                         <span>(5 review)</span>
                                     </p>
-                                    <a href="#">{{ truncate($listing->title) }}</a>
+                                    <a href="{{ route('listing.show', $listing->slug) }}">{{ truncate($listing->title) }}</a>
                                     <p class="address">{{ $listing->location->name }}</p>
                                 </div>
                             </div>
