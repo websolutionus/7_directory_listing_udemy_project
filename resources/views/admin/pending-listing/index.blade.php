@@ -36,4 +36,33 @@
 
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+
+    <script>
+        $(document).ready(function(){
+            $('body').on('change', '.approve', function(e) {
+                let id = $(this).data('id');
+                let value = $(this).val();
+
+                $.ajax({
+                    method: 'POST',
+                    url: '{{ route("admin.pending-listing.update") }}',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        id:id,
+                        value:value
+                    },
+                    success: function(response) {
+                        if(response.status === 'success'){
+                            toastr.success(response.message)
+                        }else {
+                            toastr.error(response.message)
+                        }
+                    },
+                    error: function(error){
+                        console.log(error);
+                    }
+                })
+            })
+        })
+    </script>
 @endpush

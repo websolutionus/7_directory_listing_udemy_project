@@ -49,6 +49,8 @@ Route::group([
     Route::resource('/listing', ListingController::class);
     /** Pending Listing Routes */
     Route::get('/pending-listing', [PendingListingController::class, 'index'])->name('pending-listing.index');
+    Route::post('/pending-listing', [PendingListingController::class, 'update'])->name('pending-listing.update');
+
 
     /** Listing Image Gallery Routes */
     Route::resource('/listing-image-gallery', ListingImageGalleryController::class);

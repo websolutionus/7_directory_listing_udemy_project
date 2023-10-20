@@ -48,7 +48,7 @@ class PendingListingDataTable extends DataTable
             return $query->location->name;
         })
         ->addColumn('status', function($query){
-            $html = '<select class="form-control approve">
+            $html = '<select class="form-control approve" data-id="'.$query->id.'">
                 <option value="0">Pending</option>
                 <option value="1">Approve</option>
             </select>';
