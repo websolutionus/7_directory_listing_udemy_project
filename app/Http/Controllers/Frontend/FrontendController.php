@@ -19,14 +19,15 @@ class FrontendController extends Controller
     }
 
     function listings(Request $request) : View {
-        $listings = Listing::where(['status' => 1, 'is_approved' => 1]);
+        $listings = Listing::with(['category', 'location'])->where(['status' => 1, 'is_approved' => 1]);
 
         $listings->when($request->has('category'), function($query) use ($request){
             $query->whereHas('category', function($query) use ($request) {
                 $query->where('slug', $request->category);
             });
         });
-        $listings->paginate(12);
+        $listings = $listings->paginate(12);
+
         return view('frontend.pages.listings', compact('listings'));
     }
 }
