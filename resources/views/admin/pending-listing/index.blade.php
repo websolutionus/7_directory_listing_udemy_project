@@ -20,7 +20,7 @@
                         <div class="card-header">
                             <h4>All Pending Listings</h4>
                             <div class="card-header-action">
-                                <a href="{{ route('admin.listing.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Create</a>
+                                
                             </div>
                         </div>
                         <div class="card-body">
