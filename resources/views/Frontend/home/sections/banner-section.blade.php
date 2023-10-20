@@ -1,4 +1,4 @@
-<section id="wsus__banner" style="background: url({{ asset($hero->background) }})">
+<section id="wsus__banner" style="background: url({{ asset(@$hero->background) }})">
     <div class="wsus__banner_overlay">
         <div class="container">
             <div class="row justify-content-between">

@@ -22,7 +22,7 @@
     <!--==========================
             FEATURES PART START
     ===========================-->
-    @include('frontend.home.sections.features-section')
+    {{-- @include('frontend.home.sections.features-section') --}}
     <!--==========================
             FEATURES PART END
     ===========================-->
@@ -31,7 +31,7 @@
     <!--==========================
             COUNTER PART START
     ===========================-->
-    @include('frontend.home.sections.counter-section') 
+    {{-- @include('frontend.home.sections.counter-section') --}}
     <!--==========================
             COUNTER PART END
     ===========================-->
@@ -49,7 +49,7 @@
     <!--==========================
             Featured LOCATION START
     ===========================-->
-    @include('frontend.home.sections.featured-location-section')
+    {{-- @include('frontend.home.sections.featured-location-section') --}}
 
     <!--==========================
             Featured LOCATION END
@@ -59,7 +59,7 @@
     <!--==========================
             FEATURED LISTING START
     ===========================-->
-    @include('frontend.home.sections.featured-listing-section')
+    {{-- @include('frontend.home.sections.featured-listing-section') --}}
     <!--==========================
             FEATURED LISTING END
     ===========================-->
@@ -76,7 +76,7 @@
     <!--============================
             TESTIMONIAL PART START
     ==============================-->
-    @include('frontend.home.sections.testimonial-section')  
+    {{-- @include('frontend.home.sections.testimonial-section') --}}
     <!--============================
             TESTIMONIAL PART END
     ==============================-->
@@ -85,7 +85,7 @@
     <!--==========================
             BLOG PART START
     ===========================-->
-    @include('frontend.home.sections.blog-section')  
+    {{-- @include('frontend.home.sections.blog-section')   --}}
     <!--==========================
             BLOG PART END
     ===========================-->
