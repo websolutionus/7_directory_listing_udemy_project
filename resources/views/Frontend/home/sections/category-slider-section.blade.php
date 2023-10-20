@@ -4,7 +4,7 @@
             <div class="row category_slider">
                 @foreach ($categories as $category)
                 <div class="col-xl-2">
-                    <a href="#" class="wsus__category_single_slider">
+                    <a href="{{ route('listings', ['category' => $category->slug]) }}" class="wsus__category_single_slider">
                         <span>
                             <img src="{{ asset($category->image_icon) }}" alt="{{ $category->name }}" class="img-fluid w-100">
                         </span>
