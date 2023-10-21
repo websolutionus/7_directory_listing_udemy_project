@@ -219,31 +219,37 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="listing_det_side_address">
-                                    <a href="callto:+96544444222221100"><i class="fal fa-phone-alt"></i>
-                                        +96544444222221100</a>
-                                    <a href="mailto:example@gmail.com"><i class="fal fa-envelope"></i>
-                                        example@gmail.com</a>
-                                    <p><i class="fal fa-map-marker-alt"></i> Washington, Indiana</p>
-                                    <p><i class="fal fa-globe"></i> https://example.com</p>
+                                    <a href="callto:{{ $listing->phone }}"><i class="fal fa-phone-alt"></i>
+                                        {{ $listing->phone }}</a>
+                                    <a href="mailto:{{ $listing->email }}"><i class="fal fa-envelope"></i>
+                                        {{ $listing->email }}</a>
+                                    <p><i class="fal fa-map-marker-alt"></i> {{ $listing->address }}, {{ $listing->location->name }}</p>
+                                    @if ($listing->website)
+                                    <p><i class="fal fa-globe"></i> <a href="">{{ $listing->website }}</a></p>
+                                    @endif
                                     <ul>
-                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-behance"></i></a></li>
+                                        @if ($listing->facebook_link)
+                                        <li><a href="{{ $listing->facebook_link }}"><i class="fab fa-facebook-f"></i></a></li>
+                                        @endif
+                                        @if ($listing->x_link)
+                                        <li><a href="{{ $listing->x_link }}"><i class="fab fa-twitter"></i></a></li>
+                                        @endif
+                                        @if ($listing->linkedin_link)
+                                        <li><a href="{{ $listing->linkedin_link }}"><i class="fab fa-linkedin-in"></i></a></li>
+                                        @endif
+                                        @if ($listing->whatsapp_link)
+                                        <li><a href="{{ $listing->whatsapp_link }}"><i class="fab fa-whatsapp"></i></a></li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="listing_det_side_open_hour">
                                     <h5>Opening Hours</h5>
-                                    <p>Saturday <span>10:00 AM - 06:00 PM</span></p>
-                                    <p>Sunday <span>Close</span></p>
-                                    <p>Monday <span>10:00 AM - 06:00 PM</span></p>
-                                    <p>Yuesday <span>10:00 AM - 06:00 PM</span></p>
-                                    <p>Wednesday <span>10:00 AM - 06:00 PM</span></p>
-                                    <p>Thursday <span>10:00 AM - 06:00 PM</span></p>
-                                    <p>Friday <span>10:00 AM - 06:00 PM</span></p>
+                                    @foreach ($listing->schedules as $schedule)
+                                    <p>{{ $schedule->day }} <span>{{ $schedule->start_time }} - {{ $schedule->end_time }}</span></p>
+                                    @endforeach
+
                                 </div>
                             </div>
                             <div class="col-12">
@@ -259,29 +265,25 @@
                                         </form>
                                 </div>
                             </div>
+                            @if (count($smellerListings) > 0)
                             <div class="col-12">
                                 <div class="listing_det_side_list">
                                     <h5>Similar Listing</h5>
-                                    <a href="#" class="sidebar_blog_single">
+                                    @foreach ($smellerListings as $smellerListing)
+                                    <a href="{{ route('listing.show', $smellerListing->slug) }}" class="sidebar_blog_single">
                                         <div class="sidebar_blog_img">
-                                            <img src="images/location_1.jpg" alt="blog" class="imgofluid w-100">
+                                            <img src="{{ asset($smellerListing->image) }}" alt="{{ $smellerListing->title }}" class="imgofluid w-100">
                                         </div>
                                         <div class="sidebar_blog_text">
-                                            <h5>One Thing Separates Creators From Consumers</h5>
-                                            <p> <span>Jul 29 2021 </span> 2 Comment </p>
+                                            <h5>{{ truncate($smellerListing->title) }}</h5>
+                                            <p> <span>Jul 29 2021 {{ data('m d Y', strtotime($smellerListing->created_at)) }} </span> 2 Comment </p>
                                         </div>
                                     </a>
-                                    <a href="#" class="sidebar_blog_single">
-                                        <div class="sidebar_blog_img">
-                                            <img src="images/location_1.jpg" alt="blog" class="imgofluid w-100">
-                                        </div>
-                                        <div class="sidebar_blog_text">
-                                            <h5>One Thing Separates Creators From Consumers</h5>
-                                            <p> <span>Jul 29 2021 </span> 2 Comment </p>
-                                        </div>
-                                    </a>
+                                    @endforeach
+
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>

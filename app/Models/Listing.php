@@ -35,4 +35,8 @@ class Listing extends Model
     function videoGallery() : HasMany {
         return $this->hasMany(ListingVideoGallery::class, 'listing_id', 'id');
     }
+
+    function schedules() : HasMany {
+        return $this->hasMany(ListingSchedule::class, 'listing_id', 'id');
+    }
 }
