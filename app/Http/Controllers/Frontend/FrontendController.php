@@ -46,4 +46,9 @@ class FrontendController extends Controller
             ->where('id', '!=', $listing->id)->orderBy('id', 'DESC')->take(4)->get();
         return view('frontend.pages.listing-view', compact('listing', 'smellerListings'));
     }
+
+    function showPackages() : View {
+        $packages = Package::where('status', 1)->get();
+        return view('frontend.pages.packages', compact('packages'));
+    }
 }
