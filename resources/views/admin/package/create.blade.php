@@ -20,7 +20,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Create Package</h4>
+                            <h4>Create Package <span class="text-danger">(For Unlimited Quantity Use -1)</span></h4>
                         </div>
                         <div class="card-body">
                             <form action="{{ route('admin.packages.store') }}" method="POST" enctype="multipart/form-data">

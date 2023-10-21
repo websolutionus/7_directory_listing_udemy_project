@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\PackageDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PackageCreateRequest;
+use App\Models\Package;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -33,7 +34,22 @@ class PackageController extends Controller
      */
     public function store(PackageCreateRequest $request) : RedirectResponse
     {
-        dd($request->all());
+        $package = new Package();
+        $package->type = $request->type;
+        $package->name = $request->name;
+        $package->price = $request->price;
+        $package->number_of_days = $request->number_of_days;
+        $package->num_of_listing = $request->num_of_listing;
+        $package->num_of_photos = $request->num_of_photos;
+        $package->num_of_video = $request->num_of_video;
+        $package->num_of_amenities = $request->num_of_amenities;
+        $package->num_of_featured_listing = $request->num_of_featured_listing;
+        $package->show_at_home = $request->show_at_home;
+        $package->status = $request->status;
+        $package->save();
+
+        toastr()->success('Created Successfully!');
+
         return to_route('admin.packages.index');
     }
 
