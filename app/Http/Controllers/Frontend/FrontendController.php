@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Hero;
 use App\Models\Listing;
+use App\Models\Package;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -15,7 +16,8 @@ class FrontendController extends Controller
     {
         $hero = Hero::first();
         $categories = Category::where('status', 1)->get();
-        return view('frontend.home.index', compact('hero', 'categories'));
+        $packages = Package::where('status', 1)->where('show_at_home', 1)->take(3)->get();
+        return view('frontend.home.index', compact('hero', 'categories', 'packages'));
     }
 
     function listings(Request $request) : View {
