@@ -210,6 +210,21 @@
 
                 </ul>
             </li>
+
+
+            <li class="dropdown {{ setSidebarActive(['admin.hero.index']) }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                        class="fas fa-columns"></i> <span>Manage Packages</span></a>
+
+                <ul class="dropdown-menu"
+                {{ setSidebarActive([
+                    'admin.packages.*',
+                ]) }}
+                >
+                    <li class="{{ setSidebarActive(['admin.packages.*']) }}"><a class="nav-link" href="{{ route('admin.packages.index') }}">Packages</a></li>
+                </ul>
+            </li
+
             <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>Blank Page</span></a></li>
 
         </ul>

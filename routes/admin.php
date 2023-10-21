@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ListingImageGalleryController;
 use App\Http\Controllers\Admin\ListingScheduleController;
 use App\Http\Controllers\Admin\ListingVideoGalleryController;
 use App\Http\Controllers\Admin\LocationController;
+use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PendingListingController;
 use App\Http\Controllers\Admin\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -65,6 +66,10 @@ Route::group([
     Route::get('/listing-schedule/{id}/edit', [ListingScheduleController::class, 'edit'])->name('listing-schedule.edit');
     Route::put('/listing-schedule/{id}', [ListingScheduleController::class, 'update'])->name('listing-schedule.update');
     Route::delete('/listing-schedule/{id}', [ListingScheduleController::class, 'destroy'])->name('listing-schedule.destroy');
+
+    /** Package Routes */
+    Route::resource('packages', PackageController::class);
+
 
 
 });
