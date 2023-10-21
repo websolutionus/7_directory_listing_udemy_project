@@ -22,7 +22,27 @@ class PackageDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'package.action')
+            ->addColumn('action', function($query){
+                $edit = '<a href="'.route('admin.packages.edit', $query->id).'" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>';
+                $delete = '<a href="'.route('admin.packages.destroy', $query->id).'" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
+
+                return $edit.$delete;
+            })
+            ->addColumn('show_at_home', function($query){
+                if($query->show_at_home === 1){
+                    return "<span class='badge badge-primary'>Yes</span>";
+                }else{
+                    return "<span class='badge badge-danger'>No</span>";
+                }
+            })
+            ->addColumn('status', function($query){
+                if($query->status === 1){
+                    return "<span class='badge badge-primary'>Active</span>";
+                }else{
+                    return "<span class='badge badge-danger'>Inactive</span>";
+                }
+            })
+            ->rawColumns(['action', 'status', 'show_at_home'])
             ->setRowId('id');
     }
 
@@ -44,7 +64,7 @@ class PackageDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -62,15 +82,19 @@ class PackageDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+
             Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('name'),
+            Column::make('type'),
+            Column::make('price'),
+            Column::make('show_at_home'),
+            Column::make('status'),
+
+            Column::computed('action')
+            ->exportable(false)
+            ->printable(false)
+            ->width(100)
+            ->addClass('text-center'),
         ];
     }
 

@@ -54,27 +54,36 @@ class PackageController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id) : View
     {
-        //
+        $package = Package::findOrFail($id);
+        return view('admin.package.edit', compact('package'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PackageCreateRequest $request, string $id)
     {
-        //
+        $package = Package::findOrFail($id);
+        $package->type = $request->type;
+        $package->name = $request->name;
+        $package->price = $request->price;
+        $package->number_of_days = $request->number_of_days;
+        $package->num_of_listing = $request->num_of_listing;
+        $package->num_of_photos = $request->num_of_photos;
+        $package->num_of_video = $request->num_of_video;
+        $package->num_of_amenities = $request->num_of_amenities;
+        $package->num_of_featured_listing = $request->num_of_featured_listing;
+        $package->show_at_home = $request->show_at_home;
+        $package->status = $request->status;
+        $package->save();
+
+        toastr()->success('Update Successfully!');
+
+        return to_route('admin.packages.index');
     }
 
     /**
@@ -82,6 +91,13 @@ class PackageController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            Package::findOrFail($id)->delete();
+
+            return response(['status' => 'success', 'message' => 'Deleted successfully!']);
+        }catch(\Exception $e){
+            logger($e);
+            return response(['status' => 'error', 'message' => $e->getMessage()]);
+        }
     }
 }
