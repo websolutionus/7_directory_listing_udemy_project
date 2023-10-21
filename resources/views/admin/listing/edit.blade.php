@@ -159,7 +159,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="">Google Map Embed Code <span class="text-danger"></span></label>
+                                    <label for="">Google Map Embed Code <span class="text-danger">(size: 1000x400)</span></label>
                                     <textarea name="google_map_embed_code" class="form-control">{!! $listing->google_map_embed_code !!}</textarea>
                                 </div>
 

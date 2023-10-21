@@ -27,4 +27,12 @@ class Listing extends Model
     function gallery() : HasMany {
         return $this->hasMany(ListingImageGallery::class, 'listing_id', 'id');
     }
+
+    function amenities() : HasMany {
+        return $this->hasMany(ListingAmenity::class, 'listing_id', 'id');
+    }
+
+    function videoGallery() : HasMany {
+        return $this->hasMany(ListingVideoGallery::class, 'listing_id', 'id');
+    }
 }

@@ -39,6 +39,7 @@ class FrontendController extends Controller
 
     function showListing(string $slug) : View {
         $listing = Listing::where(['status' => 1, 'is_verified' => 1])->where('slug', $slug)->first();
+        
         return view('frontend.pages.listing-view', compact('listing'));
     }
 }

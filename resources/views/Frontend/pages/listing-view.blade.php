@@ -87,107 +87,36 @@
                         </div>
                         <div class="listing_det_feature">
                             <div class="row">
+                                @foreach ($listing->amenities as $amenity)
                                 <div class="col-xl-4 col-sm-6">
                                     <div class="listing_det_feature_single">
-                                        <i class="fas fa-biking"></i>
-                                        <span>Good for kids</span>
+                                        <i class="{{ $amenity->amenity->icon }}"></i>
+                                        <span>{{ $amenity->amenity->name }}</span>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="listing_det_feature_single">
-                                        <i class="fal fa-car-building"></i>
-                                        <span> Elevator in building</span>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="listing_det_feature_single">
-                                        <i class="fas fa-recycle"></i>
-                                        <span>Free coffee and tea</span>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="listing_det_feature_single">
-                                        <i class="fal fa-star"></i>
-                                        <span>Reservations</span>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="listing_det_feature_single">
-                                        <i class="fal fa-clock"></i>
-                                        <span>Alcohol</span>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="listing_det_feature_single">
-                                        <i class="fab fa-jedi-order"></i>
-                                        <span>Bike Parking</span>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                         <div class="listing_det_video">
                             <div class="row">
+                                @foreach ($listing->videoGallery as $video)
                                 <div class="col-xl-4 col-sm-6">
                                     <div class="listing_det_video_img">
-                                        <img src="images/video_1.jpg" alt="img" class="img-fluid w-100">
+                                        <img src="{{ getYtThumbnail($video->video_url) }}" alt="img" class="img-fluid w-100">
                                         <a class="venobox" data-autoplay="true" data-vbtype="video"
-                                            href="https://youtu.be/7EHnQ0VM4KY">
+                                            href="{{ $video->video_url }}">
                                             <i class=" fas fa-play"></i>
                                         </a>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="listing_det_video_img">
-                                        <img src="images/video_2.jpg" alt="img" class="img-fluid w-100">
-                                        <a class="venobox" data-autoplay="true" data-vbtype="video"
-                                            href="https://youtu.be/7EHnQ0VM4KY">
-                                            <i class=" fas fa-play"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="listing_det_video_img">
-                                        <img src="images/video_3.jpg" alt="img" class="img-fluid w-100">
-                                        <a class="venobox" data-autoplay="true" data-vbtype="video"
-                                            href="https://youtu.be/7EHnQ0VM4KY">
-                                            <i class=" fas fa-play"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="listing_det_video_img">
-                                        <img src="images/video_4.jpg" alt="img" class="img-fluid w-100">
-                                        <a class="venobox" data-autoplay="true" data-vbtype="video"
-                                            href="https://youtu.be/7EHnQ0VM4KY">
-                                            <i class=" fas fa-play"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="listing_det_video_img">
-                                        <img src="images/video_5.jpg" alt="img" class="img-fluid w-100">
-                                        <a class="venobox" data-autoplay="true" data-vbtype="video"
-                                            href="https://youtu.be/7EHnQ0VM4KY">
-                                            <i class=" fas fa-play"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="listing_det_video_img">
-                                        <img src="images/video_1.jpg" alt="img" class="img-fluid w-100">
-                                        <a class="venobox" data-autoplay="true" data-vbtype="video"
-                                            href="https://youtu.be/7EHnQ0VM4KY">
-                                            <i class=" fas fa-play"></i>
-                                        </a>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
+                        @if ($listing->google_map_embed_code)
                         <div class="listing_det_location">
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14602.678639283793!2d90.39695083611213!3d23.794774936848686!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c70c15ea1de1%3A0x97856381e88fb311!2z4Kas4Kao4Ka-4Kao4KeAIOCmruCmoeCnh-CmsiDgpp_gpr7gpongpqgsIOCmouCmvuCmleCmvg!5e0!3m2!1sbn!2sbd!4v1634550875957!5m2!1sbn!2sbd"
-                                width="1000" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                            {!! $listing->google_map_embed_code !!}
                         </div>
+                        @endif
                         <div class="wsus__listing_review">
                             <h4>reviews 04</h4>
                             <div class="wsus__single_comment">
