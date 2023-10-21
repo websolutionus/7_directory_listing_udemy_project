@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\PackageDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\PackageCreateRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -21,17 +23,18 @@ class PackageController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create() : View
     {
-        //
+        return view('admin.package.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PackageCreateRequest $request) : RedirectResponse
     {
-        //
+        dd($request->all());
+        return to_route('admin.packages.index');
     }
 
     /**
