@@ -40,7 +40,8 @@
                                 <div class="tab-pane fade show active" id="home4" role="tabpanel" aria-labelledby="home-tab4">
                                   <div class="card border">
                                     <div class="card-body">
-                                        <form action="">
+                                        <form action="{{ route("admin.general-settings.update") }}" method="POST">
+                                            @csrf
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
@@ -83,7 +84,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="">Site Currency Possition</label>
-                                                        <Select name="site_currency_postion" class="form-control">
+                                                        <Select name="site_currency_position" class="form-control">
                                                             <option value="left">Left</option>
                                                             <option value="right">Right</option>
                                                         </Select>

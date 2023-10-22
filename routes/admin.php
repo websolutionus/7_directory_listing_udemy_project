@@ -73,6 +73,8 @@ Route::group([
 
     /** Settings Routes */
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('/general-settings', [SettingController::class, 'updateGeneralSetting'])->name('general-settings.update');
+
 
 
 
