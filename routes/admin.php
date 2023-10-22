@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PendingListingController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SettingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login')->middleware('guest');
@@ -69,6 +70,9 @@ Route::group([
 
     /** Package Routes */
     Route::resource('packages', PackageController::class);
+
+    /** Settings Routes */
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
 
 
 
