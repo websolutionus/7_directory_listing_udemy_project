@@ -53,7 +53,7 @@
                                 <p>{{ $package->num_of_featured_listing }} Featured Listing</p>
                             @endif
 
-                            <a href="#">Order now</a>
+                            <a href="{{ route('checkout.index', $package->id) }}">Order now</a>
                         </div>
                     </div>
                     @endforeach
