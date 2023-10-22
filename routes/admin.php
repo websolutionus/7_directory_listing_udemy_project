@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ListingScheduleController;
 use App\Http\Controllers\Admin\ListingVideoGalleryController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\PackageController;
+use App\Http\Controllers\Admin\PaymentSettingController;
 use App\Http\Controllers\Admin\PendingListingController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
@@ -74,7 +75,8 @@ Route::group([
     /** Settings Routes */
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/general-settings', [SettingController::class, 'updateGeneralSetting'])->name('general-settings.update');
-
+    /** Payment Settings Routes */
+    Route::get('/payment-settings', [PaymentSettingController::class, 'index'])->name('payment-settings.index');
 
 
 
