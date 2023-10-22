@@ -37,3 +37,16 @@ if(!function_exists('truncate')){
         return \Str::of($text)->limit($limit);
     }
 }
+
+/** Currency position*/
+if(!function_exists('currencyPosition')){
+    function currencyPosition(int $amount) : ?string
+    {
+        if(config('settings.site_currency_position') === 'left') {
+            return config('settings.site_currency_icon').$amount;
+        }else {
+            return $amount.config('settings.site_currency_icon');
+        }
+    }
+}
+

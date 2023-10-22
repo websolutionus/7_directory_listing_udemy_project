@@ -60,7 +60,7 @@
                 <div class="col-lg-4 col-md-7">
                     <div class="member_price">
                         <h4>{{ $package->name }}</h4>
-                        <h5>${{ $package->price }}
+                        <h5>{{ currencyPosition($package->price) }}
                             @if ($package->number_of_days === -1)
                             <span>/ Lifetime</span>
                             @else
