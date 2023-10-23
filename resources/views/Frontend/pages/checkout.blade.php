@@ -37,8 +37,8 @@
                         <div class="row">
                             @if (config('payment.paypal_status') === 'active')
                             <div class="col-lg-3 col-6 col-sm-4">
-                                <a class="wsus__single_payment" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                    href="#">
+                                <a class="wsus__single_payment"
+                                    href="{{ route('paypal.payment') }}">
                                     <img src="{{ asset('default/paypal.png') }}" alt="payment method" class="img-fluid w-100">
                                 </a>
                             </div>
