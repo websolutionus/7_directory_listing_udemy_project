@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PaymentSetting;
+use App\Services\PaymentSettingsService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -32,6 +33,9 @@ class PaymentSettingController extends Controller
                 ['value' => $value]
             );
         }
+
+        $paymentSettingsService = app(PaymentSettingsService::class);
+        $paymentSettingsService->clearCachedSettings();
 
         toastr()->success('Updated Successfully!');
         return redirect()->back();
