@@ -9,6 +9,7 @@ use App\Models\Listing;
 use App\Models\Package;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Session;
 
 class FrontendController extends Controller
 {
@@ -54,6 +55,8 @@ class FrontendController extends Controller
 
     function checkout(string $id) : View {
         $package = Package::findOrFail($id);
+        /** store package id in session */
+        Session::put('selected_package_id', $package->id);
         return view('frontend.pages.checkout', compact('package'));
     }
 }
