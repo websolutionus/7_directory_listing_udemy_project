@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Package;
 use Illuminate\Http\Request;
+use Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class PaymentController extends Controller
 {
+
+    function payableAmount() : int {
+        $packageId = Session::get('selected_package_id');
+        $package = Package::findOrFail($packageId);
+        return $package->price;
+    }
 
     function setPaypalConfig() : array {
         return [
@@ -36,7 +44,35 @@ class PaymentController extends Controller
        $provider = new PayPalClient($config);
        $provider->getAccessToken();
 
-       
+       $totalPayableAmount = round($this->payableAmount() * config('payment.paypal_currency_rate'));
+
+       $response = $provider->createOrder([
+            'intent' => "CAPTURE",
+            'application_context' => [
+                'return_url' => route('paypal.success'),
+                'cancel_url' => route('paypal.cancel')
+            ],
+            'purchase_units' => [
+                [
+                    'amount' => [
+                        'currency_code' => config('payment.paypal_currency'),
+                        'value' => $totalPayableAmount
+                    ]
+                ]
+            ]
+        ]);
+
+        if(isset($response['id']) && $response['id'] !== null){
+            foreach($response['links'] as $link) {
+                if($link['rel'] === 'approve') {
+                    return redirect()->away($link['href']);
+                }
+            }
+        }else {
+            // handle error
+        }
+
+
     }
 
     function paypalSuccess() {
