@@ -20,7 +20,7 @@ class CreateOrder
      */
     public function __construct(array $paymentInfo)
     {
-        $this->$paymentInfo = $paymentInfo;
+        $this->paymentInfo = $paymentInfo;
     }
 
     /**
