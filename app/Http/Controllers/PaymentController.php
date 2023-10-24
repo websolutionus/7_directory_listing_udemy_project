@@ -6,6 +6,7 @@ use App\Events\CreateOrder;
 use App\Models\Package;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 use Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Stripe\Stripe;
@@ -123,8 +124,58 @@ class PaymentController extends Controller
 
         $totalPayableAmount = round(($this->payableAmount() * config('payment.stripe_currency_rate'))) * 100;
 
-        
+        $response = StripeSession::create([
+            'line_items' => [
+                [
+                    'price_data' => [
+                        'currency' => config('payment.stripe_currency'),
+                        'product_data' => [
+                            'name' => 'Package'
+                        ],
+                        'unit_amount' => $totalPayableAmount
+                    ],
+                    'quantity' => 1
+                ]
+            ],
+            'mode' => 'payment',
+            'success_url' => route('stripe.success').'?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => route('stripe.cancel')
+        ]);
+
+        return redirect()->away($response->url);
+
     }
+
+    function stripeSuccess(Request $request) {
+        $sessionId = $request->session_id;
+
+        // set api key
+        Stripe::setApiKey(config('payment.stripe_secret_key'));
+
+        $response = StripeSession::retrieve($sessionId);
+
+        if($response->payment_status === 'paid') {
+            $paymentInfo = [
+                'transaction_id' => $response->payment_intent,
+                'payment_method' => 'stripe',
+                'paid_amount' => $response->amount_total,
+                'paid_currency' => $response->currency,
+                'payment_status' => 'completed'
+            ];
+
+            CreateOrder::dispatch($paymentInfo);
+
+            return redirect()->route('payment.success');
+        }else {
+            return redirect()->route('payment.cancel');
+        }
+
+    }
+
+    function stripeCancel() {
+        return redirect()->route('payment.cancel');
+    }
+
 
 
 }
