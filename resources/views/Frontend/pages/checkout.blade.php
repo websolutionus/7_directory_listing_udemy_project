@@ -45,9 +45,8 @@
                             @endif
 
                             <div class="col-lg-3 col-6 col-sm-4">
-                                <a class="wsus__single_payment" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                    href="#">
-                                    <img src="images/pay_2.jpg" alt="payment method" class="img-fluid w-100">
+                                <a class="wsus__single_payment" href="{{ route('stripe.payment') }}">
+                                    <img src="{{ asset('default/stripe.png') }}" alt="payment method" class="img-fluid w-100">
                                 </a>
                             </div>
                             <div class="col-lg-3 col-6 col-sm-4">

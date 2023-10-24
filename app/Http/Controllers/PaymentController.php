@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
+use Stripe\Stripe;
+use Stripe\Checkout\Session as StripeSession;
 
 class PaymentController extends Controller
 {
@@ -111,6 +113,17 @@ class PaymentController extends Controller
 
     function paypalCancel() {
         return redirect()->route('payment.cancel');
+    }
+
+    /** Pay with Stripe */
+
+    function payWithStripe() {
+        // set api key
+        Stripe::setApiKey(config('payment.stripe_secret_key'));
+
+        $totalPayableAmount = round(($this->payableAmount() * config('payment.stripe_currency_rate'))) * 100;
+
+        
     }
 
 
