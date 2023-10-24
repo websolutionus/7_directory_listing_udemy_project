@@ -1,4 +1,4 @@
-<div class="tab-pane fade show active" id="profile4" role="tabpanel" aria-labelledby="home-tab4">
+<div class="tab-pane fade show" id="profile4" role="tabpanel" aria-labelledby="home-tab4">
     <div class="card border">
       <div class="card-body">
           <form action="{{ route("admin.stripe-settings.update") }}" method="POST">

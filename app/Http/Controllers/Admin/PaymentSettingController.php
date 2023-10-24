@@ -64,4 +64,28 @@ class PaymentSettingController extends Controller
         toastr()->success('Updated Successfully!');
         return redirect()->back();
     }
+
+    function razorpaySetting(Request $request) : RedirectResponse {
+        $validatedData = $request->validate([
+            'razorpay_status' => ['required', 'in:active,inactive'],
+            'razorpay_country' => ['required'],
+            'razorpay_currency' => ['required'],
+            'razorpay_currency_rate' => ['required', 'numeric'],
+            'razorpay_key' => ['required'],
+            'razorpay_secret_key' => ['required'],
+        ]);
+
+        foreach($validatedData as $key => $value) {
+            PaymentSetting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value]
+            );
+        }
+
+        $paymentSettingsService = app(PaymentSettingsService::class);
+        $paymentSettingsService->clearCachedSettings();
+
+        toastr()->success('Updated Successfully!');
+        return redirect()->back();
+    }
 }
