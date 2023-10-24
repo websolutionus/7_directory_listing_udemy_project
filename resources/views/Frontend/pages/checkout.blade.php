@@ -50,9 +50,8 @@
                                 </a>
                             </div>
                             <div class="col-lg-3 col-6 col-sm-4">
-                                <a class="wsus__single_payment" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                    href="#">
-                                    <img src="images/pay_3.jpg" alt="payment method" class="img-fluid w-100">
+                                <a class="wsus__single_payment" href="{{ route('razorpay.redirect') }}">
+                                    <img src="{{ asset('default/razorpay.png') }}" alt="payment method" class="img-fluid w-100">
                                 </a>
                             </div>
                         </div>

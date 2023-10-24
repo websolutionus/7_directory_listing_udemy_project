@@ -176,6 +176,15 @@ class PaymentController extends Controller
         return redirect()->route('payment.cancel');
     }
 
+    /** Pay with razorpay */
+    function razorpayRedirect() {
+        return view('frontend.pages.razorpay-redirect');
+    }
+
+    function payWithRazorpay() {
+
+    }
+
 
 
 }
