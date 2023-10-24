@@ -5,11 +5,19 @@ namespace App\Http\Controllers;
 use App\Events\CreateOrder;
 use App\Models\Package;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class PaymentController extends Controller
 {
+    function paymentSuccess() : View {
+        return view('frontend.pages.payment-success');
+    }
+
+    function paymentCancel() : View {
+        return view('frontend.pages.payment-cancel');
+    }
 
     function payableAmount() : int {
         $packageId = Session::get('selected_package_id');
@@ -70,7 +78,8 @@ class PaymentController extends Controller
                 }
             }
         }else {
-            // handle error
+            logger($response);
+            return redirect()->route('payment.cancel')->withErrors(['error' => $response['error']['message']]);
         }
 
 
@@ -94,13 +103,14 @@ class PaymentController extends Controller
             ];
 
             CreateOrder::dispatch($paymentInfo);
-            dd($response);
+
+            return redirect()->route('payment.success');
         }
 
     }
 
     function paypalCancel() {
-
+        return redirect()->route('payment.cancel');
     }
 
 
