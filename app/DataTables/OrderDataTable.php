@@ -22,7 +22,12 @@ class OrderDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'order.action')
+            ->addColumn('action', function($query){
+                $edit = '<a href="'.route('admin.orders.show', $query->id).'" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>';
+                $delete = '<a href="'.route('admin.orders.destroy', $query->id).'" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
+
+                return $edit.$delete;
+            })
             ->addColumn('user_name', function($query) {
                 return $query->user->name;
             })
@@ -38,6 +43,17 @@ class OrderDataTable extends DataTable
             ->addColumn('paid_in', function($query) {
                 return $query->paid_currency;
             })
+            ->addColumn('payment_status', function($query){
+                if($query->payment_status === 'completed'){
+                    return "<span class='badge badge-success'>completed</span>";
+                }elseif ($query->payment_status === 'pending') {
+                    return "<span class='badge badge-warning'>pending</span>";
+                }else {
+                    return "<span class='badge badge-danger'>Failed</span>";
+                }
+            })
+
+            ->rawColumns(['payment_status', 'action'])
             ->setRowId('id');
     }
 
@@ -59,7 +75,7 @@ class OrderDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -85,11 +101,11 @@ class OrderDataTable extends DataTable
             Column::make('paid'),
             Column::make('paid_in'),
             Column::make('payment_method'),
-
+            Column::make('payment_status'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)
-            ->width(60)
+            ->width(100)
             ->addClass('text-center'),
         ];
     }
