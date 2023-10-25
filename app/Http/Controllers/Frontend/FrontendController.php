@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Events\CreateOrder;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Hero;
 use App\Models\Listing;
 use App\Models\Package;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Session;
@@ -53,10 +55,26 @@ class FrontendController extends Controller
         return view('frontend.pages.packages', compact('packages'));
     }
 
-    function checkout(string $id) : View {
+    function checkout(string $id) : View | RedirectResponse {
         $package = Package::findOrFail($id);
+
         /** store package id in session */
         Session::put('selected_package_id', $package->id);
+        /** if package is free then direct place order */
+        if($package->type === 'free' || $package->price == 0) {
+            $paymentInfo = [
+                'transaction_id' => uniqid(),
+                'payment_method' => 'free',
+                'paid_amount' => 0,
+                'paid_currency' => config('settings.site_default_currency'),
+                'payment_status' => 'completed'
+            ];
+
+            CreateOrder::dispatch($paymentInfo);
+            toastr()->success('Package subscribed successfully');
+            return redirect()->route('user.dashboard');
+        }
+
         return view('frontend.pages.checkout', compact('package'));
     }
 }

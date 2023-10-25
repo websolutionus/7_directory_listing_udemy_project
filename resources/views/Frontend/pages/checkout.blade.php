@@ -44,16 +44,20 @@
                             </div>
                             @endif
 
+                            @if (config('payment.stripe_status') === 'active')
                             <div class="col-lg-3 col-6 col-sm-4">
                                 <a class="wsus__single_payment" href="{{ route('stripe.payment') }}">
                                     <img src="{{ asset('default/stripe.png') }}" alt="payment method" class="img-fluid w-100">
                                 </a>
                             </div>
+                            @endif
+                            @if (config('payment.razorpay_status') === 'active')
                             <div class="col-lg-3 col-6 col-sm-4">
                                 <a class="wsus__single_payment" href="{{ route('razorpay.redirect') }}">
                                     <img src="{{ asset('default/razorpay.png') }}" alt="payment method" class="img-fluid w-100">
                                 </a>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
