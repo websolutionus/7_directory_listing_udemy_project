@@ -7,6 +7,26 @@
     <title>Razorpay</title>
 </head>
 <body>
-razorpay redirect
+    @php
+        $packageId = session()->get('selected_package_id');
+        $package = App\Models\Package::findOrFail($packageId);
+
+        $totalPayableAmount = ($package->price * config('payment.razorpay_currency_rate')) * 100;
+
+    @endphp
+
+<form action="{{ route('razorpay.payment') }}">
+    <script src="https://checkout.razorpay.com/v1/checkout.js"
+    data-key="{{ config('payment.razorpay_key') }}"
+    data-currency="{{ config('payment.razorpay_currency') }}"
+    data-amount="{{ $totalPayableAmount }}"
+    data-buttontext="Pay with razorpay"
+    data-name="Payment"
+    data-description="Payment for Package"
+    data-prefill.name=""
+    data-prefill.email=""
+    data-theme.color=""
+    ></script>
+</form>
 </body>
 </html>
