@@ -73,15 +73,24 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col-lg-8">
-                                    <div class="section-title">Payment Method</div>
-                                    <p class="section-lead">The payment method that we provide is to make it easier for you
-                                        to pay invoices.</p>
-                                    <div class="images">
-                                        <img src="assets/img/visa.png" alt="visa">
-                                        <img src="assets/img/jcb.png" alt="jcb">
-                                        <img src="assets/img/mastercard.png" alt="mastercard">
-                                        <img src="assets/img/paypal.png" alt="paypal">
+                                    <div class="section-title">Change Payment Status</div>
+                                    <div class="col-md-4">
+                                        <form action="{{ route('admin.orders.update', $order->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="form-group">
+                                                <select name="payment_status" id="" class="form-control">
+                                                    <option @selected($order->payment_status === 'pending') value="pending">pending</option>
+                                                    <option @selected($order->payment_status === 'completed') value="completed">completed</option>
+                                                    <option @selected($order->payment_status === 'failed') value="failed">Failed</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary">Update</button>
+                                            </div>
+                                        </form>
                                     </div>
+
                                 </div>
                                 <div class="col-lg-4 text-right">
                                     <hr class="mt-2 mb-2">
@@ -97,9 +106,7 @@
                 <hr>
                 <div class="text-md-right">
                     <div class="float-lg-left mb-lg-0 mb-3">
-                        <button class="btn btn-primary btn-icon icon-left"><i class="fas fa-credit-card"></i> Process
-                            Payment</button>
-                        <button class="btn btn-danger btn-icon icon-left"><i class="fas fa-times"></i> Cancel</button>
+
                     </div>
                     <button class="btn btn-warning btn-icon icon-left"><i class="fas fa-print"></i> Print</button>
                 </div>
