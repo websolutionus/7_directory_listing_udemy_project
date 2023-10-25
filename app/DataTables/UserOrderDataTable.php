@@ -60,7 +60,7 @@ class UserOrderDataTable extends DataTable
      */
     public function query(Order $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->where('user_id', auth()->user()->id)->newQuery();
     }
 
     /**

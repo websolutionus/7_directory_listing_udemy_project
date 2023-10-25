@@ -36,6 +36,7 @@
                                     <address>
                                         <strong>Payment Method:</strong><br>
                                         {{ $order->payment_method }}<br>
+                                        Transaction Id: {{ $order->transaction_id }}<br>
                                     </address>
                                 </div>
                                 <div class="col-md-6 text-md-right">
