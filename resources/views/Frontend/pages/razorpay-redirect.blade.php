@@ -5,8 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Razorpay</title>
+    <style>
+        .razorpay-payment-button {
+            display: none;
+        }
+    </style>
 </head>
 <body>
+    <span style="background:red">DO NOT CLOSE THIS PAGE!</span>
     @php
         $packageId = session()->get('selected_package_id');
         $package = App\Models\Package::findOrFail($packageId);
@@ -28,5 +34,12 @@
     data-theme.color=""
     ></script>
 </form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var button = document.querySelector(".razorpay-payment-button");
+        button.click();
+    })
+</script>
 </body>
 </html>

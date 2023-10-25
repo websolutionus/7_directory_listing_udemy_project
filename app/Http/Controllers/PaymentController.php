@@ -11,6 +11,7 @@ use Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Stripe\Stripe;
 use Stripe\Checkout\Session as StripeSession;
+use Razorpay\Api\Api as RazorpayApi;
 
 class PaymentController extends Controller
 {
@@ -182,7 +183,45 @@ class PaymentController extends Controller
     }
 
     function payWithRazorpay(Request $request) {
-        dd($request->all());
+        $api = new RazorpayApi(
+            config('payment.razorpay_key'),
+            config('payment.razorpay_secret_key')
+        );
+
+        if($request->has('razorpay_payment_id') && $request->filled('razorpay_payment_id')) {
+            $packageId = session()->get('selected_package_id');
+            $package = Package::findOrFail($packageId);
+
+            $totalPayableAmount = ($package->price * config('payment.razorpay_currency_rate')) * 100;
+
+            try {
+                $response = $api->payment
+                    ->fetch($request->razorpay_payment_id)
+                    ->capture(['amount' => $totalPayableAmount]);
+
+            }catch(\Exception $e) {
+                logger($e);
+                return redirect()->route('payment.cancel')->withErrors(['error' => $e->getMessage()]);
+            }
+
+            if($response['status'] === 'captured') {
+                $paymentInfo = [
+                    'transaction_id' => $response->id,
+                    'payment_method' => 'razorpay',
+                    'paid_amount' => $response->amount,
+                    'paid_currency' => $response->currency,
+                    'payment_status' => 'completed'
+                ];
+
+                CreateOrder::dispatch($paymentInfo);
+
+                return redirect()->route('payment.success');
+            }else {
+                return redirect()->route('payment.cancel');
+            }
+
+        }
+
     }
 
 
