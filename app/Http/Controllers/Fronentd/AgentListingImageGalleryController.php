@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Fronentd;
 use App\Http\Controllers\Controller;
 use App\Models\Listing;
 use App\Models\ListingImageGallery;
+use App\Models\Subscription;
+use App\Rules\MaxImages;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,7 +23,8 @@ class AgentListingImageGalleryController extends Controller
     {
         $images = ListingImageGallery::where('listing_id', $request->id)->get();
         $listingTitle = Listing::select('title')->where('id', $request->id)->first();
-        return view('frontend.dashboard.listing.image-gallery.index', compact('images', 'listingTitle'));
+        $subscription = Subscription::with('package')->where('user_id', auth()->user()->id)->first();
+        return view('frontend.dashboard.listing.image-gallery.index', compact('images', 'listingTitle', 'subscription'));
     }
 
     /**
@@ -32,7 +35,7 @@ class AgentListingImageGalleryController extends Controller
         $request->validate([
             'images' => ['required'],
             'images.*' => ['image', 'max:3000'],
-            'listing_id' => ['required']
+            'listing_id' => ['required', new MaxImages]
         ],[
             'images.*.image' => 'One or more selected files are not valid images.',
             'images.*.max' => 'One or more images exceed the maximum file size (3MB).',
