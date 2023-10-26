@@ -26,7 +26,7 @@
                             <form action="{{ route('user.listing-video-gallery.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="">Video Url <code>*</code></label>
+                                    <label for="">Video Url <code>( {{ $subscription->package->num_of_video }} Videos is max )*</code></label>
                                     <input type="text" class="form-control" name="video_url">
                                     <input type="hidden" class="form-control" name="listing_id" value="{{ request()->id }}">
 

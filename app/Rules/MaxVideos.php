@@ -2,6 +2,8 @@
 
 namespace App\Rules;
 
+use App\Models\ListingVideoGallery;
+use Auth;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
@@ -14,6 +16,11 @@ class MaxVideos implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        //
+        $packageVideosLimit = Auth::user()->subscription->package->num_of_video;
+        $listingVideosCount = ListingVideoGallery::where('listing_id', $value)->count();
+
+        if($listingVideosCount >= $packageVideosLimit) {
+            $fail('You have reached the maximum limit of '. $packageVideosLimit .' Videos');
+        }
     }
 }

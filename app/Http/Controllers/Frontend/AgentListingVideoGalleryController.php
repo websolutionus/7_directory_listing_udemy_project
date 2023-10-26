@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Listing;
 use App\Models\ListingVideoGallery;
+use App\Models\Subscription;
+use App\Rules\MaxVideos;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -19,7 +21,8 @@ class AgentListingVideoGalleryController extends Controller
     {
         $videos = ListingVideoGallery::where('listing_id', $request->id)->get();
         $listingTitle = Listing::select('title')->where('id', $request->id)->first();
-        return view('frontend.dashboard.listing.video-gallery.index', compact('videos', 'listingTitle'));
+        $subscription = Subscription::with('package')->where('user_id', auth()->user()->id)->first();
+        return view('frontend.dashboard.listing.video-gallery.index', compact('videos', 'listingTitle', 'subscription'));
     }
 
     /**
@@ -29,7 +32,7 @@ class AgentListingVideoGalleryController extends Controller
     {
         $request->validate([
             'video_url' => ['required', 'url'],
-            'listing_id' => ['required']
+            'listing_id' => ['required', new MaxVideos]
         ]);
 
         $video = new ListingVideoGallery();
