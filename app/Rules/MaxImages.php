@@ -18,8 +18,9 @@ class MaxImages implements ValidationRule
     {
         $packageImageLimit = Auth::user()->subscription->package->num_of_photos;
         $listingImagesCount = ListingImageGallery::where('listing_id', $value)->count();
+        $uploadedImagesCount = count(request('images'));
 
-        if($listingImagesCount >= $packageImageLimit) {
+        if($listingImagesCount + $uploadedImagesCount > $packageImageLimit) {
             $fail('You have reached the maximum limit of '. $packageImageLimit .' Images');
         }
     }
