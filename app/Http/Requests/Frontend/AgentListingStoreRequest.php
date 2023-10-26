@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Frontend;
 
+use App\Rules\MaxListings;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AgentListingStoreRequest extends FormRequest
@@ -42,8 +43,8 @@ class AgentListingStoreRequest extends FormRequest
             'seo_title' => ['nullable', 'string', 'max:255'],
             'seo_description' => ['nullable', 'string', 'max:255'],
             'status' => ['required', 'boolean'],
-            'is_featured' => ['required', 'boolean'],
-            'is_verified' => ['required', 'boolean']
+            'is_featured' => ['nullable', 'boolean'],
+            'listing' => ['required', new MaxListings]
         ];
     }
 }

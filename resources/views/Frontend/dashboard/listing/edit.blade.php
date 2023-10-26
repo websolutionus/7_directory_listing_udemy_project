@@ -143,7 +143,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Amenities</label>
+                                    <label>Amenities <code>( Maximum : {{ $subscription->package->num_of_amenities }} entry )</code></label>
                                     <select class="form-control select2" multiple="" name="amenities[]" value="[3]">
                                         @foreach ($amenities as $amenity)
                                             <option value="{{ $amenity->id }}">{{ $amenity->name }}</option>
@@ -190,15 +190,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="">Is Verified <span class="text-danger"></span></label>
-                                            <select name="is_verified" class="form-control" required>
-                                                <option @selected($listing->is_verified === 0) value="0">No</option>
-                                                <option @selected($listing->is_verified === 1) value="1">Yes</option>
-                                            </select>
-                                        </div>
-                                    </div>
+
                                 </div>
 
 
