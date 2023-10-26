@@ -133,7 +133,13 @@
                                 </div>
 
                                 <div class="form-group">
+                                    @if ($subscription->package->num_of_amenities === -1)
+                                    <label>Amenities <code>( Unlimited )</code></label>
+                                    @else
                                     <label>Amenities <code>( Maximum : {{ $subscription->package->num_of_amenities }} entry )</code></label>
+                                    @endif
+
+
                                     <select class="form-control select2" multiple="" name="amenities[]">
                                         @foreach ($amenities as $amenity)
                                         <option value="{{ $amenity->id }}" >{{ $amenity->name }}</option>

@@ -25,7 +25,12 @@
                             <form action="{{ route('user.listing-image-gallery.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
+                                    @if ($subscription->package->num_of_photos === -1)
+                                    <label class="mb-2" for="">Image <code> ( Unlimited )(Multi image supported)</code></label>
+                                    @else
                                     <label class="mb-2" for="">Image <code> ( {{ $subscription->package->num_of_photos }} Images is max )(Multi image supported)</code></label>
+                                    @endif
+
                                     <input type="file" class="form-control" name="images[]" multiple>
                                     <input type="hidden" value="{{ request()->id }}" name="listing_id">
                                 </div>

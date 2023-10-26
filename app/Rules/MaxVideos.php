@@ -19,6 +19,10 @@ class MaxVideos implements ValidationRule
         $packageVideosLimit = Auth::user()->subscription->package->num_of_video;
         $listingVideosCount = ListingVideoGallery::where('listing_id', $value)->count();
 
+        if($packageVideosLimit === -1) {
+            return;
+        }
+
         if($listingVideosCount >= $packageVideosLimit) {
             $fail('You have reached the maximum limit of '. $packageVideosLimit .' Videos');
         }

@@ -19,6 +19,11 @@ class MaxListings implements ValidationRule
         $packageListingLimit = Auth::user()->subscription->package->num_of_listing;
         $userListingCount = Listing::where(['user_id' => Auth::user()->id, 'status' => 1])->count();
 
+
+        if($packageListingLimit === -1) {
+            return;
+        }
+
         if($userListingCount >= $packageListingLimit) {
             $fail('You have reached the maximum limit of '. $packageListingLimit.' listings');
         }

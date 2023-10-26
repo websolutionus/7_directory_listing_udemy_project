@@ -20,6 +20,10 @@ class MaxImages implements ValidationRule
         $listingImagesCount = ListingImageGallery::where('listing_id', $value)->count();
         $uploadedImagesCount = count(request('images'));
 
+        if($packageImageLimit === -1) {
+            return;
+        }
+
         if($listingImagesCount + $uploadedImagesCount > $packageImageLimit) {
             $fail('You have reached the maximum limit of '. $packageImageLimit .' Images');
         }
