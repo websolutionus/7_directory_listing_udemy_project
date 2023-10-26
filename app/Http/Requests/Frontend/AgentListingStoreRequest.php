@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Frontend;
 
+use App\Rules\MaxAmenities;
+use App\Rules\MaxFeatured;
 use App\Rules\MaxListings;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -38,13 +40,14 @@ class AgentListingStoreRequest extends FormRequest
             'whatsapp_link' => ['nullable','url'],
             'attachment' => ['nullable','mimes:png,jpg,csv,pdf', 'max:10000'],
             'amenities.*' => ['nullable', 'integer'],
+            'amenities' => [new MaxAmenities],
             'description' => ['required'],
             'google_map_embed_code' => ['nullable'],
             'seo_title' => ['nullable', 'string', 'max:255'],
             'seo_description' => ['nullable', 'string', 'max:255'],
             'status' => ['required', 'boolean'],
             'is_featured' => ['nullable', 'boolean'],
-            'listing' => ['required', new MaxListings]
+            'listing' => ['required', new MaxListings, new MaxFeatured]
         ];
     }
 }
