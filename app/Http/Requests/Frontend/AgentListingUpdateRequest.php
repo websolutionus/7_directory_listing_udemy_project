@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Frontend;
 
 use App\Models\Listing;
+use App\Rules\MaxAmenities;
+use App\Rules\MaxFeatured;
 use Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -40,13 +42,14 @@ class AgentListingUpdateRequest extends FormRequest
             'whatsapp_link' => ['nullable','url'],
             'attachment' => ['nullable','mimes:png,jpg,csv,pdf', 'max:10000'],
             'amenities.*' => ['nullable', 'integer'],
+            'amenities' => [new MaxAmenities],
             'description' => ['required'],
             'google_map_embed_code' => ['nullable'],
             'seo_title' => ['nullable', 'string', 'max:255'],
             'seo_description' => ['nullable', 'string', 'max:255'],
             'status' => ['required', 'boolean'],
             'is_featured' => ['required', 'boolean'],
-            'is_verified' => ['required', 'boolean']
+
         ];
     }
 }

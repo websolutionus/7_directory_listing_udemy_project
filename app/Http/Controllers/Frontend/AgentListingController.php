@@ -144,7 +144,7 @@ class AgentListingController extends Controller
         $listing->seo_description = $request->seo_description;
         $listing->status = $request->status;
         $listing->is_featured = $request->is_featured;
-        $listing->is_verified = $request->is_verified;
+        $listing->is_verified = 0;
         $listing->expire_date = date('Y-m-d');
 
         $listing->save();
