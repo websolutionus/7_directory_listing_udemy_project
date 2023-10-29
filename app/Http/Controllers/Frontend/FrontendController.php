@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Hero;
 use App\Models\Listing;
+use App\Models\ListingSchedule;
 use App\Models\Location;
 use App\Models\Package;
 use Illuminate\Http\RedirectResponse;
@@ -64,6 +65,20 @@ class FrontendController extends Controller
 
     function showListing(string $slug) : View {
         $listing = Listing::where(['status' => 1, 'is_verified' => 1])->where('slug', $slug)->first();
+
+        $day = ListingSchedule::where('listing_id', $listing->id)->where('day', \Str::lower(date('l')))->first();
+        $startTime = strtotime($day->start_time);
+        $endTime = strtotime($day->end_time);
+        if(time() >= $startTime && time() <= $endTime) {
+            $openStatus = true;
+        }else {
+            $openStatus = false;
+        }
+  
+        dd(now()->format('h:i A'));
+
+        dd($openStatus);
+
 
         $smellerListings = Listing::where('category_id', $listing->category_id)
             ->where('id', '!=', $listing->id)->orderBy('id', 'DESC')->take(4)->get();
