@@ -49,7 +49,7 @@
     <!--==========================
             Featured LOCATION START
     ===========================-->
-    {{-- @include('frontend.home.sections.featured-location-section') --}}
+    @include('frontend.home.sections.featured-location-section')
 
     <!--==========================
             Featured LOCATION END
@@ -59,7 +59,7 @@
     <!--==========================
             FEATURED LISTING START
     ===========================-->
-    {{-- @include('frontend.home.sections.featured-listing-section') --}}
+    @include('frontend.home.sections.featured-listing-section')
     <!--==========================
             FEATURED LISTING END
     ===========================-->

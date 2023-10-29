@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Hero;
 use App\Models\Listing;
+use App\Models\Location;
 use App\Models\Package;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,7 +24,17 @@ class FrontendController extends Controller
         $featuredCategories = Category::withCount(['listings'=> function($query){
             $query->where('is_approved', 1);
         }])->where(['show_at_home' => 1, 'status' => 1])->take(6)->get();
-        return view('frontend.home.index', compact('hero', 'categories', 'packages', 'featuredCategories'));
+
+        $featuredLocations = Location::with('listings')->where(['show_at_home' => 1, 'status' => 1])->get();
+        dd($featuredLocations);
+        return view('frontend.home.index',
+            compact(
+                'hero',
+                'categories',
+                'packages',
+                'featuredCategories',
+                'featuredLocations'
+            ));
     }
 
     function listings(Request $request) : View {
