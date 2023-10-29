@@ -1,7 +1,3 @@
-@php
-    config(['app.timezone' => config('settings.site_timezone')]);
-
-@endphp
 <!DOCTYPE html>
 <html lang="en">
 

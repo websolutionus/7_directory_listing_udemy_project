@@ -67,6 +67,7 @@
                                                         <label for="">Site Time Zone</label>
                                                         <select name="site_timezone" class="form-control select2">
                                                             <option value="">Select</option>
+                                                            <option value="UTC">UTC</option>
                                                             @foreach (config('time-zone') as $key => $timezone)
                                                             <option @selected($key === config('settings.site_timezone')) value="{{ $key }}">{{ $key }} - {{ $timezone }}</option>
                                                             @endforeach

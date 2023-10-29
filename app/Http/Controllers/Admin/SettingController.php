@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use App\Services\SettingsService;
+use Artisan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -39,7 +40,7 @@ class SettingController extends Controller
         $settingsService->clearCachedSettings();
 
         toastr()->success('Updated Successfully');
-
+        Artisan::call('config:cache');
         return redirect()->back();
     }
 }
