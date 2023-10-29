@@ -25,8 +25,10 @@ class FrontendController extends Controller
             $query->where('is_approved', 1);
         }])->where(['show_at_home' => 1, 'status' => 1])->take(6)->get();
 
-        $featuredLocations = Location::with('listings')->where(['show_at_home' => 1, 'status' => 1])->get();
-        dd($featuredLocations);
+        $featuredLocations = Location::with(['listings' => function($query) {
+            $query->where(['status' => 1, 'is_approved' => 1])->orderBy('id', 'desc')->limit(8);
+        }])->where(['show_at_home' => 1, 'status' => 1])->get();
+        
         return view('frontend.home.index',
             compact(
                 'hero',
