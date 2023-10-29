@@ -276,7 +276,7 @@
                                         </div>
                                         <div class="sidebar_blog_text">
                                             <h5>{{ truncate($smellerListing->title) }}</h5>
-                                            <p> <span>Jul 29 2021 {{ data('m d Y', strtotime($smellerListing->created_at)) }} </span> 2 Comment </p>
+                                            <p> <span>{{ date('m d Y', strtotime($smellerListing->created_at)) }} </span> 2 Comment </p>
                                         </div>
                                     </a>
                                     @endforeach
