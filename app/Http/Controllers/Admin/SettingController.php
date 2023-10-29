@@ -21,6 +21,7 @@ class SettingController extends Controller
             'site_name' => ['required', 'max:255'],
             'site_email' => ['required', 'max:255', 'email'],
             'site_phone' => ['required', 'max:255'],
+            'site_timezone' => ['required', 'max:255'],
             'site_default_currency' => ['required', 'max:3'],
             'site_currency_icon' => ['required'],
             'site_currency_position' => ['required', 'in:right,left']

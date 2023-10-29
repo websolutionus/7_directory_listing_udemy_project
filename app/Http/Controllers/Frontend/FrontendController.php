@@ -74,10 +74,10 @@ class FrontendController extends Controller
         }else {
             $openStatus = false;
         }
-  
+
         dd(now()->format('h:i A'));
 
-        dd($openStatus);
+        // dd($openStatus);
 
 
         $smellerListings = Listing::where('category_id', $listing->category_id)

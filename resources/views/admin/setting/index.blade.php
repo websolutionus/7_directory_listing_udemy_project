@@ -61,6 +61,20 @@
                                                         <input type="text" class="form-control" name="site_phone" value="{{ config('settings.site_phone') }}">
                                                     </div>
                                                 </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="">Site Time Zone</label>
+                                                        <select name="site_timezone" class="form-control select2">
+                                                            <option value="">Select</option>
+                                                            @foreach (config('time-zone') as $key => $timezone)
+                                                            <option @selected($key === config('settings.site_timezone')) value="{{ $key }}">{{ $key }} - {{ $timezone }}</option>
+                                                            @endforeach
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="">Site Default Currency</label>
