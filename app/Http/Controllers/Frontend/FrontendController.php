@@ -28,14 +28,18 @@ class FrontendController extends Controller
         $featuredLocations = Location::with(['listings' => function($query) {
             $query->where(['status' => 1, 'is_approved' => 1])->orderBy('id', 'desc')->limit(8);
         }])->where(['show_at_home' => 1, 'status' => 1])->get();
-        
+
+        $featuredListings = Listing::where(['status' => 1, 'is_approved' => 1, 'is_featured' => 1])
+            ->orderBy('id', 'desc')->limit(10)->get();
+
         return view('frontend.home.index',
             compact(
                 'hero',
                 'categories',
                 'packages',
                 'featuredCategories',
-                'featuredLocations'
+                'featuredLocations',
+                'featuredListings'
             ));
     }
 
