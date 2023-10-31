@@ -63,8 +63,12 @@
                                     <li><a href="#"><i class="far fa-star"></i> Featured</a></li>
                                     @endif
                                     <li><a href="#"><i class="fal fa-heart"></i> Add to Favorite</a></li>
-                                    <li><a href="#"><i class="fal fa-eye"></i> 194</a></li>
-                                    <li><a href="#">Open</a></li>
+                                    <li><a href="#"><i class="fal fa-eye"></i> {{ $listing->views }}</a></li>
+                                    @if ($openStatus == 'open')
+                                        <li><a href="javascript:;">Open</a></li>
+                                    @elseif ($openStatus == 'close')
+                                    <li><a href="javascript:;">Close</a></li>
+                                    @endif
                                 </ul>
                             </div>
                         </div>
@@ -243,6 +247,7 @@
                                     </ul>
                                 </div>
                             </div>
+                            @if (count($listing->schedules) > 0)
                             <div class="col-12">
                                 <div class="listing_det_side_open_hour">
                                     <h5>Opening Hours</h5>
@@ -252,6 +257,7 @@
 
                                 </div>
                             </div>
+                            @endif
                             <div class="col-12">
                                 <div class="listing_det_side_contact">
                                     <h5>quick contact</h5>

@@ -65,24 +65,27 @@ class FrontendController extends Controller
 
     function showListing(string $slug) : View {
         $listing = Listing::where(['status' => 1, 'is_verified' => 1])->where('slug', $slug)->first();
-
-        $day = ListingSchedule::where('listing_id', $listing->id)->where('day', \Str::lower(date('l')))->first();
-        $startTime = strtotime($day->start_time);
-        $endTime = strtotime($day->end_time);
-        if(time() >= $startTime && time() <= $endTime) {
-            $openStatus = true;
-        }else {
-            $openStatus = false;
-        }
-
-        dd(now()->format('h:i A'));
-
-        // dd($openStatus);
-
+        $listing->increment('views');
+        $openStatus = $this->listingScheduleStatus($listing);
 
         $smellerListings = Listing::where('category_id', $listing->category_id)
             ->where('id', '!=', $listing->id)->orderBy('id', 'DESC')->take(4)->get();
-        return view('frontend.pages.listing-view', compact('listing', 'smellerListings'));
+        return view('frontend.pages.listing-view', compact('listing', 'smellerListings', 'openStatus'));
+    }
+
+    function listingScheduleStatus(Listing $listing) : ?string {
+        $openStatus = '';
+        $day = ListingSchedule::where('listing_id', $listing->id)->where('day', \Str::lower(date('l')))->first();
+        if($day) {
+            $startTime = strtotime($day->start_time);
+            $endTime = strtotime($day->end_time);
+            if(time() >= $startTime && time() <= $endTime) {
+                $openStatus = 'open';
+            }else {
+                $openStatus = 'close';
+            }
+        }
+        return $openStatus;
     }
 
     function showPackages() : View {
