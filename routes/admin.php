@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PaymentSettingController;
 use App\Http\Controllers\Admin\PendingListingController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
@@ -69,6 +70,9 @@ Route::group([
     Route::get('/listing-schedule/{id}/edit', [ListingScheduleController::class, 'edit'])->name('listing-schedule.edit');
     Route::put('/listing-schedule/{id}', [ListingScheduleController::class, 'update'])->name('listing-schedule.update');
     Route::delete('/listing-schedule/{id}', [ListingScheduleController::class, 'destroy'])->name('listing-schedule.destroy');
+
+    /** Listing Review */
+    Route::get('/listing-reviews', [ReviewController::class, 'index'])->name('listing-reviews.index');
 
     /** Package Routes */
     Route::resource('packages', PackageController::class);
