@@ -141,6 +141,7 @@
                                 </div>
                             </div>
 
+                            @auth
                             <form action="{{ route('listing-review.store') }}" method="POST" class="input_comment">
                                 @csrf
                                 <h5>add a review</h5>
@@ -156,6 +157,7 @@
                                                 <option value="4"> 4 </option>
                                                 <option value="5"> 5 </option>
                                             </select>
+                                            <input type="hidden" name="listing_id" value="{{ $listing->id }}">
                                         </div>
                                     </div>
                                     <div class="col-xl-12">
@@ -166,6 +168,12 @@
                                     </div>
                                 </div>
                             </form>
+                            @endauth
+                            @guest
+                                <div class="alert alert-warning">
+                                    Please <a href="{{ route('login') }}">login</a> for submit a review.
+                                </div>
+                            @endguest
                         </div>
                     </div>
                 </div>

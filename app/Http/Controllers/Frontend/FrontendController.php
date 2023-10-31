@@ -10,8 +10,10 @@ use App\Models\Listing;
 use App\Models\ListingSchedule;
 use App\Models\Location;
 use App\Models\Package;
+use App\Models\Review;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Session;
 
@@ -117,7 +119,26 @@ class FrontendController extends Controller
     }
 
     function submitReview(Request $request) : RedirectResponse {
-        dd($request->all());
+        $request->validate([
+            'rating' => ['required', 'in:1,2,3,4,5'],
+            'review' => ['required', 'max:500'],
+            'listing_id' => ['required', 'integer']
+        ]);
+
+        $prevReview = Review::where(['listing_id' => $request->listing_id, 'user_id' => auth()->user()->id])->exists();
+        if($prevReview) {
+            throw ValidationException::withMessages(['You already added a review for this listing!']);
+        }
+
+        $review = new Review();
+        $review->listing_id = $request->listing_id;
+        $review->user_id = auth()->user()->id;
+        $review->rating = $request->rating;
+        $review->review = $request->review;
+        $review->save();
+
+        toastr()->success('Review Added Successfully!');
+
         return redirect()->back();
     }
 }
