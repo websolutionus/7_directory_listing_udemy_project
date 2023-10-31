@@ -73,6 +73,10 @@ Route::group([
 
     /** Listing Review */
     Route::get('/listing-reviews', [ReviewController::class, 'index'])->name('listing-reviews.index');
+    Route::get('/listing-reviews/{id}', [ReviewController::class, 'updateStatus'])->name('listing-reviews.update');
+    Route::delete('/listing-reviews/{id}', [ReviewController::class, 'destroy'])->name('listing-reviews.destroy');
+
+
 
     /** Package Routes */
     Route::resource('packages', PackageController::class);

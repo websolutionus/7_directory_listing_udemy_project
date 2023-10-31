@@ -23,7 +23,7 @@ class ReviewDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function($query){
-                $delete = '<a href="'.route('admin.packages.destroy', $query->id).'" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
+                $delete = '<a href="'.route('admin.listing-reviews.destroy', $query->id).'" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
 
                 return $delete;
             })
@@ -34,10 +34,17 @@ class ReviewDataTable extends DataTable
                 return $query->user->name;
             })
             ->addColumn('status', function($query) {
-                return '<select class="form-control">
-                    <option>Pending</option>
-                    <option>Approved</option>
-                </select>';
+                if($query->is_approved === 1) {
+                    return '<select class="form-control update-status" data-id="'.$query->id.'">
+                        <option>Pending</option>
+                        <option selected >Approved</option>
+                    </select>';
+                }else {
+                    return '<select class="form-control update-status" data-id="'.$query->id.'">
+                        <option selected >Pending</option>
+                        <option>Approved</option>
+                    </select>';
+                }
             })
             ->rawColumns(['status', 'action'])
             ->setRowId('id');
@@ -61,7 +68,7 @@ class ReviewDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -85,7 +92,7 @@ class ReviewDataTable extends DataTable
             Column::make('user'),
             Column::make('rating'),
             Column::make('review'),
-            Column::make('status'),
+            Column::make('status')->width(100),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)

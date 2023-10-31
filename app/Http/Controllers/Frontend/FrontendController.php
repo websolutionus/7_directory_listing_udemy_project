@@ -69,10 +69,12 @@ class FrontendController extends Controller
         $listing = Listing::where(['status' => 1, 'is_verified' => 1])->where('slug', $slug)->first();
         $listing->increment('views');
         $openStatus = $this->listingScheduleStatus($listing);
+        $reviews = Review::with('user')->where(['listing_id' => $listing->id, 'is_approved' => 1])->paginate(10);
 
         $smellerListings = Listing::where('category_id', $listing->category_id)
             ->where('id', '!=', $listing->id)->orderBy('id', 'DESC')->take(4)->get();
-        return view('frontend.pages.listing-view', compact('listing', 'smellerListings', 'openStatus'));
+
+        return view('frontend.pages.listing-view', compact('listing', 'smellerListings', 'openStatus', 'reviews'));
     }
 
     function listingScheduleStatus(Listing $listing) : ?string {

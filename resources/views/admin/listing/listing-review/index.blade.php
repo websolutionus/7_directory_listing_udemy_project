@@ -19,7 +19,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>All Reviews</h4>
-                            
+
                         </div>
                         <div class="card-body">
                             {{ $dataTable->table() }}
@@ -34,4 +34,26 @@
 
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+
+    <script>
+        $(document).ready(function() {
+            $('body').on('change', '.update-status', function() {
+                let id = $(this).data('id');
+
+                $.ajax({
+                    method: 'GET',
+                    url: '{{ route("admin.listing-reviews.update", ":id") }}'.replace(":id", id),
+                    data: {},
+                    success: function (response) {
+                        if(response.status === 'success') {
+                            toastr.success(response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                    }
+                })
+            })
+        })
+    </script>
 @endpush

@@ -123,22 +123,36 @@
                         @endif
                         <div class="wsus__listing_review">
                             <h4>reviews 04</h4>
-                            <div class="wsus__single_comment">
-                                <div class="wsus__single_comment_img">
-                                    <img src="images/user_large_img.jpg" alt="comment" class="img-fluid w-100">
+                            @foreach ($reviews as $review)
+                                <div class="wsus__single_comment">
+                                    <div class="wsus__single_comment_img">
+                                        <img src="{{ asset($review->user->avatar) }}" alt="comment" class="img-fluid w-100">
+                                    </div>
+                                    <div class="wsus__single_comment_text">
+                                        <h5>{{ $review->user->name }}<span>
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= $review->rating)
+                                                        <i class="fas fa-star"></i>
+                                                    @else
+                                                        <i class="far fa-star"></i>
+                                                    @endif
+                                                @endfor
+
+                                            </span></h5>
+                                        <span>{{ date('d-m-Y', strtotime($review->created_at)) }}</span>
+                                        <p>{{ $review->review }}</p>
+                                    </div>
                                 </div>
-                                <div class="wsus__single_comment_text">
-                                    <h5>sumon ali<span>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                        </span></h5>
-                                    <span>01-Dec-2021</span>
-                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad maxime placeat
-                                        ducimus.</p>
+                            @endforeach
+
+                            <div>
+                                <div id="pagination">
+                                    @if ($reviews->hasPages())
+                                    {{ $reviews->links() }}
+                                    @endif
                                 </div>
+
+
                             </div>
 
                             @auth
