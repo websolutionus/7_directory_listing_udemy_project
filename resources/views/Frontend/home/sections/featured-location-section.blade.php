@@ -35,12 +35,14 @@
                                 href="#"><i class="fas fa-info"></i></a>
                             <div class="wsus__featured_single_text">
                                 <p class="list_rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <span>(5 review)</span>
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <= intval($listing->reviews_avg_rating))
+                                            <i class="fas fa-star"></i>
+                                        @else
+                                            <i class="far fa-star"></i>
+                                        @endif
+                                    @endfor
+                                    <span>({{ $listing->reviews_count }} review)</span>
                                 </p>
                                 <a href="{{ route('listing.show', $listing->slug) }}">{{ truncate($listing->title, 18) }}</a>
                                 <p class="address">{{ $listing->location->name }}</p>

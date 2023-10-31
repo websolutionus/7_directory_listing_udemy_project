@@ -28,11 +28,22 @@ class FrontendController extends Controller
             $query->where('is_approved', 1);
         }])->where(['show_at_home' => 1, 'status' => 1])->take(6)->get();
 
+        // Featured location
         $featuredLocations = Location::with(['listings' => function($query) {
-            $query->where(['status' => 1, 'is_approved' => 1])->orderBy('id', 'desc')->limit(8);
+            $query->withAvg(['reviews' => function($query) {
+                $query->where('is_approved', 1);
+            }], 'rating')->withCount(['reviews' => function($query) {
+                $query->where('is_approved', 1);
+            }])->where(['status' => 1, 'is_approved' => 1])->orderBy('id', 'desc')->limit(8);
         }])->where(['show_at_home' => 1, 'status' => 1])->get();
 
-        $featuredListings = Listing::where(['status' => 1, 'is_approved' => 1, 'is_featured' => 1])
+        // featured listings
+        $featuredListings = Listing::withAvg(['reviews' => function($query) {
+                $query->where('is_approved', 1);
+            }], 'rating')->withCount(['reviews' => function($query) {
+                $query->where('is_approved', 1);
+            }])
+            ->where(['status' => 1, 'is_approved' => 1, 'is_featured' => 1])
             ->orderBy('id', 'desc')->limit(10)->get();
 
         return view('frontend.home.index',
@@ -47,7 +58,12 @@ class FrontendController extends Controller
     }
 
     function listings(Request $request) : View {
-        $listings = Listing::with(['category', 'location'])->where(['status' => 1, 'is_approved' => 1]);
+        $listings = Listing::withAvg(['reviews' => function($query) {
+            $query->where('is_approved', 1);
+        }], 'rating')
+        ->withCount(['reviews' => function($query) {
+            $query->where('is_approved', 1);
+        }])->with(['category', 'location'])->where(['status' => 1, 'is_approved' => 1]);
 
         $listings->when($request->has('category'), function($query) use ($request){
             $query->whereHas('category', function($query) use ($request) {
@@ -55,7 +71,7 @@ class FrontendController extends Controller
             });
         });
         $listings = $listings->paginate(12);
-
+       
         return view('frontend.pages.listings', compact('listings'));
     }
 
@@ -71,7 +87,7 @@ class FrontendController extends Controller
                 $query->where('is_approved', 1);
             }], 'rating')
             ->where(['status' => 1, 'is_verified' => 1])->where('slug', $slug)->first();
-        
+
         $listing->increment('views');
         $openStatus = $this->listingScheduleStatus($listing);
         $reviews = Review::with('user')->where(['listing_id' => $listing->id, 'is_approved' => 1])->paginate(10);
