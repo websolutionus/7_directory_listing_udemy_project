@@ -27,6 +27,7 @@ Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('listings', [FrontendController::class, 'listings'])->name('listings');
 Route::get('listing-modal/{id}', [FrontendController::class, 'listingModal'])->name('listing-modal');
 Route::get('listing/{slug}', [FrontendController::class, 'showListing'])->name('listing.show');
+Route::post('listing-review', [FrontendController::class, 'submitReview'])->name('listing-review.store');
 Route::get('packages', [FrontendController::class, 'showPackages'])->name('packages');
 Route::get('checkout/{id}', [FrontendController::class, 'checkout'])->name('checkout.index');
 
@@ -68,9 +69,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'user', 'as' => 'user.'], func
 
 });
 
-/** Payment Routes */
+
 
 Route::group(['middleware' => 'auth'], function(){
+    /** Payment Routes */
     Route::get('payment/success', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
     Route::get('payment/cancel', [PaymentController::class, 'paymentCancel'])->name('payment.cancel');
 

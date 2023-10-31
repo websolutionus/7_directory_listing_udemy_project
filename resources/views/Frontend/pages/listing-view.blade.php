@@ -140,76 +140,27 @@
                                         ducimus.</p>
                                 </div>
                             </div>
-                            <div class="wsus__single_comment">
-                                <div class="wsus__single_comment_img">
-                                    <img src="images/card_img.jpg" alt="comment" class="img-fluid w-100">
-                                </div>
-                                <div class="wsus__single_comment_text">
-                                    <h5>shimul sign <span>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                        </span></h5>
-                                    <span>21-Nov-2021</span>
-                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad maxime placeat
-                                        ducimus magni facilis delectus.</p>
-                                </div>
-                            </div>
-                            <div class="wsus__single_comment">
-                                <div class="wsus__single_comment_img">
-                                    <img src="images/user_large_img.jpg" alt="comment" class="img-fluid w-100">
-                                </div>
-                                <div class="wsus__single_comment_text">
-                                    <h5>sumon ali<span>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                        </span></h5>
-                                    <span>01-Dec-2021</span>
-                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad maxime placeat
-                                        ducimus.</p>
-                                </div>
-                            </div>
-                            <div class="wsus__single_comment">
-                                <div class="wsus__single_comment_img">
-                                    <img src="images/card_img.jpg" alt="comment" class="img-fluid w-100">
-                                </div>
-                                <div class="wsus__single_comment_text">
-                                    <h5>shimul sign <span>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                        </span></h5>
-                                    <span>21-Nov-2021</span>
-                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad maxime placeat
-                                        ducimus magni facilis delectus.</p>
-                                </div>
-                            </div>
-                            <form class="input_comment">
+
+                            <form action="{{ route('listing-review.store') }}" method="POST" class="input_comment">
+                                @csrf
                                 <h5>add a review</h5>
                                 <div class="row">
                                     <div class="col-xl-12">
                                         <div class="wsus__select_rating">
                                             <i class="fas fa-star"></i>
-                                            <select class="select_2" name="state">
+                                            <select class="select_2" name="rating">
                                                 <option value="">select rating</option>
-                                                <option value=""> 1 </option>
-                                                <option value=""> 2 </option>
-                                                <option value=""> 3 </option>
-                                                <option value=""> 4 </option>
-                                                <option value=""> 5 </option>
+                                                <option value="1"> 1 </option>
+                                                <option value="2"> 2 </option>
+                                                <option value="3"> 3 </option>
+                                                <option value="4"> 4 </option>
+                                                <option value="5"> 5 </option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-xl-12">
                                         <div class="blog_single_input">
-                                            <textarea cols="3" rows="5" placeholder="Comment"></textarea>
+                                            <textarea cols="3" rows="5" placeholder="Comment" name="review"></textarea>
                                             <button type="submit" class="read_btn">submit review</button>
                                         </div>
                                     </div>

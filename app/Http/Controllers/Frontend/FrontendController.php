@@ -115,4 +115,9 @@ class FrontendController extends Controller
 
         return view('frontend.pages.checkout', compact('package'));
     }
+
+    function submitReview(Request $request) : RedirectResponse {
+        dd($request->all());
+        return redirect()->back();
+    }
 }
