@@ -234,7 +234,7 @@
                             <div class="col-12">
                                 <div class="listing_det_side_contact">
                                     <h5>quick contact</h5>
-                                    <form>
+
                                         <form type="text" placeholder="Name*">
                                             <input type="email" placeholder="Email*">
                                             <input type="text" placeholder="Phone*">
@@ -244,6 +244,14 @@
                                         </form>
                                 </div>
                             </div>
+
+                            <div class="col-12">
+                                <div class="listing_det_side_contact">
+                                    <h5>claim this listing</h5>
+                                    <button type="submit" class="read_btn" data-bs-toggle="modal" data-bs-target="#claimModal">Claim</button>
+                                </div>
+                            </div>
+
                             @if (count($smellerListings) > 0)
                             <div class="col-12">
                                 <div class="listing_det_side_list">
@@ -264,6 +272,31 @@
                             </div>
                             @endif
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="wsus__map_popup">
+        <div class="modal fade" id="claimModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button type="button" class="btn-close popup_close" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="far fa-times"></i></button>
+                    <div class="modal-body listing_det_side_contact" style="box-shadow: none">
+
+                            <h5 class="mb-3">Claim Form</h5>
+
+                                <form type="text" placeholder="Name*">
+                                    <input type="email" placeholder="Email*">
+                                    <input type="text" placeholder="Phone*">
+                                    <input type="text" placeholder="Subject*">
+                                    <textarea cols="3" rows="5" placeholder="Message*"></textarea>
+                                    <button type="submit" class="">send</button>
+                                </form>
+
                     </div>
                 </div>
             </div>
