@@ -39,4 +39,8 @@ class Listing extends Model
     function schedules() : HasMany {
         return $this->hasMany(ListingSchedule::class, 'listing_id', 'id');
     }
+
+    function reviews() : HasMany {
+        return $this->hasMany(Review::class);
+    }
 }

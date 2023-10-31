@@ -66,7 +66,12 @@ class FrontendController extends Controller
     }
 
     function showListing(string $slug) : View {
-        $listing = Listing::where(['status' => 1, 'is_verified' => 1])->where('slug', $slug)->first();
+
+        $listing = Listing::withAvg(['reviews' => function($query){
+                $query->where('is_approved', 1);
+            }], 'rating')
+            ->where(['status' => 1, 'is_verified' => 1])->where('slug', $slug)->first();
+        
         $listing->increment('views');
         $openStatus = $this->listingScheduleStatus($listing);
         $reviews = Review::with('user')->where(['listing_id' => $listing->id, 'is_approved' => 1])->paginate(10);

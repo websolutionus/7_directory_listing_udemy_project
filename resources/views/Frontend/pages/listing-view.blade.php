@@ -47,13 +47,15 @@
                                 <h6>{{ $listing->title }}</h6>
                                 <p class="host_name">Hosted by <a href="agent_public_profile.html">{{ $listing->user->name }}</a></p>
                                 <p class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                    <b>4.5</b>
-                                    <span>(12 review)</span>
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <= intval($listing->reviews_avg_rating))
+                                            <i class="fas fa-star"></i>
+                                        @else
+                                            <i class="far fa-star"></i>
+                                        @endif
+                                    @endfor
+                                    <b>{{ intval($listing->reviews_avg_rating) }}</b>
+                                    <span>({{ count($reviews) }} review)</span>
                                 </p>
                                 <ul>
                                     @if ($listing->is_verified)
@@ -122,7 +124,7 @@
                         </div>
                         @endif
                         <div class="wsus__listing_review">
-                            <h4>reviews 04</h4>
+                            <h4>reviews {{ count($reviews) }}</h4>
                             @foreach ($reviews as $review)
                                 <div class="wsus__single_comment">
                                     <div class="wsus__single_comment_img">
@@ -151,8 +153,6 @@
                                     {{ $reviews->links() }}
                                     @endif
                                 </div>
-
-
                             </div>
 
                             @auth
