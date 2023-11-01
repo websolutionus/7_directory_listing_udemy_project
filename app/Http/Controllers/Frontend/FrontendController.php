@@ -68,11 +68,25 @@ class FrontendController extends Controller
             $query->where('is_approved', 1);
         }])->with(['category', 'location'])->where(['status' => 1, 'is_approved' => 1]);
 
-        $listings->when($request->has('category'), function($query) use ($request){
+        $listings->when($request->has('category') && $request->filled('category'), function($query) use ($request){
             $query->whereHas('category', function($query) use ($request) {
                 $query->where('slug', $request->category);
             });
         });
+
+        $listings->when($request->has('search') && $request->filled('search') , function($query) use ($request) {
+            $query->where(function($subQuery) use ($request) {
+                $subQuery->where('title', 'like', '%' . $request->search . '%')
+                ->orWhere('description', 'like', '%' . $request->search . '%');
+            });
+        });
+
+        $listings->when($request->has('location') && $request->filled('location') , function($query) use ($request) {
+            $query->whereHas('location', function($subQuery) use ($request) {
+                $subQuery->where('slug', $request->location);
+            });
+        });
+
         $listings = $listings->paginate(12);
 
         return view('frontend.pages.listings', compact('listings'));
