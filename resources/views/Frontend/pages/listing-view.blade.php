@@ -286,17 +286,15 @@
                     <button type="button" class="btn-close popup_close" data-bs-dismiss="modal" aria-label="Close"><i
                             class="far fa-times"></i></button>
                     <div class="modal-body listing_det_side_contact" style="box-shadow: none">
-
-                            <h5 class="mb-3">Claim Form</h5>
-
-                                <form type="text" placeholder="Name*">
-                                    <input type="email" placeholder="Email*">
-                                    <input type="text" placeholder="Phone*">
-                                    <input type="text" placeholder="Subject*">
-                                    <textarea cols="3" rows="5" placeholder="Message*"></textarea>
-                                    <button type="submit" class="">send</button>
-                                </form>
-
+                        <h5 class="mb-3">Claim Form</h5>
+                            <form action="{{ route('submit-claim') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="listing_id" value="{{ $listing->id }}">
+                                <input type="text" placeholder="Name*" name="name" value="{{ auth()->user()?->name }}">
+                                <input type="email" placeholder="Email*" name="email" value="{{ auth()->user()?->email }}">
+                                <textarea cols="3" rows="5" placeholder="Claim*" name="claim"></textarea>
+                                <button type="submit" class="">Submit</button>
+                            </form>
                     </div>
                 </div>
             </div>

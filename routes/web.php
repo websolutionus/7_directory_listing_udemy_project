@@ -31,6 +31,8 @@ Route::get('packages', [FrontendController::class, 'showPackages'])->name('packa
 Route::get('checkout/{id}', [FrontendController::class, 'checkout'])->name('checkout.index');
 // review routes
 Route::post('listing-review', [FrontendController::class, 'submitReview'])->name('listing-review.store')->middleware('auth');
+// Claim routes
+Route::post('submit-claim', [FrontendController::class, 'submitClaim'])->name('submit-claim');
 
 
 

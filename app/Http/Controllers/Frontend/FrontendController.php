@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Events\CreateOrder;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Claim;
 use App\Models\Hero;
 use App\Models\Listing;
 use App\Models\ListingSchedule;
@@ -71,7 +72,7 @@ class FrontendController extends Controller
             });
         });
         $listings = $listings->paginate(12);
-       
+
         return view('frontend.pages.listings', compact('listings'));
     }
 
@@ -163,5 +164,27 @@ class FrontendController extends Controller
         toastr()->success('Review Added Successfully!');
 
         return redirect()->back();
+    }
+
+    /** Submit Claim */
+    function submitClaim(Request $request) : RedirectResponse {
+        $request->validate([
+            'name' => ['required', 'max:255'],
+            'email' => ['required', 'max:255', 'email'],
+            'claim' => ['required', 'max:300'],
+            'listing_id' => ['required', 'integer']
+        ]);
+
+        $claim = new Claim();
+        $claim->listing_id = $request->listing_id;
+        $claim->name = $request->name;
+        $claim->email = $request->email;
+        $claim->claim = $request->claim;
+        $claim->save();
+
+        toastr()->success('Submitted Successfully!');
+
+        return redirect()->back();
+
     }
 }
