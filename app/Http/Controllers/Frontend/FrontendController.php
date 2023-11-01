@@ -24,6 +24,7 @@ class FrontendController extends Controller
     {
         $hero = Hero::first();
         $categories = Category::where('status', 1)->get();
+        $locations = Location::where('status', 1)->get();
         $packages = Package::where('status', 1)->where('show_at_home', 1)->take(3)->get();
         $featuredCategories = Category::withCount(['listings'=> function($query){
             $query->where('is_approved', 1);
@@ -54,7 +55,8 @@ class FrontendController extends Controller
                 'packages',
                 'featuredCategories',
                 'featuredLocations',
-                'featuredListings'
+                'featuredListings',
+                'locations'
             ));
     }
 
