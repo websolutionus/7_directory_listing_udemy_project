@@ -2,6 +2,7 @@
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AmenityController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ClaimController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\ListingController;
@@ -75,7 +76,8 @@ Route::group([
     Route::get('/listing-reviews', [ReviewController::class, 'index'])->name('listing-reviews.index');
     Route::get('/listing-reviews/{id}', [ReviewController::class, 'updateStatus'])->name('listing-reviews.update');
     Route::delete('/listing-reviews/{id}', [ReviewController::class, 'destroy'])->name('listing-reviews.destroy');
-
+    /** Claim routes */
+    Route::get('/listing-claims', [ClaimController::class, 'index'])->name('listing-claims.index');
 
 
     /** Package Routes */

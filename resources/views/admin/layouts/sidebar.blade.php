@@ -207,7 +207,7 @@
                     <li class="{{ setSidebarActive(['admin.listing.*']) }}"><a class="nav-link" href="{{ route('admin.listing.index') }}">All Listing</a></li>
                     <li class="{{ setSidebarActive(['admin.pending-listing.*']) }}"><a class="nav-link" href="{{ route('admin.pending-listing.index') }}">Pending Listings</a></li>
                     <li class="{{ setSidebarActive(['admin.listing-reviews.index']) }}"><a class="nav-link" href="{{ route('admin.listing-reviews.index') }}">Listing Reviews</a></li>
-
+                    <li class="{{ setSidebarActive(['admin.listing-claims.index']) }}"><a class="nav-link" href="{{ route('admin.listing-claims.index') }}">Claims</a></li>
 
                 </ul>
             </li>
