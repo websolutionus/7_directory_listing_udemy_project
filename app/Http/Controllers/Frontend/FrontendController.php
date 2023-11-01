@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Events\CreateOrder;
 use App\Http\Controllers\Controller;
+use App\Models\Amenity;
 use App\Models\Category;
 use App\Models\Claim;
 use App\Models\Hero;
@@ -61,6 +62,7 @@ class FrontendController extends Controller
     }
 
     function listings(Request $request) : View {
+        dd($request->all());
         $listings = Listing::withAvg(['reviews' => function($query) {
             $query->where('is_approved', 1);
         }], 'rating')
@@ -89,7 +91,11 @@ class FrontendController extends Controller
 
         $listings = $listings->paginate(12);
 
-        return view('frontend.pages.listings', compact('listings'));
+        $categories = Category::where('status', 1)->get();
+        $locations = Location::where('status', 1)->get();
+        $amenities = Amenity::where('status', 1)->get();
+
+        return view('frontend.pages.listings', compact('listings', 'categories', 'locations', 'amenities'));
     }
 
     function listingModal(string $id) {
