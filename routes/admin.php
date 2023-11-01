@@ -78,6 +78,8 @@ Route::group([
     Route::delete('/listing-reviews/{id}', [ReviewController::class, 'destroy'])->name('listing-reviews.destroy');
     /** Claim routes */
     Route::get('/listing-claims', [ClaimController::class, 'index'])->name('listing-claims.index');
+    Route::delete('/listing-claims/{id}', [ClaimController::class, 'destroy'])->name('listing-claims.destroy');
+
 
 
     /** Package Routes */

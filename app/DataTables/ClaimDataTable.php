@@ -23,13 +23,18 @@ class ClaimDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function($query){
-                $delete = '<a href="'.route('admin.category.destroy', $query->id).'" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
+                $delete = '<a href="'.route('admin.listing-claims.destroy', $query->id).'" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
 
                 return $delete;
             })
             ->addColumn('listing', function($query) {
                 $html = "<a target='_blank' href='".route('listing.show', $query->listing->slug)."'>".$query->listing->title."</a>";
                 return $html;
+            })
+            ->filterColumn('listing', function ($query, $keyword) {
+                $query->orWhereHas('listing', function($subQuery) use ($keyword){
+                    $subQuery->where('title', 'like', '%'.$keyword.'%');
+                });
             })
             ->rawColumns(['action', 'listing'])
             ->setRowId('id');
@@ -53,7 +58,7 @@ class ClaimDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
