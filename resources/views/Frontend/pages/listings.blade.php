@@ -36,14 +36,14 @@
                     <form action="{{ route('listings') }}" method="GET">
                         <div class="listing_grid_sidbar">
                             <div class="sidebar_line">
-                                <input type="text" placeholder="Search" name="search">
+                                <input type="text" placeholder="Search" name="search" value="{{ request()->search }}">
 
                             </div>
                             <div class="sidebar_line_select">
                                 <select class="select_2" name="category">
-                                    <option value="">categorys</option>
+                                    <option>categorys</option>
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->slug }}">{{ $category->name }}</option>
+                                        <option @selected($category->slug == request()->category) value="{{ $category->slug }}">{{ $category->name }}</option>
                                     @endforeach
 
                                 </select>
@@ -52,7 +52,7 @@
                                 <select class="select_2" name="location">
                                     <option value="">location</option>
                                     @foreach ($locations as $location)
-                                    <option value="{{ $location->slug }}">{{ $location->name }}</option>
+                                    <option @selected($location->slug == request()->location) value="{{ $location->slug }}">{{ $location->name }}</option>
                                     @endforeach
 
                                 </select>
@@ -60,7 +60,7 @@
                             <div class="wsus__pro_check">
                                 @foreach ($amenities as $amenity)
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="{{ $amenity->slug }}" name="amenity[]"
+                                    <input @checked(in_array($amenity->slug, (request()->has('amenity') && is_array(request()->amenity)) ? request()->amenity : [])) class="form-check-input" type="checkbox" value="{{ $amenity->slug }}" name="amenity[]"
                                         id="flexCheckIndeterminate-{{ $amenity->id }}">
                                     <label class="form-check-label" for="flexCheckIndeterminate-{{ $amenity->id }}">
                                         {{ $amenity->name }}
