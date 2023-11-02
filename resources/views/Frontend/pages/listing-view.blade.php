@@ -231,17 +231,11 @@
                                 </div>
                             </div>
                             @endif
+
                             <div class="col-12">
                                 <div class="listing_det_side_contact">
-                                    <h5>quick contact</h5>
-
-                                        <form type="text" placeholder="Name*">
-                                            <input type="email" placeholder="Email*">
-                                            <input type="text" placeholder="Phone*">
-                                            <input type="text" placeholder="Subject*">
-                                            <textarea cols="3" rows="5" placeholder="Message*"></textarea>
-                                            <button type="submit" class="read_btn">send</button>
-                                        </form>
+                                    <h5>Send a Message</h5>
+                                    <button type="submit" class="read_btn" data-bs-toggle="modal" data-bs-target="#messageModal">Message</button>
                                 </div>
                             </div>
 
@@ -293,6 +287,27 @@
                                 <input type="text" placeholder="Name*" name="name" value="{{ auth()->user()?->name }}">
                                 <input type="email" placeholder="Email*" name="email" value="{{ auth()->user()?->email }}">
                                 <textarea cols="3" rows="5" placeholder="Claim*" name="claim"></textarea>
+                                <button type="submit" class="">Submit</button>
+                            </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="wsus__map_popup">
+        <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <button type="button" class="btn-close popup_close" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="far fa-times"></i></button>
+                    <div class="modal-body listing_det_side_contact" style="box-shadow: none">
+                        <h5 class="mb-3">Message</h5>
+                            <form action="" method="POST">
+                                @csrf
+
+                                <textarea rows="5" placeholder="Message" name="claim"></textarea>
                                 <button type="submit" class="">Submit</button>
                             </form>
                     </div>
