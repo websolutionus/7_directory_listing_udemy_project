@@ -62,7 +62,7 @@ class FrontendController extends Controller
     }
 
     function listings(Request $request) : View {
-        dd($request->all());
+
         $listings = Listing::withAvg(['reviews' => function($query) {
             $query->where('is_approved', 1);
         }], 'rating')
@@ -86,6 +86,15 @@ class FrontendController extends Controller
         $listings->when($request->has('location') && $request->filled('location') , function($query) use ($request) {
             $query->whereHas('location', function($subQuery) use ($request) {
                 $subQuery->where('slug', $request->location);
+            });
+        });
+
+        $listings->when($request->has('amenity') && is_array($request->amenity) , function($query) use ($request) {
+
+            $amenityIds = Amenity::whereIn('slug', $request->amenity)->pluck('id');
+
+            $query->whereHas('amenities', function($subQuery) use ($amenityIds) {
+                $subQuery->whereIn('amenity_id', $amenityIds);
             });
         });
 
