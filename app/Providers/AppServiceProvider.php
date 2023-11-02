@@ -29,11 +29,15 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         // set pusher config
-        // config(['broadcasting.connections.pusher.key' => ]);
         $keys = ['pusher_app_id', 'pusher_app_key', 'pusher_secret_key', 'pusher_cluster'];
         $pusherConf = Setting::whereIn('key', $keys)->pluck('value', 'key')->toArray();
-        dd($pusherConf);
-        // dd(config('broadcasting.connections'));
+
+        config(['broadcasting.connections.pusher.key' => $pusherConf['pusher_app_key']]);
+        config(['broadcasting.connections.pusher.secret' => $pusherConf['pusher_secret_key']]);
+        config(['broadcasting.connections.pusher.app_id' => $pusherConf['pusher_app_id']]);
+        config(['broadcasting.connections.pusher.options.cluster' => $pusherConf['pusher_cluster']]);
+
+        dd(config('broadcasting.connections'));
 
     }
 }
