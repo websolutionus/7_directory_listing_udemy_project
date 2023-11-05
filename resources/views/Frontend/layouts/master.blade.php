@@ -23,6 +23,11 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
     <!-- <link rel="stylesheet" href="css/rtl.css"> -->
     @stack('styles')
+    <script>
+        var PUSHER_APP_KEY = "{{ config('settings.pusher_app_key') }}";
+        var PUSHER_APP_CLUSTER = "{{ config('settings.pusher_cluster') }}";
+    </script>
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
 </head>
 
 <body>
