@@ -5,6 +5,7 @@ use App\Http\Controllers\Fronentd\AgentListingImageGalleryController;
 use App\Http\Controllers\Frontend\AgentListingController;
 use App\Http\Controllers\Frontend\AgentListingScheduleController;
 use App\Http\Controllers\Frontend\AgentListingVideoGalleryController;
+use App\Http\Controllers\Frontend\ChatController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\OrderController;
@@ -50,6 +51,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'user', 'as' => 'user.'], func
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile-password', [ProfileController::class, 'updatePassword'])->name('profile-password.update');
+    Route::get('/messages', [ChatController::class, 'index'])->name('messages');
+
+    /** Message Routes */
+    Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('send-message');
 
     /** Linsting Routes */
     Route::resource('/listing', AgentListingController::class);

@@ -304,11 +304,11 @@
                             class="far fa-times"></i></button>
                     <div class="modal-body listing_det_side_contact" style="box-shadow: none">
                         <h5 class="mb-3">Message</h5>
-                            <form action="" method="POST">
+                            <form action="" method="POST" class="message-form">
                                 @csrf
-
-                                <textarea rows="5" placeholder="Message" name="claim"></textarea>
-                                <button type="submit" class="">Submit</button>
+                                <input type="hidden" value="{{ $listing->user_id }}" name="user_id">
+                                <textarea rows="5" placeholder="Message" name="message"></textarea>
+                                <button type="submit" class="">Send</button>
                             </form>
                     </div>
                 </div>
@@ -319,3 +319,30 @@
         LISTING DETAILS END
     ===========================-->
 @endsection
+
+@push('scripts')
+    <script>
+        $('.message-form').on('submit', function(e){
+            e.preventDefault();
+            let formData = $(this).serialize();
+
+            $.ajax({
+                method: 'POST',
+                url: '{{ route("user.send-message") }}',
+                data: formData,
+                beforeSend: function() {
+
+                },
+                success: function() {
+
+                },
+                error: function() {
+
+                },
+                complete: function() {
+
+                }
+            })
+        })
+    </script>
+@endpush
