@@ -13,6 +13,15 @@ use Illuminate\View\View;
 class ChatController extends Controller
 {
     function index() : View {
+        $senderId = auth()->user()->id;
+
+        $receivers = Chat::with('receiverProfile')->select('receiver_id')
+            ->where('sender_id', $senderId)
+            ->where('receiver_id', '!=', $senderId)
+            ->groupBy('receiver_id')
+            ->get();
+
+        dd($receivers);
         return view('frontend.dashboard.message.index');
     }
 
