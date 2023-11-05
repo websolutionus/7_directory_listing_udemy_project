@@ -15,14 +15,14 @@ class ChatController extends Controller
     function index() : View {
         $senderId = auth()->user()->id;
 
-        $receivers = Chat::with('receiverProfile')->select('receiver_id')
+        $receivers = Chat::with(['receiverProfile', 'listingProfile'])->select(['receiver_id', 'listing_id'])
             ->where('sender_id', $senderId)
             ->where('receiver_id', '!=', $senderId)
-            ->groupBy('receiver_id')
+            ->groupBy('receiver_id', 'listing_id')
             ->get();
 
-        dd($receivers);
-        return view('frontend.dashboard.message.index');
+
+        return view('frontend.dashboard.message.index', compact('receivers'));
     }
 
     function sendMessage(Request $request) {

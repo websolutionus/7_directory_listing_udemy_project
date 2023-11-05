@@ -15,21 +15,22 @@
                   <div class="tf__message_list">
                     <div class="nav flex-column nav-pills tf__massager_option" id="v-pills-tab" role="tablist"
                       aria-orientation="vertical">
-
-                      <div class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
-
-                        <div class="tf__single_massage d-flex">
-                          <div class="tf__single_massage_img">
-                            <img src="images/massage-1.png" alt="person" class="img-fluid w-100">
-                          </div>
-                          <div class="tf__single_massage_text">
-                            <h4>Charlene Reed</h4>
-                            <p>Lorem ipsum dolor si..</p>
-                            <span class="tf__massage_time">30 min</span>
-                          </div>
+                      @foreach ($receivers as $receiver)
+                        <div class="nav-link " id="v-pills-home-tab" data-bs-toggle="pill"
+                            data-bs-target="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                            <div class="tf__single_massage d-flex">
+                            <div class="tf__single_massage_img">
+                                <img src="{{ asset($receiver->listingProfile->image) }}" alt="person" class="img-fluid w-100">
+                            </div>
+                            <div class="tf__single_massage_text">
+                                <h4>{{ truncate($receiver->listingProfile->title, 15) }}</h4>
+                                <p><i class="fas fa-crown"></i> {{ $receiver->receiverProfile->name }}</p>
+                                <span class="tf__massage_time">30 min</span>
+                            </div>
+                            </div>
                         </div>
-                      </div>
+                      @endforeach
+
                     </div>
                   </div>
                 </div>
@@ -39,6 +40,7 @@
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                       aria-labelledby="v-pills-home-tab" tabindex="0">
                       <div class="tf___single_chat">
+
                         <div class="tf__single_chat_top">
                           <div class="img">
                             <img src="images/massage-4.png" alt="person" class="img-fluid w-100">
