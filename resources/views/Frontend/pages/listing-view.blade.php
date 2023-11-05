@@ -306,7 +306,8 @@
                         <h5 class="mb-3">Message</h5>
                             <form action="" method="POST" class="message-form">
                                 @csrf
-                                <input type="hidden" value="{{ $listing->user_id }}" name="user_id">
+                                <input type="hidden" value="{{ $listing->user_id }}" name="receiver_id">
+                                <input type="hidden" value="{{ $listing->id }}" name="listing_id">
                                 <textarea rows="5" placeholder="Message" name="message"></textarea>
                                 <button type="submit" class="">Send</button>
                             </form>
@@ -333,11 +334,16 @@
                 beforeSend: function() {
 
                 },
-                success: function() {
-
+                success: function(response) {
+                    if(response.status === 'success') {
+                        toastr.success(response.message);
+                    }
                 },
-                error: function() {
-
+                error: function(xhr, status, error) {
+                    console.log(xhr);
+                    if(xhr.responseJSON.message) {
+                        toastr.error(xhr.responseJSON.message);
+                    }
                 },
                 complete: function() {
 
