@@ -236,6 +236,7 @@
                                 <div class="listing_det_side_contact">
                                     <h5>Send a Message</h5>
                                     <button type="submit" class="read_btn" data-bs-toggle="modal" data-bs-target="#messageModal">Message</button>
+                                    <div class="alert alert-success mt-4 text-center d-none message-alert"><a href="{{ route('user.messages') }}">Click here</a> for go to inbox!</div>
                                 </div>
                             </div>
 
@@ -309,7 +310,7 @@
                                 <input type="hidden" value="{{ $listing->user_id }}" name="receiver_id">
                                 <input type="hidden" value="{{ $listing->id }}" name="listing_id">
                                 <textarea rows="5" placeholder="Message" name="message"></textarea>
-                                <button type="submit" class="">Send</button>
+                                <button type="submit" class="send-btn">Send</button>
                             </form>
                     </div>
                 </div>
@@ -332,7 +333,9 @@
                 url: '{{ route("user.send-message") }}',
                 data: formData,
                 beforeSend: function() {
-
+                    $('.send-btn').html(`<span class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></span>
+                    Sending...`);
+                    $('.send-btn').prop('disabled', true);
                 },
                 success: function(response) {
                     if(response.status === 'success') {
@@ -346,7 +349,11 @@
                     }
                 },
                 complete: function() {
-
+                    $('.send-btn').html(`Send`);
+                    $('.send-btn').prop('disabled', false);
+                    $('.message-form').trigger('reset');
+                    $('#messageModal').modal('hide');
+                    $('.message-alert').removeClass('d-none');
                 }
             })
         })
