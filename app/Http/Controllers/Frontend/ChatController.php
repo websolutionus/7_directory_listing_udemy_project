@@ -48,7 +48,7 @@ class ChatController extends Controller
         $receiverId = $request->receiver_id;
         $listingId = $request->listing_id;
 
-        $messages = Chat::whereIn('receiver_id', [$senderId, $receiverId])
+        $messages = Chat::with('senderProfile')->whereIn('receiver_id', [$senderId, $receiverId])
             ->whereIn('sender_id', [$senderId, $receiverId])
             ->where('listing_id', $listingId)
             ->orderBy('created_at', 'asc')

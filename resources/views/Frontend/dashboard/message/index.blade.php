@@ -52,9 +52,9 @@
                           </div>
                         </div>
 
-                        <div class="tf__single_chat_body">
+                        <div class="tf__single_chat_body main_chat_inbox">
 
-                          <div class="tf__chating">
+                          {{-- <div class="tf__chating">
                             <div class="tf__chating_img">
                               <img src="images/massage-4.png" alt="person" class="img-fluid w-100">
                             </div>
@@ -63,8 +63,8 @@
                                 aperiri at. Ut quas facilis qui</p>
                               <span>15 Jun, 2023, 05:26 AM</span>
                             </div>
-                          </div>
-                          <div class="tf__chating tf_chat_right">
+                          </div> --}}
+                          {{-- <div class="tf__chating tf_chat_right">
                             <div class="tf__chating_text">
                               <p>Please check your mail and come on meeting</p>
                               <span>15 Jun, 2023, 05:26 AM</span>
@@ -72,7 +72,7 @@
                             <div class="tf__chating_img">
                               <img src="images/massage-8.png" alt="person" class="img-fluid w-100">
                             </div>
-                          </div>
+                          </div> --}}
                         </div>
                         <form class="tf__single_chat_bottom">
                           <input type="text" placeholder="Type a message...">
@@ -101,11 +101,28 @@
         $('#chat_img').attr('src', profileImage);
         $('#chat_name').text(profileName);
     }
+    function formatDateTime(dateTimeString) {
+        const options = {
+            year: 'numeric',
+            month: 'short',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+        }
+        const formattedDateTime = new Intl.DateTimeFormat('en-US', options).format(new Date(dateTimeString));
+        return formattedDateTime;
+    }
 
     $(document).ready(function() {
+        const baseUri = "{{ asset('/') }}";
+
         $('.profile_card').on('click', function() {
             // update profile
             updateChatProfile($(this))
+
+            // clear the chat inbox
+            const mainChatInbox = $('.main_chat_inbox');
+            mainChatInbox.html("");
 
             // fetch conversation
             let listingId = $(this).data('listing-id');
@@ -122,7 +139,20 @@
 
                 },
                 success: function(response) {
-                    console.log(response);
+                    $.each(response, function(index, value){
+                        console.log(value);
+                        let message = `
+                            <div class="tf__chating tf_chat_right">
+                                <div class="tf__chating_text">
+                                  <p>${value.message}</p>
+                                  <span>${formatDateTime(value.created_at)}</span>
+                                </div>
+                                <div class="tf__chating_img">
+                                  <img src="${baseUri + value.sender_profile.avatar}" alt="person" class="img-fluid w-100">
+                                </div>
+                            </div>`
+                        mainChatInbox.append(message);
+                    })
                 },
                 error: function(xhr, status, error) {
 
