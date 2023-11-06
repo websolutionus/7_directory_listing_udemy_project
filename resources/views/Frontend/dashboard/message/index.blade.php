@@ -74,8 +74,12 @@
                             </div>
                           </div> --}}
                         </div>
-                        <form class="tf__single_chat_bottom">
-                          <input type="text" placeholder="Type a message...">
+                        <form class="tf__single_chat_bottom message-form" >
+                          @csrf
+                          <input type="hidden" id="receiver_id" name="receiver_id" value="">
+                          <input type="hidden" id="listing_id" name="listing_id" value="">
+
+                          <input type="text" id="message" placeholder="Type a message..." name="message">
                           <button class="tf__massage_btn"><i class="fas fa-paper-plane"></i></button>
                         </form>
                       </div>
@@ -95,12 +99,22 @@
 
 @push('scripts')
   <script>
+    const mainChatInbox = $('.main_chat_inbox');
+
+
     function updateChatProfile(data) {
         let profileImage = data.find('.profile_img').attr('src');
         let profileName = data.find('.profile_name').text();
         $('#chat_img').attr('src', profileImage);
         $('#chat_name').text(profileName);
+
+        // set listing id and receiver id in message box
+        let listingId = data.data('listing-id');
+        let receiverId = data.data('receiver-id');
+        $('#listing_id').val(listingId);
+        $('#receiver_id').val(receiverId);
     }
+
     function formatDateTime(dateTimeString) {
         const options = {
             year: 'numeric',
@@ -121,13 +135,11 @@
             updateChatProfile($(this))
 
             // clear the chat inbox
-            const mainChatInbox = $('.main_chat_inbox');
             mainChatInbox.html("");
 
             // fetch conversation
             let listingId = $(this).data('listing-id');
             let receiverId = $(this).data('receiver-id');
-
             $.ajax({
                 method: 'GET',
                 url: '{{ route("user.get-messages") }}',
@@ -140,7 +152,7 @@
                 },
                 success: function(response) {
                     $.each(response, function(index, value){
-                        console.log(value);
+
                         let message = `
                             <div class="tf__chating tf_chat_right">
                                 <div class="tf__chating_text">
@@ -156,6 +168,49 @@
                 },
                 error: function(xhr, status, error) {
 
+                },
+                complete: function() {
+
+                }
+            })
+        })
+
+        // send message
+        $('.message-form').on('submit', function(e){
+            e.preventDefault();
+            let formData = $(this).serialize();
+            let messageData = $('#message').val();
+            
+            // set message in inbox
+            let message = `
+                <div class="tf__chating tf_chat_right">
+                    <div class="tf__chating_text">
+                        <p>${messageData}</p>
+                        <span>sending..</span>
+                    </div>
+                    <div class="tf__chating_img">
+                        <img src="" alt="person" class="img-fluid w-100">
+                    </div>
+                </div>`
+            mainChatInbox.append(message);
+
+            $.ajax({
+                method: 'POST',
+                url: '{{ route("user.send-message") }}',
+                data: formData,
+                beforeSend: function() {
+
+                },
+                success: function(response) {
+                    if(response.status === 'success') {
+
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr);
+                    if(xhr.responseJSON.message) {
+                        toastr.error(xhr.responseJSON.message);
+                    }
                 },
                 complete: function() {
 
