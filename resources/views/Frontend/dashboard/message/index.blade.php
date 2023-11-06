@@ -16,14 +16,14 @@
                     <div class="nav flex-column nav-pills tf__massager_option" id="v-pills-tab" role="tablist"
                       aria-orientation="vertical">
                       @foreach ($receivers as $receiver)
-                        <div class="nav-link " id="v-pills-home-tab" data-bs-toggle="pill"
+                        <div class="nav-link profile_card" id="v-pills-home-tab" data-bs-toggle="pill"
                             data-bs-target="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
                             <div class="tf__single_massage d-flex">
                             <div class="tf__single_massage_img">
-                                <img src="{{ asset($receiver->listingProfile->image) }}" alt="person" class="img-fluid w-100">
+                                <img  src="{{ asset($receiver->listingProfile->image) }}" alt="person" class="img-fluid w-100 profile_img">
                             </div>
                             <div class="tf__single_massage_text">
-                                <h4>{{ truncate($receiver->listingProfile->title, 15) }}</h4>
+                                <h4 class="profile_name">{{ truncate($receiver->listingProfile->title, 15) }}</h4>
                                 <p><i class="fas fa-crown"></i> {{ $receiver->receiverProfile->name }}</p>
                                 <span class="tf__massage_time">30 min</span>
                             </div>
@@ -43,12 +43,12 @@
 
                         <div class="tf__single_chat_top">
                           <div class="img">
-                            <img src="images/massage-4.png" alt="person" class="img-fluid w-100">
+                            <img id="chat_img" src="images/massage-4.png" alt="person" class="img-fluid w-100">
                           </div>
                           <div class="text">
-                            <h4>Charlene Reed</h4>
-                            <p>active</p>
-                            <a href="#">Clear Chat</a>
+                            <h4 id="chat_name">Charlene Reed</h4>
+                            {{-- <p>active</p> --}}
+
                           </div>
                         </div>
 
@@ -572,3 +572,21 @@
   </section>
 
 @endsection
+
+@push('scripts')
+  <script>
+    function updateChatProfile(data) {
+        let profileImage = data.find('.profile_img').attr('src');
+        let profileName = data.find('.profile_name').text();
+        $('#chat_img').attr('src', profileImage);
+        $('#chat_name').text(profileName);
+    }
+
+    $(document).ready(function() {
+        $('.profile_card').on('click', function() {
+            updateChatProfile($(this))
+        })
+    })
+
+  </script>
+@endpush
