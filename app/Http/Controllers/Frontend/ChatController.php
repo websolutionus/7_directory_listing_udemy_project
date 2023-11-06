@@ -44,6 +44,16 @@ class ChatController extends Controller
     }
 
     function getMessages(Request $request) {
-        
+        $senderId = auth()->user()->id;
+        $receiverId = $request->receiver_id;
+        $listingId = $request->listing_id;
+
+        $messages = Chat::whereIn('receiver_id', [$senderId, $receiverId])
+            ->whereIn('sender_id', [$senderId, $receiverId])
+            ->where('listing_id', $listingId)
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return response($messages);
     }
 }
