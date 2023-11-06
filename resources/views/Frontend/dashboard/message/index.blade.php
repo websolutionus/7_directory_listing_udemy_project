@@ -39,7 +39,7 @@
 
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                       aria-labelledby="v-pills-home-tab" tabindex="0">
-                      <div class="tf___single_chat">
+                      <div class="tf___single_chat d-none">
 
                         <div class="tf__single_chat_top">
                           <div class="img">
@@ -73,6 +73,7 @@
                               <img src="images/massage-8.png" alt="person" class="img-fluid w-100">
                             </div>
                           </div> --}}
+
                         </div>
                         <form class="tf__single_chat_bottom message-form" >
                           @csrf
@@ -100,7 +101,12 @@
 @push('scripts')
   <script>
     const mainChatInbox = $('.main_chat_inbox');
-
+    const loader = `
+            <div class="d-flex justify-content-center align-items-center" style="height: 500px">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>`
 
     function updateChatProfile(data) {
         let profileImage = data.find('.profile_img').attr('src');
@@ -113,6 +119,10 @@
         let receiverId = data.data('receiver-id');
         $('#listing_id').val(listingId);
         $('#receiver_id').val(receiverId);
+    }
+
+    function scrollToBootom() {
+        mainChatInbox.scrollTop(mainChatInbox.prop("scrollHeight"));
     }
 
     function formatDateTime(dateTimeString) {
@@ -131,6 +141,8 @@
         const baseUri = "{{ asset('/') }}";
 
         $('.profile_card').on('click', function() {
+            // make inbox visible
+            $('.tf___single_chat').removeClass('d-none');
             // update profile
             updateChatProfile($(this))
 
@@ -148,9 +160,11 @@
                     'receiver_id': receiverId
                 },
                 beforeSend: function() {
-
+                    mainChatInbox.html(loader);
                 },
                 success: function(response) {
+                    mainChatInbox.html("");
+
                     $.each(response, function(index, value){
 
                         let message = `
@@ -165,11 +179,10 @@
                             </div>`
                         mainChatInbox.append(message);
                     })
+
+                    scrollToBootom()
                 },
                 error: function(xhr, status, error) {
-
-                },
-                complete: function() {
 
                 }
             })
@@ -192,13 +205,16 @@
                 <div class="tf__chating tf_chat_right">
                     <div class="tf__chating_text">
                         <p>${messageData}</p>
-                        <span>sending..</span>
+                        <span class="sending">sending..</span>
                     </div>
                     <div class="tf__chating_img">
                         <img src="${USER.avatar}" alt="person" class="img-fluid w-100">
                     </div>
                 </div>`
             mainChatInbox.append(message);
+
+            scrollToBootom()
+
             // rest form
             $('.message-form').trigger('reset');
 
@@ -211,7 +227,7 @@
                 },
                 success: function(response) {
                     if(response.status === 'success') {
-                       
+                        $('.sending').remove();
                     }
                 },
                 error: function(xhr, status, error) {
