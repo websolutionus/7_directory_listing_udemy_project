@@ -180,7 +180,13 @@
             e.preventDefault();
             let formData = $(this).serialize();
             let messageData = $('#message').val();
-            
+
+            var formSubmitting = false;
+
+            if(formSubmitting || messageData === "") {
+                return;
+            }
+
             // set message in inbox
             let message = `
                 <div class="tf__chating tf_chat_right">
@@ -189,21 +195,23 @@
                         <span>sending..</span>
                     </div>
                     <div class="tf__chating_img">
-                        <img src="" alt="person" class="img-fluid w-100">
+                        <img src="${USER.avatar}" alt="person" class="img-fluid w-100">
                     </div>
                 </div>`
             mainChatInbox.append(message);
+            // rest form
+            $('.message-form').trigger('reset');
 
             $.ajax({
                 method: 'POST',
                 url: '{{ route("user.send-message") }}',
                 data: formData,
                 beforeSend: function() {
-
+                    formSubmitting = true;
                 },
                 success: function(response) {
                     if(response.status === 'success') {
-
+                       
                     }
                 },
                 error: function(xhr, status, error) {
@@ -213,7 +221,7 @@
                     }
                 },
                 complete: function() {
-
+                    formSubmitting = false;
                 }
             })
         })
