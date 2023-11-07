@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Events\Message;
 use App\Http\Controllers\Controller;
 use App\Models\Chat;
 use Auth;
@@ -38,6 +39,8 @@ class ChatController extends Controller
         $chat->receiver_id = $request->receiver_id;
         $chat->message = $request->message;
         $chat->save();
+
+        broadcast(new Message($chat->message, $chat->sender_id, $chat->receiver_id));
 
         return response(['status' => 'success', 'message' => 'Message sent successfully!']);
 
