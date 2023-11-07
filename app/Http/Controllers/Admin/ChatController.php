@@ -23,7 +23,7 @@ class ChatController extends Controller
     }
 
     function getMessages(Request $request) {
-       
+
         $receiverId = auth()->user()->id;
         $senderId = $request->sender_id;
         $listingId = $request->listing_id;
@@ -36,4 +36,23 @@ class ChatController extends Controller
 
         return response($messages);
     }
+
+    function sendMessage(Request $request) {
+        $request->validate([
+            'receiver_id' => ['required', 'integer'],
+            'listing_id' => ['required', 'integer'],
+            'message' => ['required', 'max:1000', 'string']
+        ]);
+
+        $chat = new Chat();
+        $chat->listing_id = $request->listing_id;
+        $chat->sender_id = auth()->user()->id;
+        $chat->receiver_id = $request->receiver_id;
+        $chat->message = $request->message;
+        $chat->save();
+
+        return response(['status' => 'success', 'message' => 'Message sent successfully!']);
+
+    }
+
 }

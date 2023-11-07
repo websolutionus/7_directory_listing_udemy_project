@@ -90,6 +90,7 @@ Route::group([
     /** Messages Routes */
     Route::get('messages', [ChatController::class, 'index'])->name('messages.index');
     Route::get('/get-messages', [ChatController::class, 'getMessages'])->name('get-messages');
+    Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('send-message');
 
     /** Settings Routes */
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');

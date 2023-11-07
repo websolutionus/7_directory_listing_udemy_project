@@ -27,7 +27,7 @@
                                         <img alt="image" class="mr-3 rounded-circle" width="50"
                                             src="{{ asset($sender->senderProfile->avatar) }}">
                                         <div class="media-body">
-                                            <div class="mt-0 mb-1 font-weight-bold">{{ $sender->senderProfile->name }}
+                                            <div class="mt-0 mb-1 font-weight-bold profile_name">{{ $sender->senderProfile->name }}
                                                 <small class="text-primary">( {{ $sender->listingProfile->title }} )</small>
                                             </div>
                                             <div class="text-success text-small font-600-bold"><i class="fas fa-circle"></i>
@@ -44,10 +44,10 @@
                 <div class="col-12 col-sm-6 col-lg-8">
                     <div class="card chat-box" id="mychatbox" style="height: 70vh">
                         <div class="card-header">
-                            <h4>Chat with Rizal</h4>
+                            <h4 id="chat_name">Chat with Rizal</h4>
                         </div>
                         <div class="card-body chat-content">
-                            <div class="chat-item chat-left" style="">
+                            {{-- <div class="chat-item chat-left" style="">
                                 <img src="../dist/img/avatar/avatar-1.png">
                                 <div class="chat-details">
                                     <div class="chat-text">You wanna know?</div>
@@ -59,11 +59,14 @@
                                     <div class="chat-text">Wat?!</div>
                                     <div class="chat-time">12:23</div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="card-footer chat-form">
-                            <form id="chat-form">
-                                <input type="text" class="form-control" placeholder="Type a message">
+                            <form id="chat-form" class="message-form">
+                                @csrf
+                                <input type="hidden" id="receiver_id" name="receiver_id" value="">
+                                <input type="hidden" id="listing_id" name="listing_id" value="">
+                                <input type="text" class="form-control" id="message" placeholder="Type a message" name="message">
                                 <button class="btn btn-primary">
                                     <i class="far fa-paper-plane"></i>
                                 </button>
@@ -88,6 +91,20 @@
                 </div>
             </div>`
 
+        function updateChatProfile(data) {
+            console.log(data)
+            // let profileImage = data.find('.profile_img').attr('src');
+            let profileName = data.find('.profile_name').text();
+            // $('#chat_img').attr('src', profileImage);
+            $('#chat_name').text(profileName);
+
+            // set listing id and receiver id in message box
+            let listingId = data.data('listing-id');
+            let receiverId = data.data('sender-id');
+            $('#listing_id').val(listingId);
+            $('#receiver_id').val(receiverId);
+        }
+
         function scrollToBootom() {
             mainChatInbox.scrollTop(mainChatInbox.prop("scrollHeight"));
         }
@@ -108,7 +125,7 @@
             // make inbox visible
             // $('.tf___single_chat').removeClass('d-none');
             // update profile
-            // updateChatProfile($(this))
+            updateChatProfile($(this))
 
             // clear the chat inbox
             mainChatInbox.html("");
@@ -131,16 +148,15 @@
 
                     $.each(response, function(index, value) {
 
-                        let message = `
-                    <div class="tf__chating tf_chat_right">
-                        <div class="tf__chating_text">
-                          <p>${value.message}</p>
-                          <span>${formatDateTime(value.created_at)}</span>
+                    let message = `
+                    <div class="chat-item chat-left" style="">
+                        <img src="${baseUri + value.sender_profile.avatar}">
+                        <div class="chat-details">
+                            <div class="chat-text">${value.message}</div>
+                            <div class="chat-time">${formatDateTime(value.created_at)}</div>
                         </div>
-                        <div class="tf__chating_img">
-                          <img src="${baseUri + value.sender_profile.avatar}" alt="person" class="img-fluid w-100">
-                        </div>
-                    </div>`
+                    </div>
+                    `
                         mainChatInbox.append(message);
                     })
 
@@ -148,6 +164,60 @@
                 },
                 error: function(xhr, status, error) {
 
+                }
+            })
+        })
+
+        // send message
+        $('.message-form').on('submit', function(e){
+            e.preventDefault();
+            let formData = $(this).serialize();
+            let messageData = $('#message').val();
+
+            var formSubmitting = false;
+
+            if(formSubmitting || messageData === "") {
+                return;
+            }
+
+            // set message in inbox
+
+            let message = `
+                <div class="chat-item chat-right" style="">
+                    <img src="${USER.avatar}">
+                    <div class="chat-details">
+                        <div class="chat-text">${messageData}</div>
+                        <div class="sending">sending...</div>
+                    </div>
+                </div>
+                `
+            mainChatInbox.append(message);
+
+            scrollToBootom()
+
+            // rest form
+            $('.message-form').trigger('reset');
+
+            $.ajax({
+                method: 'POST',
+                url: '{{ route("admin.send-message") }}',
+                data: formData,
+                beforeSend: function() {
+                    formSubmitting = true;
+                },
+                success: function(response) {
+                    if(response.status === 'success') {
+                        $('.sending').remove();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr);
+                    if(xhr.responseJSON.message) {
+                        toastr.error(xhr.responseJSON.message);
+                    }
+                },
+                complete: function() {
+                    formSubmitting = false;
                 }
             })
         })
