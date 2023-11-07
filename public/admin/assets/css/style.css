@@ -2809,3 +2809,10 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
 .ui-timepicker-container {
     z-index: 1111 !important;
 }
+
+.chat-profile {
+  width: 50px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  height: 50px !important;
+}

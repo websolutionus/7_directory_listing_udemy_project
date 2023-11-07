@@ -54,7 +54,8 @@
                                     <div class="chat-time">12:23</div>
                                 </div>
                             </div>
-                            <div class="chat-item chat-right" style=""><img src="../dist/img/avatar/avatar-2.png">
+                            <div class="chat-item chat-right" style="">
+                                <img src="../dist/img/avatar/avatar-2.png">
                                 <div class="chat-details">
                                     <div class="chat-text">Wat?!</div>
                                     <div class="chat-time">12:23</div>
@@ -149,8 +150,8 @@
                     $.each(response, function(index, value) {
 
                     let message = `
-                    <div class="chat-item chat-left" style="">
-                        <img src="${baseUri + value.sender_profile.avatar}">
+                    <div class="chat-item ${value.sender_id == USER.id ? 'chat-right' : 'chat-left'}" style="">
+                        <img class="chat-profile" src="${baseUri + value.sender_profile.avatar}">
                         <div class="chat-details">
                             <div class="chat-text">${value.message}</div>
                             <div class="chat-time">${formatDateTime(value.created_at)}</div>
@@ -184,7 +185,7 @@
 
             let message = `
                 <div class="chat-item chat-right" style="">
-                    <img src="${USER.avatar}">
+                    <img class="chat-profile" src="${USER.avatar}">
                     <div class="chat-details">
                         <div class="chat-text">${messageData}</div>
                         <div class="sending">sending...</div>
