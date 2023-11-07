@@ -10,19 +10,19 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class Message
+class Message implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels, ShouldBroadcast;
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $messageData;
     public $senderId;
     public $receiverId;
     /**
      * Create a new event instance.
      */
-    public function __construct($message, $senderId, $receiverId)
+    public function __construct($messageData, $senderId, $receiverId)
     {
-        $this->$message = $message;
+        $this->$messageData = $messageData;
         $this->senderId = $senderId;
         $this->receiverId = $receiverId;
     }
@@ -35,13 +35,13 @@ class Message
     public function broadcastOn(): array
     {
         return [
-            new PresenceChannel('presence.chat.'.$this->receiverId),
+            new PrivateChannel('message.'.$this->receiverId),
         ];
     }
 
     function broadcastWith() : array {
         return [
-                'message' => $this->message,
+                'message_data' => $this->messageData,
                 'sender_id' => $this->senderId,
                 'receiver_id' => $this->receiverId,
                 'user' => auth()->user()->only(['id', 'name', 'avatar'])

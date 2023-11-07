@@ -33,7 +33,7 @@
             avatar: "{{ asset(auth()->user()?->avatar) }}"
         }
     </script>
-    @vite(['resources/js/app.js'])
+    @vite(['resources/js/app.js', 'resources/js/admin.js'])
 </head>
 
 <body>
