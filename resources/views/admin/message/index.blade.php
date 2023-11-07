@@ -42,25 +42,12 @@
                 </div>
 
                 <div class="col-12 col-sm-6 col-lg-8">
-                    <div class="card chat-box" id="mychatbox" style="height: 70vh">
+                    <div class="card chat-box d-none" id="mychatbox" style="height: 70vh">
                         <div class="card-header">
                             <h4 id="chat_name">Chat with Rizal</h4>
                         </div>
                         <div class="card-body chat-content">
-                            {{-- <div class="chat-item chat-left" style="">
-                                <img src="../dist/img/avatar/avatar-1.png">
-                                <div class="chat-details">
-                                    <div class="chat-text">You wanna know?</div>
-                                    <div class="chat-time">12:23</div>
-                                </div>
-                            </div>
-                            <div class="chat-item chat-right" style="">
-                                <img src="../dist/img/avatar/avatar-2.png">
-                                <div class="chat-details">
-                                    <div class="chat-text">Wat?!</div>
-                                    <div class="chat-time">12:23</div>
-                                </div>
-                            </div> --}}
+
                         </div>
                         <div class="card-footer chat-form">
                             <form id="chat-form" class="message-form">
@@ -124,7 +111,7 @@
 
         $('.profile_card').on('click', function() {
             // make inbox visible
-            // $('.tf___single_chat').removeClass('d-none');
+            $('.chat-box').removeClass('d-none');
             // update profile
             updateChatProfile($(this))
 

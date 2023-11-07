@@ -21,6 +21,7 @@
                             <div class="tf__single_massage d-flex">
                             <div class="tf__single_massage_img">
                                 <img  src="{{ asset($receiver->listingProfile->image) }}" alt="person" class="img-fluid w-100 profile_img">
+                                <span class="user-active"></span>
                             </div>
                             <div class="tf__single_massage_text">
                                 <h4 class="profile_name">{{ truncate($receiver->listingProfile->title, 15) }}</h4>
@@ -53,26 +54,6 @@
                         </div>
 
                         <div class="tf__single_chat_body main_chat_inbox">
-
-                          {{-- <div class="tf__chating">
-                            <div class="tf__chating_img">
-                              <img src="images/massage-4.png" alt="person" class="img-fluid w-100">
-                            </div>
-                            <div class="tf__chating_text">
-                              <p>Cum id mundi admodum menandri, eum errem is any one
-                                aperiri at. Ut quas facilis qui</p>
-                              <span>15 Jun, 2023, 05:26 AM</span>
-                            </div>
-                          </div> --}}
-                          {{-- <div class="tf__chating tf_chat_right">
-                            <div class="tf__chating_text">
-                              <p>Please check your mail and come on meeting</p>
-                              <span>15 Jun, 2023, 05:26 AM</span>
-                            </div>
-                            <div class="tf__chating_img">
-                              <img src="images/massage-8.png" alt="person" class="img-fluid w-100">
-                            </div>
-                          </div> --}}
 
                         </div>
                         <form class="tf__single_chat_bottom message-form" >
@@ -166,17 +147,31 @@
                     mainChatInbox.html("");
 
                     $.each(response, function(index, value){
-
-                        let message = `
-                            <div class="tf__chating tf_chat_right">
+                        if(value.sender_id == USER.id){
+                            var message = `
+                                <div class="tf__chating tf_chat_right">
+                                    <div class="tf__chating_text">
+                                      <p>${value.message}</p>
+                                      <span>${formatDateTime(value.created_at)}</span>
+                                    </div>
+                                    <div class="tf__chating_img">
+                                      <img src="${baseUri + value.sender_profile.avatar}" alt="person" class="img-fluid w-100 rounded-circle">
+                                    </div>
+                                </div>`
+                        }else {
+                            var message = `
+                            <div class="tf__chating">
+                                <div class="tf__chating_img">
+                                  <img src="${baseUri + value.sender_profile.avatar}" alt="person" class="img-fluid w-100 rounded-circle">
+                                </div>
                                 <div class="tf__chating_text">
                                   <p>${value.message}</p>
                                   <span>${formatDateTime(value.created_at)}</span>
                                 </div>
-                                <div class="tf__chating_img">
-                                  <img src="${baseUri + value.sender_profile.avatar}" alt="person" class="img-fluid w-100">
-                                </div>
-                            </div>`
+                              </div>
+                            `
+                        }
+
                         mainChatInbox.append(message);
                     })
 
@@ -208,7 +203,7 @@
                         <span class="sending">sending..</span>
                     </div>
                     <div class="tf__chating_img">
-                        <img src="${USER.avatar}" alt="person" class="img-fluid w-100">
+                        <img src="${USER.avatar}" alt="person" class="img-fluid w-100 rounded-circle">
                     </div>
                 </div>`
             mainChatInbox.append(message);

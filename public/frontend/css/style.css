@@ -5846,3 +5846,16 @@ AGENT PROFILE END
     margin: auto;
     text-align: center;
   }
+
+.user-active {
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  background: #11e511;
+  border-radius: 50%;
+  bottom: 0;
+  right: 1px;
+}
+.tf__single_massage_img {
+    position: relative;
+}
