@@ -20,34 +20,16 @@
             </div>
             <div class="card-body">
               <ul class="list-unstyled list-unstyled-border">
-                <li class="media">
-                  <img alt="image" class="mr-3 rounded-circle" width="50" src="assets/img/avatar/avatar-1.png">
+                @foreach ($senders as $sender)
+                <li class="media" style="cursor: pointer">
+                  <img alt="image" class="mr-3 rounded-circle" width="50" src="{{ asset($sender->senderProfile->avatar) }}">
                   <div class="media-body">
-                    <div class="mt-0 mb-1 font-weight-bold">Hasan Basri</div>
+                    <div class="mt-0 mb-1 font-weight-bold">{{ $sender->senderProfile->name }} <small class="text-primary">( {{ $sender->listingProfile->title }} )</small></div>
                     <div class="text-success text-small font-600-bold"><i class="fas fa-circle"></i> Online</div>
                   </div>
                 </li>
-                <li class="media">
-                  <img alt="image" class="mr-3 rounded-circle" width="50" src="assets/img/avatar/avatar-2.png">
-                  <div class="media-body">
-                    <div class="mt-0 mb-1 font-weight-bold">Bagus Dwi Cahya</div>
-                    <div class="text-small font-weight-600 text-muted"><i class="fas fa-circle"></i> Offline</div>
-                  </div>
-                </li>
-                <li class="media">
-                  <img alt="image" class="mr-3 rounded-circle" width="50" src="assets/img/avatar/avatar-3.png">
-                  <div class="media-body">
-                    <div class="mt-0 mb-1 font-weight-bold">Wildan Ahdian</div>
-                    <div class="text-small font-weight-600 text-success"><i class="fas fa-circle"></i> Online</div>
-                  </div>
-                </li>
-                <li class="media">
-                  <img alt="image" class="mr-3 rounded-circle" width="50" src="assets/img/avatar/avatar-4.png">
-                  <div class="media-body">
-                    <div class="mt-0 mb-1 font-weight-bold">Rizal Fakhri</div>
-                    <div class="text-small font-weight-600 text-success"><i class="fas fa-circle"></i> Online</div>
-                  </div>
-                </li>
+                @endforeach
+
               </ul>
             </div>
           </div>
