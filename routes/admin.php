@@ -2,6 +2,7 @@
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AmenityController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\ClaimController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HeroController;
@@ -80,13 +81,14 @@ Route::group([
     Route::get('/listing-claims', [ClaimController::class, 'index'])->name('listing-claims.index');
     Route::delete('/listing-claims/{id}', [ClaimController::class, 'destroy'])->name('listing-claims.destroy');
 
-
-
     /** Package Routes */
     Route::resource('packages', PackageController::class);
 
     /** Order Routes */
     Route::resource('orders', OrderController::class);
+
+    /** Messages Routes */
+    Route::get('messages', [ChatController::class, 'index'])->name('messages.index');
 
 
     /** Settings Routes */
