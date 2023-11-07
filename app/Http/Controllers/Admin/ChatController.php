@@ -21,4 +21,19 @@ class ChatController extends Controller
 
         return view('admin.message.index', compact('senders'));
     }
+
+    function getMessages(Request $request) {
+       
+        $receiverId = auth()->user()->id;
+        $senderId = $request->sender_id;
+        $listingId = $request->listing_id;
+
+        $messages = Chat::with('senderProfile')->whereIn('receiver_id', [$senderId, $receiverId])
+            ->whereIn('sender_id', [$senderId, $receiverId])
+            ->where('listing_id', $listingId)
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return response($messages);
+    }
 }
