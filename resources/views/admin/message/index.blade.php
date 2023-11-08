@@ -24,7 +24,7 @@
                                     <li class="media profile_card" style="cursor: pointer"
                                         data-sender-id="{{ $sender->senderProfile->id }}"
                                         data-listing-id="{{ $sender->listingProfile->id }}">
-                                        <img alt="image" class="mr-3 rounded-circle" width="50"
+                                        <img alt="image" class="mr-3 rounded-circle profile_img" width="50"
                                             src="{{ asset($sender->senderProfile->avatar) }}">
                                         <div class="media-body">
                                             <div class="mt-0 mb-1 font-weight-bold profile_name">{{ $sender->senderProfile->name }}
@@ -116,6 +116,7 @@
         $('.profile_card').on('click', function() {
             // make inbox visible
             $('.chat-box').removeClass('d-none');
+            $(this).find('.profile_img').removeClass('new_message');
             // update profile
             updateChatProfile($(this))
 

@@ -2816,3 +2816,6 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
   object-fit: cover !important;
   height: 50px !important;
 }
+.new_message {
+    border: 5px solid #6777ef !important;
+}

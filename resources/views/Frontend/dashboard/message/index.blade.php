@@ -127,6 +127,7 @@
         $('.profile_card').on('click', function() {
             // make inbox visible
             $('.tf___single_chat').removeClass('d-none');
+            $(this).find('.profile_img').removeClass('new_message');
             // update profile
             updateChatProfile($(this))
 

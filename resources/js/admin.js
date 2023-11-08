@@ -19,5 +19,15 @@ window.Echo.private('message.'+USER.id).listen(
             $('.chat-content').append(message);
             scrollToBootom()
         }
+
+        $('.profile_card').each(function(){
+            let profileUserId = $(this).data('sender-id');
+            let profileListingId = $(this).data('listing-id');
+
+            if(profileUserId == e.user.id && profileListingId == e.listing_id) {
+                $(this).find('.profile_img').addClass('new_message');
+            }
+
+        })
     }
 )
