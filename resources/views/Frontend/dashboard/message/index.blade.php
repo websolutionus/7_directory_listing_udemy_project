@@ -53,7 +53,7 @@
                           </div>
                         </div>
 
-                        <div class="tf__single_chat_body main_chat_inbox">
+                        <div class="tf__single_chat_body main_chat_inbox" data-inbox-user="" data-inbox-listing="">
 
                         </div>
                         <form class="tf__single_chat_bottom message-form" >
@@ -100,6 +100,9 @@
         let receiverId = data.data('receiver-id');
         $('#listing_id').val(listingId);
         $('#receiver_id').val(receiverId);
+
+        mainChatInbox.attr("data-inbox-user", receiverId)
+        mainChatInbox.attr("data-inbox-listing", listingId)
     }
 
     function scrollToBootom() {

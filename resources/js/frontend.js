@@ -6,6 +6,9 @@ window.Echo.private('message.'+USER.id).listen(
     "Message",
     (e) => {
         console.log(e);
+        let userId = $('.main_chat_inbox').attr("data-inbox-user")
+        let listingId = $('.main_chat_inbox').attr("data-inbox-listing")
+        if(userId == e.user.id && listingId == e.listing_id){
         var message = `
             <div class="tf__chating">
                 <div class="tf__chating_img">
@@ -18,5 +21,6 @@ window.Echo.private('message.'+USER.id).listen(
             `
             $('.main_chat_inbox').append(message);
             scrollToBootom()
+        }
     }
 )

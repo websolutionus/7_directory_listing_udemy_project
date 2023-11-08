@@ -5859,3 +5859,7 @@ AGENT PROFILE END
 .tf__single_massage_img {
     position: relative;
 }
+
+.new_message {
+    border: 5px solid var(--colorPrimary);
+}
