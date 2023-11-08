@@ -21,10 +21,14 @@
                         <div class="card-body">
                             <ul class="list-unstyled list-unstyled-border">
                                 @foreach ($senders as $sender)
+                                @php
+                                    $unseenMessage = \App\Models\Chat::where(['sender_id' => $sender->sender_id , 'receiver_id' => auth()->user()->id, 'listing_id' => $sender->listing_id, 'seen' => 0])->exists();
+                                    
+                                @endphp
                                     <li class="media profile_card" style="cursor: pointer"
                                         data-sender-id="{{ $sender->senderProfile->id }}"
                                         data-listing-id="{{ $sender->listingProfile->id }}">
-                                        <img alt="image" class="mr-3 rounded-circle profile_img" width="50"
+                                        <img alt="image" class="mr-3 rounded-circle profile_img {{ $unseenMessage ? 'new_message' : '' }}" width="50"
                                             src="{{ asset($sender->senderProfile->avatar) }}">
                                         <div class="media-body">
                                             <div class="mt-0 mb-1 font-weight-bold profile_name">{{ $sender->senderProfile->name }}

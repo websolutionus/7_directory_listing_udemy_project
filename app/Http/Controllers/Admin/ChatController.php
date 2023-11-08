@@ -34,6 +34,11 @@ class ChatController extends Controller
             ->where('listing_id', $listingId)
             ->orderBy('created_at', 'asc')
             ->get();
+        Chat::where([
+            'sender_id' => $senderId,
+            'receiver_id' => $receiverId,
+            'listing_id' => $listingId,
+            'seen' => 0])->update(['seen' => 1]);
 
         return response($messages);
     }
