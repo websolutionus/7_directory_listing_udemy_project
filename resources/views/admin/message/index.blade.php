@@ -23,7 +23,7 @@
                                 @foreach ($senders as $sender)
                                 @php
                                     $unseenMessage = \App\Models\Chat::where(['sender_id' => $sender->sender_id , 'receiver_id' => auth()->user()->id, 'listing_id' => $sender->listing_id, 'seen' => 0])->exists();
-                                    
+
                                 @endphp
                                     <li class="media profile_card" style="cursor: pointer"
                                         data-sender-id="{{ $sender->senderProfile->id }}"
@@ -34,8 +34,9 @@
                                             <div class="mt-0 mb-1 font-weight-bold profile_name">{{ $sender->senderProfile->name }}
                                                 <small class="text-primary">( {{ $sender->listingProfile->title }} )</small>
                                             </div>
-                                            <div class="text-success text-small font-600-bold"><i class="fas fa-circle"></i>
-                                                Online</div>
+                                            <div class="user-status">
+                                                <div class=" text-small font-600-bold"><i class="fas fa-circle"></i> Offline</div>
+                                            </div>
                                         </div>
                                     </li>
                                 @endforeach

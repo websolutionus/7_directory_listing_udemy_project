@@ -39,9 +39,6 @@ window.Echo.private('message.'+USER.id).listen(
 
 window.Echo.join('online')
     .here((users) => {
-        console.log('here');
-        console.log(users);
-
         $.each(users, function(index, user) {
             $('.profile_card').each(function(){
                 let profileUserId = $(this).data('receiver-id');
@@ -50,15 +47,14 @@ window.Echo.join('online')
 
                     $(this).find('.user-status').addClass('user-active');
                 }
-
             })
         })
     })
     .joining((user) => {
-        var data = $(`.profile_card[data-receiver-id="${user.id}"]`).find('.user-status').addClass('user-active');
+        $(`.profile_card[data-receiver-id="${user.id}"]`).find('.user-status').addClass('user-active');
     })
     .leaving((user) => {
-        var data = $(`.profile_card[data-receiver-id="${user.id}"]`).find('.user-status').removeClass('user-active');
+        $(`.profile_card[data-receiver-id="${user.id}"]`).find('.user-status').removeClass('user-active');
     });
 
 

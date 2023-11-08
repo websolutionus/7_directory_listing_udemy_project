@@ -35,14 +35,20 @@ window.Echo.private('message.'+USER.id).listen(
 
 window.Echo.join('online')
     .here((users) => {
-        console.log('here');
-        console.log(users);
+        $.each(users, function(index, user) {
+            $('.profile_card').each(function(){
+                let profileUserId = $(this).data('sender-id');
+
+                if(profileUserId == user.id) {
+
+                    $(this).find('.user-status').html(`<div class="text-success text-small font-600-bold"><i class="fas fa-circle"></i> Online</div>`);
+                }
+            })
+        })
     })
     .joining((user) => {
-        console.log('joining');
-        console.log(user);
+        $(`.profile_card[data-sender-id="${user.id}"]`).find('.user-status').html(`<div class="text-success text-small font-600-bold"><i class="fas fa-circle"></i> Online</div>`);
     })
     .leaving((user) => {
-        console.log('leaving');
-        console.log(user);
+        $(`.profile_card[data-sender-id="${user.id}"]`).find('.user-status').html(`<div class=" text-small font-600-bold"><i class="fas fa-circle"></i> Offline</div>`);
     });
