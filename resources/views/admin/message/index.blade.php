@@ -46,7 +46,7 @@
                         <div class="card-header">
                             <h4 id="chat_name">Chat with Rizal</h4>
                         </div>
-                        <div class="card-body chat-content">
+                        <div class="card-body chat-content" data-inbox-user="" data-inbox-listing="">
 
                         </div>
                         <div class="card-footer chat-form">
@@ -91,6 +91,10 @@
             let receiverId = data.data('sender-id');
             $('#listing_id').val(listingId);
             $('#receiver_id').val(receiverId);
+
+            mainChatInbox.attr("data-inbox-user", receiverId)
+            mainChatInbox.attr("data-inbox-listing", listingId)
+
         }
 
         function scrollToBootom() {

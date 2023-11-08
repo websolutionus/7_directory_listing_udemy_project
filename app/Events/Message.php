@@ -15,15 +15,15 @@ class Message implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $messageData;
-    public $senderId;
+    public $listingId;
     public $receiverId;
     /**
      * Create a new event instance.
      */
-    public function __construct($messageData, $senderId, $receiverId)
+    public function __construct($messageData, $listingId, $receiverId)
     {
-        $this->$messageData = $messageData;
-        $this->senderId = $senderId;
+        $this->messageData = $messageData;
+        $this->listingId = $listingId;
         $this->receiverId = $receiverId;
     }
 
@@ -42,7 +42,7 @@ class Message implements ShouldBroadcast
     function broadcastWith() : array {
         return [
                 'message_data' => $this->messageData,
-                'sender_id' => $this->senderId,
+                'listing_id' => $this->listingId,
                 'receiver_id' => $this->receiverId,
                 'user' => auth()->user()->only(['id', 'name', 'avatar'])
             ];

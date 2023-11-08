@@ -40,7 +40,7 @@ class ChatController extends Controller
         $chat->message = $request->message;
         $chat->save();
 
-        broadcast(new Message($chat->message, $chat->sender_id, $chat->receiver_id));
+        broadcast(new Message($chat->message, $chat->listing_id, $chat->receiver_id));
 
         return response(['status' => 'success', 'message' => 'Message sent successfully!']);
 
