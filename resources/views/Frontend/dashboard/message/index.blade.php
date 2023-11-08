@@ -16,11 +16,15 @@
                     <div class="nav flex-column nav-pills tf__massager_option" id="v-pills-tab" role="tablist"
                       aria-orientation="vertical">
                       @foreach ($receivers as $receiver)
+                      @php
+                          $unseenMessage = \App\Models\Chat::where(['sender_id' => $receiver->receiver_id , 'receiver_id' => auth()->user()->id, 'listing_id' => $receiver->listing_id, 'seen' => 0])->exists();
+
+                      @endphp
                         <div class="nav-link profile_card" data-listing-id="{{ $receiver->listingProfile->id }}" data-receiver-id="{{ $receiver->receiverProfile->id }}" id="v-pills-home-tab" data-bs-toggle="pill"
                             data-bs-target="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
                             <div class="tf__single_massage d-flex">
                             <div class="tf__single_massage_img">
-                                <img  src="{{ asset($receiver->listingProfile->image) }}" alt="person" class="img-fluid w-100 profile_img">
+                                <img  src="{{ asset($receiver->listingProfile->image) }}" alt="person" class="img-fluid w-100 profile_img {{ $unseenMessage ? 'new_message' : '' }}">
                                 <span class="user-active"></span>
                             </div>
                             <div class="tf__single_massage_text">

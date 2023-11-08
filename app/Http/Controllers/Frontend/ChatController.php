@@ -22,7 +22,6 @@ class ChatController extends Controller
             ->groupBy('receiver_id', 'listing_id')
             ->get();
 
-
         return view('frontend.dashboard.message.index', compact('receivers'));
     }
 
@@ -56,6 +55,12 @@ class ChatController extends Controller
             ->where('listing_id', $listingId)
             ->orderBy('created_at', 'asc')
             ->get();
+
+            Chat::where([
+                'sender_id' => $receiverId,
+                'receiver_id' => $senderId,
+                'listing_id' => $listingId,
+                'seen' => 0])->update(['seen' => 1]);
 
         return response($messages);
     }
