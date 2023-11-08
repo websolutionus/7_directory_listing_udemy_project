@@ -25,12 +25,12 @@
                             <div class="tf__single_massage d-flex">
                             <div class="tf__single_massage_img">
                                 <img  src="{{ asset($receiver->listingProfile->image) }}" alt="person" class="img-fluid w-100 profile_img {{ $unseenMessage ? 'new_message' : '' }}">
-                                <span class="user-active"></span>
+                                <span class="user-status"></span>
                             </div>
                             <div class="tf__single_massage_text">
                                 <h4 class="profile_name">{{ truncate($receiver->listingProfile->title, 15) }}</h4>
                                 <p><i class="fas fa-crown"></i> {{ $receiver->receiverProfile->name }}</p>
-                                <span class="tf__massage_time">30 min</span>
+                                <span class="tf__massage_time"></span>
                             </div>
                             </div>
                         </div>
