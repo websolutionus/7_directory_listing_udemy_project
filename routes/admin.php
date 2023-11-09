@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AmenityController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\ClaimController;
+use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\ListingController;
@@ -95,6 +96,8 @@ Route::group([
 
     /** Our Feature Routes */
     Route::resource('our-features', OurFeatureController::class);
+    /** Our Feature Routes */
+    Route::resource('counter', CounterController::class);
 
     /** Settings Routes */
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
