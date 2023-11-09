@@ -23,14 +23,17 @@
                             <h4>Update Counter</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('admin.category.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.counter.update', 1) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
+                                @method('PUT')
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Background</label>
                                         <div id="image-preview" class="image-preview">
                                             <label for="image-upload" id="image-label">Choose File</label>
-                                            <input type="file" name="image_icon" id="image-upload" />
+                                            <input type="file" name="background" id="image-upload" />
+                                            <input type="hidden" name="old_background" value="{{ @$counter->background }}" />
+
                                         </div>
                                     </div>
                                 </div>
@@ -39,13 +42,13 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Counter One </label>
-                                            <input type="text" class="form-control" name="counter_one">
+                                            <input type="text" class="form-control" name="counter_one" value="{{ @$counter->counter_one }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Counter Title One </label>
-                                            <input type="text" class="form-control" name="counter_title_one">
+                                            <input type="text" class="form-control" name="counter_title_one" value="{{ @$counter->counter_title_one }}">
                                         </div>
                                     </div>
                                 </div>
@@ -54,13 +57,13 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Counter Two </label>
-                                            <input type="text" class="form-control" name="counter_two">
+                                            <input type="text" class="form-control" name="counter_two" value="{{ @$counter->counter_two }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Counter Title Two </label>
-                                            <input type="text" class="form-control" name="counter_title_two">
+                                            <input type="text" class="form-control" name="counter_title_two" value="{{ @$counter->counter_title_two }}">
                                         </div>
                                     </div>
                                 </div>
@@ -69,13 +72,13 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Counter Three </label>
-                                            <input type="text" class="form-control" name="counter_three">
+                                            <input type="text" class="form-control" name="counter_three" value="{{ @$counter->counter_three }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Counter Title Three </label>
-                                            <input type="text" class="form-control" name="counter_title_three">
+                                            <input type="text" class="form-control" name="counter_title_three" value="{{ @$counter->counter_title_three }}">
                                         </div>
                                     </div>
                                 </div>
@@ -84,13 +87,13 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Counter Four </label>
-                                            <input type="text" class="form-control" name="counter_four">
+                                            <input type="text" class="form-control" name="counter_four" value="{{ @$counter->counter_four }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Counter Title Four </label>
-                                            <input type="text" class="form-control" name="counter_title_four">
+                                            <input type="text" class="form-control" name="counter_title_four" value="{{ @$counter->counter_title_four }}">
                                         </div>
                                     </div>
                                 </div>
@@ -113,14 +116,12 @@
 
 @push('scripts')
     <script>
-        $.uploadPreview({
-            input_field: "#image-upload-2", // Default: .image-upload
-            preview_box: "#image-preview-2", // Default: .image-preview
-            label_field: "#image-label-2", // Default: .image-label
-            label_default: "Choose File", // Default: Choose File
-            label_selected: "Change File", // Default: Change File
-            no_label: false, // Default: false
-            success_callback: null // Default: null
+       $(document).ready(function(){
+        $('.image-preview').css({
+                'background-image': 'url({{ asset(@$counter->background) }})',
+                'background-size': 'cover',
+                'background-position': 'center center'
         });
+       })
     </script>
 @endpush

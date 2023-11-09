@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('background')->nullable();
             $table->integer('counter_one')->nullable();
-            $table->string('counter_one_title')->nullable();
+            $table->string('counter_title_one')->nullable();
             $table->integer('counter_two')->nullable();
-            $table->string('counter_two_title')->nullable();
+            $table->string('counter_title_two')->nullable();
             $table->integer('counter_three')->nullable();
-            $table->string('counter_three_title')->nullable();
+            $table->string('counter_title_three')->nullable();
             $table->integer('counter_four')->nullable();
-            $table->string('counter_four_title')->nullable();
+            $table->string('counter_title_four')->nullable();
             $table->timestamps();
         });
     }
