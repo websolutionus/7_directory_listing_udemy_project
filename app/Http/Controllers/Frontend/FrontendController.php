@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Amenity;
 use App\Models\Category;
 use App\Models\Claim;
+use App\Models\Counter;
 use App\Models\Hero;
 use App\Models\Listing;
 use App\Models\ListingSchedule;
@@ -29,6 +30,7 @@ class FrontendController extends Controller
         $categories = Category::where('status', 1)->get();
         $locations = Location::where('status', 1)->get();
         $packages = Package::where('status', 1)->where('show_at_home', 1)->take(3)->get();
+        $counter = Counter::first();
 
         $featuredCategories = Category::withCount(['listings'=> function($query){
             $query->where('is_approved', 1);
@@ -61,7 +63,8 @@ class FrontendController extends Controller
                 'featuredLocations',
                 'featuredListings',
                 'locations',
-                'ourFeatures'
+                'ourFeatures',
+                'counter'
             ));
     }
 

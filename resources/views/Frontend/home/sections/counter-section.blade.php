@@ -1,29 +1,29 @@
-<section id="wsus__counter">
+<section id="wsus__counter" style="background: {{ asset(@$counter->background) }}">
     <div class="wsus__counter_overlay">
         <div class="container">
             <div class="row">
                 <div class="col-xl-3 col-6 col-md-3">
                     <div class="wsus__counter_single">
-                        <span class="counter">120</span>
-                        <p>Our Team</p>
+                        <span class="counter">{{ @$counter->counter_one }}</span>
+                        <p>{{ @$counter->counter_title_one }}</p>
                     </div>
                 </div>
                 <div class="col-xl-3 col-6 col-md-3">
                     <div class="wsus__counter_single">
-                        <span class="counter">1,189</span>
-                        <p>Happy Customers</p>
+                        <span class="counter">{{ @$counter->counter_two }}</span>
+                        <p>{{ @$counter->counter_title_two }}</p>
                     </div>
                 </div>
                 <div class="col-xl-3 col-6 col-md-3">
                     <div class="wsus__counter_single">
-                        <span class="counter">399</span>
-                        <p>All Categories</p>
+                        <span class="counter">{{ @$counter->counter_three }}</span>
+                        <p>{{ @$counter->counter_title_three }}</p>
                     </div>
                 </div>
                 <div class="col-xl-3 col-6 col-md-3">
                     <div class="wsus__counter_single">
-                        <span class="counter">400</span>
-                        <p>Total Listing</p>
+                        <span class="counter">{{ @$counter->counter_four }}</span>
+                        <p>{{ @$counter->counter_title_four }}</p>
                     </div>
                 </div>
             </div>
