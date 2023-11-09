@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\PendingListingController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
@@ -98,6 +99,8 @@ Route::group([
     Route::resource('our-features', OurFeatureController::class);
     /** Our Feature Routes */
     Route::resource('counter', CounterController::class);
+    /** Our Feature Routes */
+    Route::resource('testimonials', TestimonialController::class);
 
     /** Settings Routes */
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
