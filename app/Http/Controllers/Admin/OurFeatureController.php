@@ -11,6 +11,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+use function Ramsey\Uuid\v1;
+
 class OurFeatureController extends Controller
 {
     /**
@@ -38,6 +40,7 @@ class OurFeatureController extends Controller
         $ourFeature->icon = $request->icon;
         $ourFeature->title = $request->title;
         $ourFeature->short_description = $request->short_description;
+        $ourFeature->status = $request->status;
         $ourFeature->save();
 
         toastr()->success('Created Successfully!');
@@ -46,27 +49,29 @@ class OurFeatureController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id) : View
     {
-        //
+        $ourFeature = OurFeature::findOrFail($id);
+        return view('admin.our-feature.edit', compact('ourFeature'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(OurFeatureCreateRequest $request, string $id)
     {
-        //
+        $ourFeature = OurFeature::findOrFail($id);
+        $ourFeature->icon = $request->icon;
+        $ourFeature->title = $request->title;
+        $ourFeature->short_description = $request->short_description;
+        $ourFeature->status = $request->status;
+        $ourFeature->save();
+
+        toastr()->success('Updated Successfully!');
+
+        return to_route('admin.our-features.index');
     }
 
     /**
@@ -74,6 +79,13 @@ class OurFeatureController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            OurFeature::findOrFail($id)->delete();
+
+            return response(['status' => 'success', 'message' => 'Deleted successfully!']);
+        }catch(\Exception $e){
+            logger($e);
+            return response(['status' => 'error', 'message' => $e->getMessage()]);
+        }
     }
 }
