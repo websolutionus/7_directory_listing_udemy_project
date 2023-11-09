@@ -22,7 +22,7 @@
     <!--==========================
             FEATURES PART START
     ===========================-->
-    {{-- @include('frontend.home.sections.features-section') --}}
+    @include('frontend.home.sections.features-section')
     <!--==========================
             FEATURES PART END
     ===========================-->

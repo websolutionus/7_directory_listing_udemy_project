@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ListingImageGalleryController;
 use App\Http\Controllers\Admin\ListingScheduleController;
 use App\Http\Controllers\Admin\ListingVideoGalleryController;
 use App\Http\Controllers\Admin\LocationController;
+use App\Http\Controllers\Admin\OurFeatureController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PaymentSettingController;
 use App\Http\Controllers\Admin\PendingListingController;
@@ -91,6 +92,9 @@ Route::group([
     Route::get('messages', [ChatController::class, 'index'])->name('messages.index');
     Route::get('/get-messages', [ChatController::class, 'getMessages'])->name('get-messages');
     Route::post('/send-message', [ChatController::class, 'sendMessage'])->name('send-message');
+
+    /** Our Feature Routes */
+    Route::resource('our-features', OurFeatureController::class);
 
     /** Settings Routes */
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
