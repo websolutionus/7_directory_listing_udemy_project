@@ -10,39 +10,20 @@
             </div>
         </div>
         <div class="row">
+            @foreach ($ourFeatures as $feature)
             <div class="col-xl-4 col-md-6">
-                <div class="wsus__feature_single">
+                <div class="wsus__feature_single ">
                     <div class="icon">
-                        <i class="fal fa-atom"></i>
+                        <i class="{{ $feature->icon }}"></i>
                     </div>
-                    <h5>Choose a Category</h5>
-                    <p>Proin dapibus nisl ornare diam varius mpus. Aenean a quam luctus, finibus tellus ut,
-                        convallis eros.</p>
-                    <span>1</span>
+                    <h5>{{ $feature->title }}</h5>
+                    <p>{{ $feature->short_description }}</p>
+                    <span>{{ ++$loop->index }}</span>
                 </div>
             </div>
-            <div class="col-xl-4 col-md-6">
-                <div class="wsus__feature_single active">
-                    <div class="icon">
-                        <i class="fal fa-map-marked-alt"></i>
-                    </div>
-                    <h5>Find Location</h5>
-                    <p>Proin dapibus nisl ornare diam varius mpus. Aenean a quam luctus, finibus tellus ut,
-                        convallis eros.</p>
-                    <span>2</span>
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-6">
-                <div class="wsus__feature_single">
-                    <div class="icon">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <h5>Contact a Few Owners</h5>
-                    <p>Proin dapibus nisl ornare diam varius mpus. Aenean a quam luctus, finibus tellus ut,
-                        convallis eros.</p>
-                    <span>3</span>
-                </div>
-            </div>
+            @endforeach
+
+
         </div>
     </div>
 </section>

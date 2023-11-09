@@ -11,6 +11,7 @@ use App\Models\Hero;
 use App\Models\Listing;
 use App\Models\ListingSchedule;
 use App\Models\Location;
+use App\Models\OurFeature;
 use App\Models\Package;
 use App\Models\Review;
 use Illuminate\Http\RedirectResponse;
@@ -24,9 +25,11 @@ class FrontendController extends Controller
     function index() : View
     {
         $hero = Hero::first();
+        $ourFeatures = OurFeature::where('status', 1)->get();
         $categories = Category::where('status', 1)->get();
         $locations = Location::where('status', 1)->get();
         $packages = Package::where('status', 1)->where('show_at_home', 1)->take(3)->get();
+
         $featuredCategories = Category::withCount(['listings'=> function($query){
             $query->where('is_approved', 1);
         }])->where(['show_at_home' => 1, 'status' => 1])->take(6)->get();
@@ -57,7 +60,8 @@ class FrontendController extends Controller
                 'featuredCategories',
                 'featuredLocations',
                 'featuredListings',
-                'locations'
+                'locations',
+                'ourFeatures'
             ));
     }
 
