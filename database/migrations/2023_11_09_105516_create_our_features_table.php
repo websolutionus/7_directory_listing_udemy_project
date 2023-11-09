@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('our_features', function (Blueprint $table) {
             $table->id();
+            $table->string('icon');
+            $table->string('title');
+            $table->string('short_description');
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }
