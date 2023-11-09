@@ -19,9 +19,11 @@ class ChatController extends Controller
         $receivers = Chat::with(['receiverProfile', 'listingProfile'])->select(['receiver_id', 'listing_id'])
             ->where('sender_id', $senderId)
             ->where('receiver_id', '!=', $senderId)
+            ->selectRaw('MAX(created_at) as latest_message_send')
             ->groupBy('receiver_id', 'listing_id')
+            ->orderByDesc('latest_message_send')
             ->get();
-
+        // dd($receivers);
         return view('frontend.dashboard.message.index', compact('receivers'));
     }
 
