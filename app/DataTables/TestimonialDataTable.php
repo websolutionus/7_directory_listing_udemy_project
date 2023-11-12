@@ -22,7 +22,16 @@ class TestimonialDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'testimonial.action')
+            ->addColumn('action', function($query){
+                $edit = '<a href="'.route('admin.testimonials.edit', $query->id).'" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>';
+                $delete = '<a href="'.route('admin.testimonials.destroy', $query->id).'" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
+
+                return $edit.$delete;
+            })
+            ->addColumn('image', function($query){
+                return '<img width="60" src="'.asset($query->image).'" >';
+            })
+            ->rawColumns(['image', 'action'])
             ->setRowId('id');
     }
 
@@ -62,15 +71,18 @@ class TestimonialDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+
+            Column::make('id')->width(200),
+            Column::make('image')->width(200),
+            Column::make('name')->width(200),
+
+            Column::make('rating')->width(200),
+            Column::make('review')->width(500),
             Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            ->exportable(false)
+            ->printable(false)
+            ->width(100)
+            ->addClass('text-center'),
         ];
     }
 
