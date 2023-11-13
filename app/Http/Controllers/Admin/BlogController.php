@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\BlogDataTable;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\BlogCreateRequest;
+use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Traits\FileUploadTrait;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class BlogController extends Controller
 {
+    use FileUploadTrait;
     /**
      * Display a listing of the resource.
      */
@@ -31,9 +35,23 @@ class BlogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BlogCreateRequest $request)
     {
-        //
+        $imagePath = $this->uploadImage($request, 'image');
+
+        $blog = new Blog();
+        $blog->image = $imagePath;
+        $blog->title = $request->title;
+        $blog->slug = \Str::slug($request->slug);
+        $blog->blog_category_id = $request->category;
+        $blog->description = $request->description;
+        $blog->is_popular = $request->is_popular;
+        $blog->status = $request->status;
+        $blog->save();
+
+        toastr()->success('Created Successfully!');
+
+        return to_route('admin.blog.index');
     }
 
     /**

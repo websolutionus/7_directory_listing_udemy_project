@@ -23,7 +23,7 @@
                             <h4>Create Blog</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('admin.blog-category.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.blog.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="col-md-6">
@@ -31,19 +31,19 @@
                                         <label for="">Image <span class="text-danger">*</span></label>
                                         <div id="image-preview" class="image-preview">
                                             <label for="image-upload" id="image-label">Choose File</label>
-                                            <input type="file" name="image_icon" id="image-upload" />
+                                            <input type="file" name="image" id="image-upload" />
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="">Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="name">
+                                    <label for="">Title <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="title">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="">Category <span class="text-danger">*</span></label>
-                                    <select name="status" class="form-control">
+                                    <select name="category" class="form-control">
                                         <option value="">Select</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -59,7 +59,7 @@
 
                                 <div class="form-group">
                                     <label for="">Is Popular <span class="text-danger">*</span></label>
-                                    <select name="status" class="form-control">
+                                    <select name="is_popular" class="form-control">
                                         <option value="0">No</option>
                                         <option value="1">Yes</option>
                                     </select>
