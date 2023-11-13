@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\DataTables\BlogDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\BlogCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -21,9 +22,10 @@ class BlogController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create() :View
     {
-        //
+        $categories = BlogCategory::where('status', 1)->get();
+        return view('admin.blog.create', compact('categories'));
     }
 
     /**
