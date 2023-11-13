@@ -22,7 +22,33 @@ class BlogDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'blog.action')
+            ->addColumn('action', function($query){
+                $edit = '<a href="'.route('admin.blog.edit', $query->id).'" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>';
+                $delete = '<a href="'.route('admin.blog.destroy', $query->id).'" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
+
+                return $edit.$delete;
+            })
+            ->addColumn('image', function($query){
+                return '<img width="70" src="'.asset($query->image).'" >';
+            })
+            ->addColumn('category', function($query){
+                return $query->category->name;
+            })
+            ->addColumn('is_popular', function($query){
+                if($query->is_popular === 1){
+                    return "<span class='badge badge-primary'>Yes</span>";
+                }else{
+                    return "<span class='badge badge-danger'>No</span>";
+                }
+            })
+            ->addColumn('status', function($query){
+                if($query->status === 1){
+                    return "<span class='badge badge-primary'>Active</span>";
+                }else{
+                    return "<span class='badge badge-danger'>Inactive</span>";
+                }
+            })
+            ->rawColumns(['image', 'action', 'is_popular', 'status'])
             ->setRowId('id');
     }
 
@@ -62,15 +88,19 @@ class BlogDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+
+            Column::make('id'),
+            Column::make('image'),
+            Column::make('title'),
+            Column::make('category'),
+            Column::make('is_popular'),
+            Column::make('status'),
+
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(100)
                   ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
         ];
     }
 
