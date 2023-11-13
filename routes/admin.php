@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AmenityController;
+use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\ClaimController;
@@ -97,10 +98,15 @@ Route::group([
 
     /** Our Feature Routes */
     Route::resource('our-features', OurFeatureController::class);
-    /** Our Feature Routes */
+
+    /** Counter Routes */
     Route::resource('counter', CounterController::class);
-    /** Our Feature Routes */
+
+    /** testimonials Routes */
     Route::resource('testimonials', TestimonialController::class);
+
+    /** Blog Routes */
+    Route::resource('blog-category', BlogCategoryController::class);
 
     /** Settings Routes */
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');

@@ -85,7 +85,7 @@
     <!--==========================
             BLOG PART START
     ===========================-->
-    {{-- @include('frontend.home.sections.blog-section')   --}}
+    @include('frontend.home.sections.blog-section')
     <!--==========================
             BLOG PART END
     ===========================-->

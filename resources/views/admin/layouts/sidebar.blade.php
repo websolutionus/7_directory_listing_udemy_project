@@ -234,6 +234,20 @@
 
             <li><a class="nav-link" href="{{ route('admin.testimonials.index') }}"><i class="far fa-square"></i> <span>Testimonials</span></a></li>
 
+            <li class="dropdown {{ setSidebarActive(['admin.hero.index']) }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                        class="fas fa-columns"></i> <span>Manage Blog</span></a>
+
+                <ul class="dropdown-menu"
+                {{ setSidebarActive([
+                    'admin.packages.*',
+                ]) }}
+                >
+                    <li class="{{ setSidebarActive(['admin.blog-category.*']) }}"><a class="nav-link" href="{{ route('admin.blog-category.index') }}">Blog Categories</a></li>
+
+                </ul>
+            </li>
+
             <li><a class="nav-link" href="{{ route('admin.settings.index') }}"><i class="far fa-square"></i> <span>Settings</span></a></li>
 
 
