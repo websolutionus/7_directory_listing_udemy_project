@@ -15,6 +15,7 @@ use App\Models\Location;
 use App\Models\OurFeature;
 use App\Models\Package;
 use App\Models\Review;
+use App\Models\Testimonial;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -31,6 +32,7 @@ class FrontendController extends Controller
         $locations = Location::where('status', 1)->get();
         $packages = Package::where('status', 1)->where('show_at_home', 1)->take(3)->get();
         $counter = Counter::first();
+        $testimonials = Testimonial::where('status', 1)->get();
 
         $featuredCategories = Category::withCount(['listings'=> function($query){
             $query->where('is_approved', 1);
@@ -64,7 +66,8 @@ class FrontendController extends Controller
                 'featuredListings',
                 'locations',
                 'ourFeatures',
-                'counter'
+                'counter',
+                'testimonials'
             ));
     }
 

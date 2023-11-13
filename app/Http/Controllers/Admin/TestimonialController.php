@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\TestimonialDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\TestimonialCreateRequest;
+use App\Http\Requests\Admin\TestimonialUpdateRequest;
 use App\Models\Testimonial;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\JsonResponse;
@@ -52,28 +53,35 @@ class TestimonialController extends Controller
         return to_route('admin.testimonials.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id) : View
     {
-        //
+        $testimonial = Testimonial::findOrFail($id);
+        return view('admin.testimonial.edit', compact('testimonial'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TestimonialUpdateRequest $request, string $id)
     {
-        //
+        $imagePath = $this->uploadImage($request, 'image', $request->old_image);
+
+        $testimonial = Testimonial::findOrFail($id);
+        $testimonial->image = !empty($imagePath) ? $imagePath : $request->old_image;
+        $testimonial->name = $request->name;
+        $testimonial->title = $request->title;
+        $testimonial->rating = $request->rating;
+        $testimonial->review = $request->review;
+        $testimonial->status = $request->status;
+        $testimonial->save();
+
+        toastr()->success('Update Successfully!');
+
+        return to_route('admin.testimonials.index');
     }
 
     /**
@@ -81,6 +89,13 @@ class TestimonialController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            Testimonial::findOrFail($id)->delete();
+
+            return response(['status' => 'success', 'message' => 'Deleted successfully!']);
+        }catch(\Exception $e){
+            logger($e);
+            return response(['status' => 'error', 'message' => $e->getMessage()]);
+        }
     }
 }

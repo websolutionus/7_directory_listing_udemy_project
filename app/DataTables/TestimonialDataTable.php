@@ -31,7 +31,14 @@ class TestimonialDataTable extends DataTable
             ->addColumn('image', function($query){
                 return '<img width="60" src="'.asset($query->image).'" >';
             })
-            ->rawColumns(['image', 'action'])
+            ->addColumn('status', function($query){
+                if($query->status === 1){
+                    return "<span class='badge badge-primary'>Active</span>";
+                }else{
+                    return "<span class='badge badge-danger'>Inactive</span>";
+                }
+            })
+            ->rawColumns(['image', 'action', 'status'])
             ->setRowId('id');
     }
 
@@ -78,6 +85,8 @@ class TestimonialDataTable extends DataTable
 
             Column::make('rating')->width(200),
             Column::make('review')->width(500),
+            Column::make('status'),
+
             Column::computed('action')
             ->exportable(false)
             ->printable(false)
