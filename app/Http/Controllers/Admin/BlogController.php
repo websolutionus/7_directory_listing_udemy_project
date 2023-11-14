@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\BlogDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BlogCreateRequest;
+use App\Http\Requests\Admin\BlogUpdateRequest;
 use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Traits\FileUploadTrait;
@@ -54,28 +55,37 @@ class BlogController extends Controller
         return to_route('admin.blog.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id) : View
     {
-        //
+        $categories = BlogCategory::where('status', 1)->get();
+        $blog = Blog::findOrFail($id);
+        return view('admin.blog.edit', compact('categories', 'blog'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BlogUpdateRequest $request, string $id)
     {
-        //
+        $imagePath = $this->uploadImage($request, 'image', $request->old_image);
+
+        $blog = Blog::findOrFail($id);
+        $blog->image = !empty($imagePath) ? $imagePath : $request->old_image;
+        $blog->title = $request->title;
+        $blog->slug = \Str::slug($request->slug);
+        $blog->blog_category_id = $request->category;
+        $blog->description = $request->description;
+        $blog->is_popular = $request->is_popular;
+        $blog->status = $request->status;
+        $blog->save();
+
+        toastr()->success('Update Successfully!');
+
+        return to_route('admin.blog.index');
     }
 
     /**
@@ -83,6 +93,15 @@ class BlogController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $blog = Blog::findOrFail($id);
+            $this->deleteFile($blog->image);
+            $blog->delete();
+
+            return response(['status' => 'success', 'message' => 'Deleted successfully!']);
+        }catch(\Exception $e){
+            logger($e);
+            return response(['status' => 'error', 'message' => $e->getMessage()]);
+        }
     }
 }
