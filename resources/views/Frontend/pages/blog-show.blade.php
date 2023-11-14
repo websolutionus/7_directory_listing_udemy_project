@@ -129,8 +129,8 @@
                     <div class="blog_sidebar">
                         <div class="blog_search">
                             <h4>search</h4>
-                            <form>
-                                <input type="text" placeholder="Search">
+                            <form action="{{ route('blog.index') }}" method="GET">
+                                <input type="text" placeholder="Search" name="search">
                                 <button type="submit"><i class="far fa-search"></i></button>
                             </form>
                         </div>

@@ -232,7 +232,15 @@ class FrontendController extends Controller
 
     }
 
-
+    function blog(Request $request) : View {
+        $blogs = Blog::where('status', 1)->orderBy('id', 'Desc')
+            ->when($request->has('search') && $request->filled('search'), function($query) use ($request) {
+                $query->where('title', 'LIKE', '%'.$request->search.'%')
+                ->orWhere('description', 'LIKE', '%'.$request->search.'%');
+            })
+            ->paginate(9);
+        return view('frontend.pages.blog', compact('blogs'));
+    }
     function blogShow(string $slug) : View {
         $blog = Blog::with('category')->where(['slug' => $slug, 'status' => 1])->firstOrFail();
         return view('frontend.pages.blog-show', compact('blog'));

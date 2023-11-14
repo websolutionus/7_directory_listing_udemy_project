@@ -36,7 +36,7 @@ Route::post('listing-review', [FrontendController::class, 'submitReview'])->name
 Route::post('submit-claim', [FrontendController::class, 'submitClaim'])->name('submit-claim');
 
 // Blog Routes
-
+Route::get('blog', [FrontendController::class, 'blog'])->name('blog.index');
 Route::get('blog/{slug}', [FrontendController::class, 'blogShow'])->name('blog.show');
 
 
