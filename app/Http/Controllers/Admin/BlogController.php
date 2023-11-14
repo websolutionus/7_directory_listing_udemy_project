@@ -42,6 +42,7 @@ class BlogController extends Controller
 
         $blog = new Blog();
         $blog->image = $imagePath;
+        $blog->author_id = auth()->user()->id;
         $blog->title = $request->title;
         $blog->slug = \Str::slug($request->title);
         $blog->blog_category_id = $request->category;
@@ -76,6 +77,7 @@ class BlogController extends Controller
         $blog = Blog::findOrFail($id);
         $blog->image = !empty($imagePath) ? $imagePath : $request->old_image;
         $blog->title = $request->title;
+        $blog->author_id = auth()->user()->id;
         $blog->slug = \Str::slug($request->title);
         $blog->blog_category_id = $request->category;
         $blog->description = $request->description;

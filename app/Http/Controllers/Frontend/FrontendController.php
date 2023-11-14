@@ -34,7 +34,7 @@ class FrontendController extends Controller
         $packages = Package::where('status', 1)->where('show_at_home', 1)->take(3)->get();
         $counter = Counter::first();
         $testimonials = Testimonial::where('status', 1)->get();
-        $blogs = Blog::where('status', 1)->orderBy('id', 'Desc')->take(3)->get();
+        $blogs = Blog::with('author')->where('status', 1)->orderBy('id', 'Desc')->take(3)->get();
 
         $featuredCategories = Category::withCount(['listings'=> function($query){
             $query->where('is_approved', 1);
