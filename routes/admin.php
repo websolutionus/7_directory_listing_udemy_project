@@ -111,6 +111,10 @@ Route::group([
     Route::resource('blog-category', BlogCategoryController::class);
     Route::resource('blog', BlogController::class);
     Route::get('blog-comment', [BlogCommentController::class, 'index'])->name('blog-comment.index');
+    Route::delete('blog-comment/{id}', [BlogCommentController::class, 'destroy'])->name('blog-comment.destroy');
+
+    Route::get('comment-status', [BlogCommentController::class, 'commentStatusUpdate'])->name('comment-status.update');
+
 
     /** Settings Routes */
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');

@@ -23,7 +23,7 @@ class BlogCommentDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function($query){
-                $delete = '<a href="'.route('admin.blog.destroy', $query->id).'" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
+                $delete = '<a href="'.route('admin.blog-comment.destroy', $query->id).'" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
 
                 return $delete;
             })
@@ -34,7 +34,7 @@ class BlogCommentDataTable extends DataTable
                 return $query->user?->name;
             })
             ->addColumn('status', function($query) {
-                $html = '<select class="comment-status form-control">
+                $html = '<select class="comment-status form-control" data-id="'.$query->id.'">
                     <option value="0">Pending</option>
                     <option value="1">Approved</option>
                 </select>';

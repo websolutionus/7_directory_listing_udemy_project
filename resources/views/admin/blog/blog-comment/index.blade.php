@@ -19,7 +19,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>All Comments</h4>
-                            
+
                         </div>
                         <div class="card-body">
                             {{ $dataTable->table() }}
@@ -34,4 +34,25 @@
 
 @push('scripts')
     {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+
+    <script>
+        $(document).ready(function(){
+            $('body').on('change', '.comment-status', function(){
+                $.ajax({
+                    method: 'get',
+                    url: '{{ route("admin.comment-status.update") }}',
+                    data: {
+                        status: $(this).val(),
+                        id: $(this).data('id')
+                    },
+                    success: function(response) {
+                        toastr.success(response.message);
+                    },
+                    error: function(xhr, status, error) {
+                        toastr.error(error);
+                    }
+                })
+            })
+        })
+    </script>
 @endpush
