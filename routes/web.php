@@ -38,6 +38,7 @@ Route::post('submit-claim', [FrontendController::class, 'submitClaim'])->name('s
 // Blog Routes
 Route::get('blog', [FrontendController::class, 'blog'])->name('blog.index');
 Route::get('blog/{slug}', [FrontendController::class, 'blogShow'])->name('blog.show');
+Route::post('blog-comment', [FrontendController::class, 'blogCommentStore'])->name('blog-comment.store');
 
 
 Route::middleware('auth')->group(function () {

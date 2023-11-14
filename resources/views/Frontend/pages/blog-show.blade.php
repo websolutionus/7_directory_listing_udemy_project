@@ -58,70 +58,26 @@
                                         ducimus magni facilis delectus.</p>
                                 </div>
                             </div>
-                            <div class="wsus__single_comment">
-                                <div class="wsus__single_comment_img">
-                                    <img src="images/card_img.jpg" alt="comment" class="img-fluid w-100">
-                                </div>
-                                <div class="wsus__single_comment_text">
-                                    <h5>shimul sign</h5>
-                                    <span>21-Nov-2021</span>
-                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad maxime placeat
-                                        ducimus magni facilis delectus.</p>
-                                </div>
-                            </div>
-                            <div class="wsus__single_comment">
-                                <div class="wsus__single_comment_img">
-                                    <img src="images/user_large_img.jpg" alt="comment" class="img-fluid w-100">
-                                </div>
-                                <div class="wsus__single_comment_text">
-                                    <h5>sumon jahan</h5>
-                                    <span>01-Dec-2021</span>
-                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad maxime placeat
-                                        ducimus magni facilis delectus.</p>
-                                </div>
-                            </div>
-                            <div class="wsus__single_comment">
-                                <div class="wsus__single_comment_img">
-                                    <img src="images/card_img.jpg" alt="comment" class="img-fluid w-100">
-                                </div>
-                                <div class="wsus__single_comment_text">
-                                    <h5>shimul sign</h5>
-                                    <span>21-Nov-2021</span>
-                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad maxime placeat
-                                        ducimus magni facilis delectus.</p>
-                                </div>
-                            </div>
-                            <form class="input_comment">
+                            @auth
+                            <form class="input_comment" action="{{ route('blog-comment.store') }}" method="POST">
+                                @csrf
                                 <h5>post a Comment </h5>
                                 <div class="row">
-                                    <div class="col-xl-6">
-                                        <div class="blog_single_input">
-                                            <input type="text" placeholder="Name">
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <div class="blog_single_input">
-                                            <input type="email" placeholder="Email">
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <div class="blog_single_input">
-                                            <input type="text" placeholder="Phone">
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <div class="blog_single_input">
-                                            <input type="text" placeholder="Subject">
-                                        </div>
-                                    </div>
+
                                     <div class="col-xl-12">
                                         <div class="blog_single_input">
-                                            <textarea cols="3" rows="5" placeholder="Message"></textarea>
-                                            <button type="submit" class="read_btn">send</button>
+                                            <input type="hidden" name="blog_id" value="{{ $blog->id }}">
+                                            <textarea cols="3" rows="5" placeholder="Comment" name="comment"></textarea>
+                                            <button type="submit" class="read_btn">Post</button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
+                            @endauth
+                            @guest
+                                <div class="alert alert-warning">Please <a href="{{ route('login') }}">login</a> for add a comment!</div>
+                            @endguest
+
                         </div>
                     </div>
                 </div>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Amenity;
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\BlogComment;
 use App\Models\Category;
 use App\Models\Claim;
 use App\Models\Counter;
@@ -254,5 +255,21 @@ class FrontendController extends Controller
         }])->where('status', 1)->get();
 
         return view('frontend.pages.blog-show', compact('blog', 'categories'));
+    }
+
+    function blogCommentStore(Request $request) : RedirectResponse {
+        $request->validate([
+            'comment' => ['required', 'string', 'max:500']
+        ]);
+
+        $comment = new BlogComment();
+        $comment->user_id = auth()->user()->id;
+        $comment->blog_id = $request->blog_id;
+        $comment->comment = $request->comment;
+        $comment->save();
+
+        toastr()->success('Comment added successfully and waiting for approve!');
+
+        return redirect()->back();
     }
 }
