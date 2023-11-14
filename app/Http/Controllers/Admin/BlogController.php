@@ -43,7 +43,7 @@ class BlogController extends Controller
         $blog = new Blog();
         $blog->image = $imagePath;
         $blog->title = $request->title;
-        $blog->slug = \Str::slug($request->slug);
+        $blog->slug = \Str::slug($request->title);
         $blog->blog_category_id = $request->category;
         $blog->description = $request->description;
         $blog->is_popular = $request->is_popular;
@@ -76,7 +76,7 @@ class BlogController extends Controller
         $blog = Blog::findOrFail($id);
         $blog->image = !empty($imagePath) ? $imagePath : $request->old_image;
         $blog->title = $request->title;
-        $blog->slug = \Str::slug($request->slug);
+        $blog->slug = \Str::slug($request->title);
         $blog->blog_category_id = $request->category;
         $blog->description = $request->description;
         $blog->is_popular = $request->is_popular;

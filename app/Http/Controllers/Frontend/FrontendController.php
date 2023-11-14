@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Events\CreateOrder;
 use App\Http\Controllers\Controller;
 use App\Models\Amenity;
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Claim;
 use App\Models\Counter;
@@ -33,6 +34,7 @@ class FrontendController extends Controller
         $packages = Package::where('status', 1)->where('show_at_home', 1)->take(3)->get();
         $counter = Counter::first();
         $testimonials = Testimonial::where('status', 1)->get();
+        $blogs = Blog::where('status', 1)->orderBy('id', 'Desc')->take(3)->get();
 
         $featuredCategories = Category::withCount(['listings'=> function($query){
             $query->where('is_approved', 1);
@@ -67,7 +69,8 @@ class FrontendController extends Controller
                 'locations',
                 'ourFeatures',
                 'counter',
-                'testimonials'
+                'testimonials',
+                'blogs'
             ));
     }
 
