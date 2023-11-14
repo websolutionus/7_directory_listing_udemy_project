@@ -248,7 +248,7 @@ class FrontendController extends Controller
         return view('frontend.pages.blog', compact('blogs'));
     }
     function blogShow(string $slug) : View {
-        $blog = Blog::with('category')->where(['slug' => $slug, 'status' => 1])->firstOrFail();
+        $blog = Blog::with(['category', 'comments'])->where(['slug' => $slug, 'status' => 1])->firstOrFail();
 
         $categories = BlogCategory::withCount(['blogs' => function($query){
             $query->where('status', 1);

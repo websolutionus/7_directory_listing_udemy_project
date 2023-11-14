@@ -39,25 +39,26 @@
                         </div>
                         <ul class="main_blog_header">
                             <li><a href="javascipts:;"><i class="fal fa-calendar-alt"></i> {{ date('d M Y', strtotime($blog->created_at)) }}</a></li>
-                            <li><a href="javascipts:;"><i class="fal fa-comment-dots"></i> 0 Comment</a></li>
+                            <li><a href="javascipts:;"><i class="fal fa-comment-dots"></i> {{ count($blog->comments) }} Comment</a></li>
                             <li><a href="javascipts:;"><i class="fal fa-eye"></i> {{ $blog->views }} Views</a></li>
                             <li><a href="javascipts:;"><i class="fal fa-tags"></i> {{ $blog->category->name }} </a></li>
                         </ul>
                         <h4>{{ $blog->title }}</h4>
                         {!! $blog->description !!}
                         <div class="blog_comment_area">
-                            <h5 class="wsus__single_comment_heading">Total Comment 05</h5>
-                            <div class="wsus__single_comment">
-                                <div class="wsus__single_comment_img">
-                                    <img src="images/user_large_img.jpg" alt="comment" class="img-fluid w-100">
+                            <h5 class="wsus__single_comment_heading">Total Comment ({{ count($blog->comments) }})</h5>
+                            @foreach ($blog->comments as $comment)
+                                <div class="wsus__single_comment">
+                                    <div class="wsus__single_comment_img">
+                                        <img src="{{ $comment->user->avatar }}" alt="comment" class="img-fluid" style="height: 70px !important;">
+                                    </div>
+                                    <div class="wsus__single_comment_text">
+                                        <h5>{{ $comment->user->name }}</h5>
+                                        <span>{{ date('d M Y', strtotime($comment->created_at)) }}</span>
+                                        <p>{{ $comment->comment }}</p>
+                                    </div>
                                 </div>
-                                <div class="wsus__single_comment_text">
-                                    <h5>sumon jahan</h5>
-                                    <span>01-Dec-2021</span>
-                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad maxime placeat
-                                        ducimus magni facilis delectus.</p>
-                                </div>
-                            </div>
+                            @endforeach
                             @auth
                             <form class="input_comment" action="{{ route('blog-comment.store') }}" method="POST">
                                 @csrf
