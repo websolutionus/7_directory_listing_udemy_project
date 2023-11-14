@@ -2,6 +2,7 @@
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AmenityController;
 use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogCommentController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChatController;
@@ -109,6 +110,7 @@ Route::group([
     /** Blog Routes */
     Route::resource('blog-category', BlogCategoryController::class);
     Route::resource('blog', BlogController::class);
+    Route::get('blog-comment', [BlogCommentController::class, 'index'])->name('blog-comment.index');
 
     /** Settings Routes */
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
