@@ -20,9 +20,9 @@
                         <div class="text">
                             <span><i class="fal fa-calendar-alt"></i> {{ date('d M Y', strtotime($blog->created_at)) }}</span>
                             <span><i class="fas fa-user"></i> by {{ $blog->author->name }}</span>
-                            <a href="#" class="title">{{ truncate($blog->title) }}</a>
+                            <a href="{{ route('blog.show', $blog->slug) }}" class="title">{{ truncate($blog->title) }}</a>
                             <p>{{ truncate(strip_tags($blog->description), 200) }} </p>
-                            <a class="read_btn" href="">learn more <i
+                            <a class="read_btn" href="{{ route('blog.show', $blog->slug) }}">learn more <i
                                     class="far fa-chevron-double-right"></i></a>
                         </div>
                     </div>

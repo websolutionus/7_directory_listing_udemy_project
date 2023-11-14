@@ -35,9 +35,9 @@ Route::post('listing-review', [FrontendController::class, 'submitReview'])->name
 // Claim routes
 Route::post('submit-claim', [FrontendController::class, 'submitClaim'])->name('submit-claim');
 
+// Blog Routes
 
-
-
+Route::get('blog/{slug}', [FrontendController::class, 'blogShow'])->name('blog.show');
 
 
 Route::middleware('auth')->group(function () {

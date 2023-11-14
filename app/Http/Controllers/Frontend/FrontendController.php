@@ -231,4 +231,10 @@ class FrontendController extends Controller
         return redirect()->back();
 
     }
+
+
+    function blogShow(string $slug) : View {
+        $blog = Blog::with('category')->where(['slug' => $slug, 'status' => 1])->firstOrFail();
+        return view('frontend.pages.blog-show', compact('blog'));
+    }
 }
