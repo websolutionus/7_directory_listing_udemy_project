@@ -102,42 +102,18 @@
                         </div>
                         <div class="sidebar_blog">
                             <h4>Popular Post</h4>
-                            <a href="#" class="sidebar_blog_single">
+                            @foreach ($popularBlogs as $popularBlog)
+                            <a href="{{ route('blog.show', $popularBlog->slug) }}" class="sidebar_blog_single">
                                 <div class="sidebar_blog_img">
-                                    <img src="images/location_1.jpg" alt="blog" class="imgofluid w-100">
+                                    <img src="{{ asset($popularBlog->image) }}" alt="blog" class="imgofluid w-100">
                                 </div>
                                 <div class="sidebar_blog_text">
-                                    <h5>One Thing Separates Creators From Consumers</h5>
-                                    <p> <span>Jul 29 2021 </span> 2 Comment </p>
+                                    <h5>{{ truncate($popularBlog->title, 120) }}</h5>
+                                    <p> <span>{{ date('d M Y', strtotime($popularBlog->created_at)) }} </span> {{ count($popularBlog->comments) }} Comment </p>
                                 </div>
                             </a>
-                            <a href="#" class="sidebar_blog_single">
-                                <div class="sidebar_blog_img">
-                                    <img src="images/location_2.jpg" alt="blog" class="imgofluid w-100">
-                                </div>
-                                <div class="sidebar_blog_text">
-                                    <h5>Should Startups Care About Profitability?</h5>
-                                    <p> <span>Jul 29 2021 </span> 2 Comment </p>
-                                </div>
-                            </a>
-                            <a href="#" class="sidebar_blog_single">
-                                <div class="sidebar_blog_img">
-                                    <img src="images/location_3.jpg" alt="blog" class="imgofluid w-100">
-                                </div>
-                                <div class="sidebar_blog_text">
-                                    <h5>The Best Delicious Coffee Shop In Bangkok China.</h5>
-                                    <p> <span>Jul 29 2021 </span> 2 Comment </p>
-                                </div>
-                            </a>
-                            <a href="#" class="sidebar_blog_single">
-                                <div class="sidebar_blog_img">
-                                    <img src="images/location_4.jpg" alt="blog" class="imgofluid w-100">
-                                </div>
-                                <div class="sidebar_blog_text">
-                                    <h5>List Of Benifits And Impressive Listeo Services</h5>
-                                    <p> <span>Jul 29 2021 </span> 2 Comment </p>
-                                </div>
-                            </a>
+                            @endforeach
+
                         </div>
                     </div>
                 </div>

@@ -249,12 +249,13 @@ class FrontendController extends Controller
     }
     function blogShow(string $slug) : View {
         $blog = Blog::with(['category', 'comments'])->where(['slug' => $slug, 'status' => 1])->firstOrFail();
-
+        $popularBlogs = Blog::select(['id', 'title', 'slug', 'created_at', 'image'])->where('id', '!=', $blog->id)
+            ->where('is_popular', 1)->orderBy('id', 'DESC')->take(5)->get();
         $categories = BlogCategory::withCount(['blogs' => function($query){
             $query->where('status', 1);
         }])->where('status', 1)->get();
 
-        return view('frontend.pages.blog-show', compact('blog', 'categories'));
+        return view('frontend.pages.blog-show', compact('blog', 'categories', 'popularBlogs'));
     }
 
     function blogCommentStore(Request $request) : RedirectResponse {
