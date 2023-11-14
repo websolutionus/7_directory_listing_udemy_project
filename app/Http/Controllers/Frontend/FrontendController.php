@@ -6,6 +6,7 @@ use App\Events\CreateOrder;
 use App\Http\Controllers\Controller;
 use App\Models\Amenity;
 use App\Models\Blog;
+use App\Models\BlogCategory;
 use App\Models\Category;
 use App\Models\Claim;
 use App\Models\Counter;
@@ -238,11 +239,20 @@ class FrontendController extends Controller
                 $query->where('title', 'LIKE', '%'.$request->search.'%')
                 ->orWhere('description', 'LIKE', '%'.$request->search.'%');
             })
+            ->when($request->has('category') && $request->filled('category'), function($query) use ($request) {
+                $category = BlogCategory::select('id', 'slug')->where('slug', $request->category)->first();
+                $query->where('blog_category_id', $category->id);
+            })
             ->paginate(9);
         return view('frontend.pages.blog', compact('blogs'));
     }
     function blogShow(string $slug) : View {
         $blog = Blog::with('category')->where(['slug' => $slug, 'status' => 1])->firstOrFail();
-        return view('frontend.pages.blog-show', compact('blog'));
+
+        $categories = BlogCategory::withCount(['blogs' => function($query){
+            $query->where('status', 1);
+        }])->where('status', 1)->get();
+
+        return view('frontend.pages.blog-show', compact('blog', 'categories'));
     }
 }
