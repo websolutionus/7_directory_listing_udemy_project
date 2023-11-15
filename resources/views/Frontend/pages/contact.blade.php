@@ -68,31 +68,28 @@
             <div class="row">
                 <div class="col-12">
                     <h2>message here</h2>
-                    <form>
+                    <form action="{{ route('contact.message') }}" method="POST">
+                        @csrf
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="contact_input">
-                                    <input type="text" placeholder="Name">
+                                    <input type="text" placeholder="Name" name="name">
                                 </div>
                             </div>
                             <div class="col-xl-6">
                                 <div class="contact_input">
-                                    <input type="email" placeholder="Email">
+                                    <input type="email" placeholder="Email" name="email">
                                 </div>
                             </div>
-                            <div class="col-xl-6">
+
+                            <div class="col-xl-12">
                                 <div class="contact_input">
-                                    <input type="text" placeholder="Phone">
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="contact_input">
-                                    <input type="text" placeholder="Subject">
+                                    <input type="text" placeholder="Subject" name="subject">
                                 </div>
                             </div>
                             <div class="col-xl-12">
                                 <div class="contact_input">
-                                    <textarea cols="3" rows="5" placeholder="Message"></textarea>
+                                    <textarea cols="3" rows="5" placeholder="Message" name="message"></textarea>
                                     <button class="read_btn" type="submit">send message</button>
                                 </div>
                             </div>

@@ -44,6 +44,8 @@ Route::get('about-us', [FrontendController::class, 'aboutIndex'])->name('about.i
 
 // Contact Route
 Route::get('contact', [FrontendController::class, 'contactIndex'])->name('contact.index');
+Route::post('contact', [FrontendController::class, 'contactMessage'])->name('contact.message');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Events\CreateOrder;
 use App\Http\Controllers\Controller;
+use App\Mail\ContactMail;
 use App\Models\AboutUs;
 use App\Models\Amenity;
 use App\Models\Blog;
@@ -25,6 +26,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Mail;
 use Session;
 
 use function Ramsey\Uuid\v1;
@@ -291,5 +293,21 @@ class FrontendController extends Controller
     function contactIndex() : View {
         $contact = Contact::first();
         return view('frontend.pages.contact', compact('contact'));
+    }
+
+    function contactMessage(Request $request) : RedirectResponse
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:200'],
+            'email' => ['required', 'email', 'max:50'],
+            'subject' => ['required', 'string', 'max:200'],
+            'message' => ['required', 'max:2000']
+        ]);
+
+        Mail::to(config('settings.site_email'))->send(new ContactMail($request->name, $request->subject, $request->message));
+
+        toastr()->success('Message Send Successfully!');
+
+        return redirect()->back();
     }
 }
