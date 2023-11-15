@@ -48,6 +48,8 @@ Route::post('contact', [FrontendController::class, 'contactMessage'])->name('con
 
 // Privacy Policy Route
 Route::get('privacy-policy', [FrontendController::class, 'privacyPolicy'])->name('privacy-policy.index');
+// Terms and Condition Route
+Route::get('terms-and-condition', [FrontendController::class, 'termsAndCondition'])->name('terms-and-condition.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

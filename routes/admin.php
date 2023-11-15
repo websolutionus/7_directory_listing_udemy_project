@@ -27,6 +27,8 @@ use App\Http\Controllers\Admin\PrivacyPolicyController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\TermsAndCondition;
+use App\Http\Controllers\Admin\TermsAndConditionController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
@@ -129,7 +131,9 @@ Route::group([
     /** Privacy Policy Route */
     Route::get('privacy-policy', [PrivacyPolicyController::class, 'index'])->name('privacy-policy.index');
     Route::post('privacy-policy', [PrivacyPolicyController::class, 'update'])->name('privacy-policy.update');
-
+    /** Terms and Condition Route */
+    Route::get('terms-and-condition', [TermsAndConditionController::class, 'index'])->name('terms-and-condition.index');
+    Route::post('terms-and-condition', [TermsAndConditionController::class, 'update'])->name('terms-and-condition.update');
 
     /** Settings Routes */
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');

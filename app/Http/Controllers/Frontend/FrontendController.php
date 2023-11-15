@@ -22,6 +22,7 @@ use App\Models\OurFeature;
 use App\Models\Package;
 use App\Models\PrivacyPolicy;
 use App\Models\Review;
+use App\Models\TermsAndCondition;
 use App\Models\Testimonial;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -315,5 +316,10 @@ class FrontendController extends Controller
     function privacyPolicy() : View {
         $privacyPolicy = PrivacyPolicy::first();
         return view('frontend.pages.privacy-policy', compact('privacyPolicy'));
+    }
+
+    function termsAndCondition() : View {
+        $termsAndCondition = TermsAndCondition::first();
+        return view('frontend.pages.terms-and-condition', compact('termsAndCondition'));
     }
 }
