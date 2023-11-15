@@ -39,7 +39,8 @@ Route::post('submit-claim', [FrontendController::class, 'submitClaim'])->name('s
 Route::get('blog', [FrontendController::class, 'blog'])->name('blog.index');
 Route::get('blog/{slug}', [FrontendController::class, 'blogShow'])->name('blog.show');
 Route::post('blog-comment', [FrontendController::class, 'blogCommentStore'])->name('blog-comment.store');
-
+// About Route
+Route::get('about-us', [FrontendController::class, 'aboutIndex'])->name('about.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

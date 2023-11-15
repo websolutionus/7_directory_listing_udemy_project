@@ -250,6 +250,22 @@
                 </ul>
             </li>
 
+            <li class="dropdown {{ setSidebarActive(['admin.hero.index']) }}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                        class="fas fa-columns"></i> <span>Pages</span></a>
+
+                <ul class="dropdown-menu"
+                {{ setSidebarActive([
+                    'admin.packages.*',
+                ]) }}
+                >
+                    <li class="{{ setSidebarActive(['admin.blog-category.*']) }}"><a class="nav-link" href="{{ route('admin.about-us.index') }}">About Us</a></li>
+
+
+                </ul>
+            </li>
+
+
             <li><a class="nav-link" href="{{ route('admin.settings.index') }}"><i class="far fa-square"></i> <span>Settings</span></a></li>
 
 

@@ -25,6 +25,8 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Session;
 
+use function Ramsey\Uuid\v1;
+
 class FrontendController extends Controller
 {
     function index() : View
@@ -272,5 +274,9 @@ class FrontendController extends Controller
         toastr()->success('Comment added successfully and waiting for approve!');
 
         return redirect()->back();
+    }
+
+    function aboutIndex() : View {
+        return view('frontend.pages.about');
     }
 }
