@@ -42,6 +42,9 @@ Route::post('blog-comment', [FrontendController::class, 'blogCommentStore'])->na
 // About Route
 Route::get('about-us', [FrontendController::class, 'aboutIndex'])->name('about.index');
 
+// Contact Route
+Route::get('contact', [FrontendController::class, 'contactIndex'])->name('contact.index');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

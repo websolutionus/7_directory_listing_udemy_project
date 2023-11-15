@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ChatController;
 use App\Http\Controllers\Admin\ClaimController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HeroController;
@@ -120,6 +121,9 @@ Route::group([
     Route::get('about-us', [AboutController::class, 'index'])->name('about-us.index');
     Route::post('about-us', [AboutController::class, 'update'])->name('about-us.update');
 
+    /** Contact Route */
+    Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
+    Route::post('contact', [ContactController::class, 'update'])->name('contact.update');
 
     /** Settings Routes */
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');

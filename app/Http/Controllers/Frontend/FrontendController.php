@@ -286,4 +286,8 @@ class FrontendController extends Controller
         $counter = Counter::first();
         return view('frontend.pages.about', compact('about', 'ourFeatures', 'featuredCategories', 'counter'));
     }
+
+    function contactIndex() : View {
+        return view('frontend.pages.contact');
+    }
 }
