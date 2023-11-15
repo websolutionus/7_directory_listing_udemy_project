@@ -46,6 +46,8 @@ Route::get('about-us', [FrontendController::class, 'aboutIndex'])->name('about.i
 Route::get('contact', [FrontendController::class, 'contactIndex'])->name('contact.index');
 Route::post('contact', [FrontendController::class, 'contactMessage'])->name('contact.message');
 
+// Privacy Policy Route
+Route::get('privacy-policy', [FrontendController::class, 'privacyPolicy'])->name('privacy-policy.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

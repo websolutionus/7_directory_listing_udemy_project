@@ -20,6 +20,7 @@ use App\Models\ListingSchedule;
 use App\Models\Location;
 use App\Models\OurFeature;
 use App\Models\Package;
+use App\Models\PrivacyPolicy;
 use App\Models\Review;
 use App\Models\Testimonial;
 use Illuminate\Http\RedirectResponse;
@@ -309,5 +310,10 @@ class FrontendController extends Controller
         toastr()->success('Message Send Successfully!');
 
         return redirect()->back();
+    }
+
+    function privacyPolicy() : View {
+        $privacyPolicy = PrivacyPolicy::first();
+        return view('frontend.pages.privacy-policy', compact('privacyPolicy'));
     }
 }

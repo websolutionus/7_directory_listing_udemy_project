@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\OurFeatureController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PaymentSettingController;
 use App\Http\Controllers\Admin\PendingListingController;
+use App\Http\Controllers\Admin\PrivacyPolicyController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SettingController;
@@ -124,6 +125,11 @@ Route::group([
     /** Contact Route */
     Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
     Route::post('contact', [ContactController::class, 'update'])->name('contact.update');
+
+    /** Privacy Policy Route */
+    Route::get('privacy-policy', [PrivacyPolicyController::class, 'index'])->name('privacy-policy.index');
+    Route::post('privacy-policy', [PrivacyPolicyController::class, 'update'])->name('privacy-policy.update');
+
 
     /** Settings Routes */
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
