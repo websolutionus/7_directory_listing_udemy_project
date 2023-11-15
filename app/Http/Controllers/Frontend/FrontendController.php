@@ -11,6 +11,7 @@ use App\Models\BlogCategory;
 use App\Models\BlogComment;
 use App\Models\Category;
 use App\Models\Claim;
+use App\Models\Contact;
 use App\Models\Counter;
 use App\Models\Hero;
 use App\Models\Listing;
@@ -288,6 +289,7 @@ class FrontendController extends Controller
     }
 
     function contactIndex() : View {
-        return view('frontend.pages.contact');
+        $contact = Contact::first();
+        return view('frontend.pages.contact', compact('contact'));
     }
 }

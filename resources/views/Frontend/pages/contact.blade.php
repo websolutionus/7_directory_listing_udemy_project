@@ -38,8 +38,8 @@
                             <i class="fal fa-phone-square-alt"></i>
                         </div>
                         <div class="contact_box_text">
-                            <a href="callto: +96582462545425">+ 96582462545425</a>
-                            <a href="callto: +96582462545425">+ 96582462545425</a>
+                            <a href="callto: {{ $contact?->phone }}">{{ $contact?->phone }}</a>
+
                         </div>
                     </div>
                 </div>
@@ -49,8 +49,8 @@
                             <i class="fas fa-envelope"></i>
                         </div>
                         <div class="contact_box_text">
-                            <a href="mailto: example@gmail.com">example@gmail.com</a>
-                            <a href="mailto: example@gmail.com">example@gmail.com</a>
+                            <a href="mailto: {{ $contact?->email }}">{{ $contact?->email }}</a>
+
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                             <i class="fal fa-map-marker-alt"></i>
                         </div>
                         <div class="contact_box_text">
-                            <p>535 Talbot Street (at Kent Street) London, Ontario</p>
+                            <p>{{ $contact?->address }}</p>
                         </div>
                     </div>
                 </div>
@@ -104,9 +104,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="contact_map">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14599.891499433526!2d90.44560068647732!3d23.819563582905406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c62fce7d991f%3A0xacfaf1ac8e944c05!2sBasundhara%20Residential%20Area%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1632724653244!5m2!1sen!2sbd"
-                            width="2000" height="500" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        {!! $contact?->map_link !!}
                     </div>
                 </div>
             </div>
