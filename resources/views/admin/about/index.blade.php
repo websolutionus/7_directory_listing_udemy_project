@@ -22,53 +22,37 @@
                             <h4>Update About Us</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('admin.category.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.about-us.update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="">Icon Image <span class="text-danger">*</span></label>
-                                            <div id="image-preview" class="image-preview">
-                                                <label for="image-upload" id="image-label">Choose File</label>
-                                                <input type="file" name="image_icon" id="image-upload" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="">Background Image <span
-                                                    class="text-danger">*</span></label>
-                                            <div id="image-preview-2" class="image-preview">
-                                                <label for="image-upload-2" id="image-label-2">Choose File</label>
-                                                <input type="file" name="background_image" id="image-upload-2" />
-                                            </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Image <span class="text-danger">*</span></label>
+                                        <div id="image-preview" class="image-preview">
+                                            <label for="image-upload" id="image-label">Choose File</label>
+                                            <input type="file" name="image" id="image-upload" />
+                                            <input type="hidden" name="old_image" value="{{ $about?->image }}" />
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
-                                    <label for="">Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="name">
+                                    <label for="">Video Url <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="video_url" value="{{ $about?->video_url }}">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="">Show at Home <span class="text-danger">*</span></label>
-                                    <select name="show_at_home" class="form-control">
-                                        <option value="0">No</option>
-                                        <option value="1">Yes</option>
-                                    </select>
+                                    <label for="">Description <span class="text-danger">*</span></label>
+                                    <textarea name="description" class="summernote">{!! $about?->description !!}</textarea>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="">Status <span class="text-danger">*</span></label>
-                                    <select name="status" class="form-control">
-                                        <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
-                                    </select>
+                                    <label for="">Button Url <span class="text-danger"></span></label>
+                                    <input type="text" class="form-control" name="button_url" value="{{ $about?->button_url }}">
                                 </div>
 
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Create</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
 
                             </form>
@@ -83,14 +67,13 @@
 
 @push('scripts')
     <script>
-        $.uploadPreview({
-            input_field: "#image-upload-2", // Default: .image-upload
-            preview_box: "#image-preview-2", // Default: .image-preview
-            label_field: "#image-label-2", // Default: .image-label
-            label_default: "Choose File", // Default: Choose File
-            label_selected: "Change File", // Default: Change File
-            no_label: false, // Default: false
-            success_callback: null // Default: null
-        });
+        $(document).ready(function() {
+
+            $('.image-preview').css({
+                'background-image': 'url({{ asset($about?->image) }})',
+                'background-size': 'cover',
+                'background-position': 'center center'
+            });
+        })
     </script>
 @endpush

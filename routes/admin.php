@@ -118,6 +118,8 @@ Route::group([
 
     /** About Route */
     Route::get('about-us', [AboutController::class, 'index'])->name('about-us.index');
+    Route::post('about-us', [AboutController::class, 'update'])->name('about-us.update');
+
 
     /** Settings Routes */
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
