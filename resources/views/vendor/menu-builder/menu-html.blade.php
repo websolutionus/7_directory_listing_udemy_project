@@ -23,8 +23,8 @@ $currentUrl = url()->current();
                                     <span class="submit-btn">
 										<input type="submit" class="button-secondary" value="@lang("menu-builder::messages.choose")">
 									</span>
-                                    <span class="add-new-menu-action"> @lang("menu-builder::messages.or") <a
-                                            href="{{ $currentUrl }}?action=edit&menu=0">@lang("menu-builder::messages.create_new_menu")</a>. </span>
+                                    {{-- <span class="add-new-menu-action"> @lang("menu-builder::messages.or") <a
+                                            href="{{ $currentUrl }}?action=edit&menu=0">@lang("menu-builder::messages.create_new_menu")</a>. </span> --}}
                                 </form>
                             </div>
                             <div id="nav-menus-frame">
@@ -47,10 +47,11 @@ $currentUrl = url()->current();
                                                         </h3>
                                                         <div class="accordion-section-content ">
                                                             <div class="inside">
-                                                                <div class="customlinkdiv" id="customlinkdiv">
-                                                                    <p id="menu-item-url-wrap">
+                                                                <div class="customlinkdiv" id="customlinkdiv" style="text-align: center;">
+                                                                    <p id="menu-item-url-wrap" style="margin: 0px">
                                                                         <label class="howto" for="custom-menu-item-url">
-                                                                            <span>URL</span>&nbsp;&nbsp;&nbsp;
+                                                                            <span>URL</span>
+                                                                            <br>
                                                                             <input id="custom-menu-item-url" name="url"
                                                                                    type="text"
                                                                                    class="menu-item-textbox url-box"
@@ -58,10 +59,11 @@ $currentUrl = url()->current();
                                                                         </label>
                                                                     </p>
 
-                                                                    <p id="menu-item-name-wrap">
+                                                                    <p id="menu-item-name-wrap" style="margin: 0px">
                                                                         <label class="howto"
                                                                                for="custom-menu-item-name">
-                                                                            <span>@lang("menu-builder::messages.label")</span>&nbsp;
+                                                                            <span>@lang("menu-builder::messages.label")</span>
+                                                                            <br>
                                                                             <input id="custom-menu-item-name"
                                                                                    name="label" type="text"
                                                                                    style="color: black"
@@ -70,11 +72,12 @@ $currentUrl = url()->current();
                                                                         </label>
                                                                     </p>
 
-                                                                    <p id="menu-item-name-wrap">
+                                                                    <p id="menu-item-name-wrap" style="margin: 0px">
                                                                         <label class="howto"
                                                                                for="custom-menu-item-name">
-                                                                            <span>Pages</span>&nbsp;
-                                                                            <select style="color: black" name="" id="" class="regular-text menu-item-textbox input-with-default-title page-box">
+                                                                            <span>Pages</span>
+                                                                            <br>
+                                                                            <select style="color: black; padding: 8px;" name="" id="" class="regular-text menu-item-textbox input-with-default-title page-box">
                                                                                 <option value="">Select</option>
                                                                                 @foreach (config('menu-builder') as $key => $value)
                                                                                 <option value="{{ $value }}">{{ $key }}</option>
@@ -337,10 +340,10 @@ $currentUrl = url()->current();
                                                                    class="button button-primary menu-save">@lang("menu-builder::messages.create_menu")</a>
                                                             </div>
                                                         @elseif(request()->has("menu"))
-                                                            <span class="delete-action"> <a
+                                                            {{-- <span class="delete-action"> <a
                                                                     class="submitdelete deletion menu-delete"
                                                                     onclick="deletemenu()"
-                                                                    href="javascript:void(9)">@lang("menu-builder::messages.delete_menu")</a> </span>
+                                                                    href="javascript:void(9)">@lang("menu-builder::messages.delete_menu")</a> </span> --}}
                                                             <div class="publishing-action">
 
                                                                 <a onclick="getmenus()" name="save_menu"

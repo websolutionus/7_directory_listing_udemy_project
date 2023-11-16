@@ -28,10 +28,9 @@
                 <div class="footer_text">
                     <h3>Helpful Links</h3>
                     <ul class="footer_link">
-                        <li><a href="#"><i class="far fa-chevron-double-right"></i> FAQ</a></li>
-                        <li><a href="#"><i class="far fa-chevron-double-right"></i> Feedbacek</a></li>
-                        <li><a href="#"><i class="far fa-chevron-double-right"></i> report</a></li>
-                        <li><a href="#"><i class="far fa-chevron-double-right"></i> contact</a></li>
+                        @foreach (Menu::getByName('Footer Menu Two') as $footerMenuOne)
+                        <li><a href="{{ $footerMenuOne['link'] }}"><i class="far fa-chevron-double-right"></i> {{ $footerMenuOne['label'] }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -39,9 +38,9 @@
                 <div class="footer_text">
                     <h3>Information</h3>
                     <ul class="footer_link">
-                        <li><a href="#"><i class="far fa-chevron-double-right"></i> blog</a></li>
-                        <li><a href="#"><i class="far fa-chevron-double-right"></i> Testimonial</a></li>
-                        <li><a href="#"><i class="far fa-chevron-double-right"></i> Tetss</a></li>
+                        @foreach (Menu::getByName('Footer Menu Three') as $footerMenuOne)
+                        <li><a href="{{ $footerMenuOne['link'] }}"><i class="far fa-chevron-double-right"></i> {{ $footerMenuOne['label'] }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
