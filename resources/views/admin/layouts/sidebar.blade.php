@@ -278,7 +278,7 @@
                 ]) }}
                 >
                     <li class="{{ setSidebarActive(['admin.blog-category.*']) }}"><a class="nav-link" href="{{ route('admin.footer-info.index') }}">Footer Info</a></li>
-
+                    <li class="{{ setSidebarActive(['admin.blog-category.*']) }}"><a class="nav-link" href="{{ route('admin.social-link.index') }}">Social Links</a></li>
 
 
                 </ul>

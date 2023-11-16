@@ -66,10 +66,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-6 col-md-5">
-                    <p>&#64; 2021 <a href="#">DB.Card</a> All Rights Reserved.</p>
+                    <p>{{ $footerInfo?->copyright }}</p>
                 </div>
                 <div class="col-xl-6 col-md-7">
-                    
+
                 </div>
             </div>
         </div>

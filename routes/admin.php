@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\PrivacyPolicyController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SocialLinkController;
 use App\Http\Controllers\Admin\TermsAndCondition;
 use App\Http\Controllers\Admin\TermsAndConditionController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -142,7 +143,8 @@ Route::group([
     /** Footer Info Route */
     Route::get('footer-info', [FooterInfoController::class, 'index'])->name('footer-info.index');
     Route::post('footer-info', [FooterInfoController::class, 'update'])->name('footer-info.update');
-
+    /** Social link Route */
+    Route::resource('social-link', SocialLinkController::class);
 
     /** Settings Routes */
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
