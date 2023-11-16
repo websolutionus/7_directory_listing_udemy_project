@@ -18,10 +18,9 @@
                 <div class="footer_text">
                     <h3>My Account</h3>
                     <ul class="footer_link">
-                        <li><a href="#"><i class="far fa-chevron-double-right"></i> login</a></li>
-                        <li><a href="#"><i class="far fa-chevron-double-right"></i> register</a></li>
-                        <li><a href="#"><i class="far fa-chevron-double-right"></i> change password</a></li>
-                        <li><a href="#"><i class="far fa-chevron-double-right"></i> forget password</a></li>
+                        @foreach (Menu::getByName('Footer Menu One') as $footerMenuOne)
+                        <li><a href="{{ $footerMenuOne['link'] }}"><i class="far fa-chevron-double-right"></i> {{ $footerMenuOne['label'] }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
