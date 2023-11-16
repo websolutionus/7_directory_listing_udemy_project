@@ -1,5 +1,7 @@
 @php
     $footerInfo = \App\Models\FooterInfo::first();
+    $socialLinks = \App\Models\SocialLink::where('status', 1)->get();
+
 @endphp
 <footer>
     <div class="container">
@@ -9,10 +11,10 @@
                     <h3>About Us</h3>
                     <p>{!! $footerInfo?->short_description !!}</p>
                     <ul class="footer_icon">
-                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-                        <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                        @foreach ($socialLinks as $link)
+                        <li><a href="{{ $link->url }}"><i class="{{ $link->icon }}"></i></a></li>
+                        @endforeach
+
                     </ul>
                 </div>
             </div>

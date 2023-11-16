@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\SocialLinkDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SocialLinkCreateRequest;
+use App\Http\Requests\Admin\SocialLinkUpdateRequest;
 use App\Models\SocialLink;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -44,28 +45,31 @@ class SocialLinkController extends Controller
         return to_route('admin.social-link.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        $link = SocialLink::findOrFail($id);
+        return view('admin.social-link.edit', compact('link'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SocialLinkUpdateRequest $request, string $id)
     {
-        //
+        $link = SocialLink::findOrFail($id);
+        if($request->filled('icon')){
+            $link->icon = $request->icon;
+        }
+        $link->url = $request->url;
+        $link->status = $request->status;
+        $link->save();
+
+        toastr()->success('Update Successfully!');
+        return to_route('admin.social-link.index');
     }
 
     /**
@@ -73,6 +77,13 @@ class SocialLinkController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            SocialLink::findOrFail($id)->delete();
+
+            return response(['status' => 'success', 'message' => 'Deleted successfully!']);
+        }catch(\Exception $e){
+            logger($e);
+            return response(['status' => 'error', 'message' => $e->getMessage()]);
+        }
     }
 }

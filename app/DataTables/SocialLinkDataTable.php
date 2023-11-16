@@ -22,7 +22,23 @@ class SocialLinkDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'sociallink.action')
+            ->addColumn('action', function($query){
+                $edit = '<a href="'.route('admin.social-link.edit', $query->id).'" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>';
+                $delete = '<a href="'.route('admin.social-link.destroy', $query->id).'" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
+
+                return $edit.$delete;
+            })
+            ->addColumn('status', function($query){
+                if($query->status === 1){
+                    return "<span class='badge badge-primary'>Active</span>";
+                }else{
+                    return "<span class='badge badge-danger'>Inactive</span>";
+                }
+            })
+            ->addColumn('icon', function($query) {
+                return '<i style="font-size:50px" class="'.$query->icon.'"></i>';
+            })
+            ->rawColumns(['action', 'status', 'icon'])
             ->setRowId('id');
     }
 
@@ -62,15 +78,16 @@ class SocialLinkDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+
             Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('icon'),
+            Column::make('url'),
+            Column::make('status'),
+            Column::computed('action')
+            ->exportable(false)
+            ->printable(false)
+            ->width(100)
+            ->addClass('text-center'),
         ];
     }
 
