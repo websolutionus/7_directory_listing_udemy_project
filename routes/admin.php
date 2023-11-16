@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ClaimController;
 use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\FooterInfoController;
 use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\ListingController;
 use App\Http\Controllers\Admin\ListingImageGallery;
@@ -137,6 +138,12 @@ Route::group([
     Route::post('terms-and-condition', [TermsAndConditionController::class, 'update'])->name('terms-and-condition.update');
     /** Privacy Policy Route */
     Route::get('menu-builder', [MenuBuilderController::class, 'index'])->name('menu-builder.index');
+
+    /** Footer Info Route */
+    Route::get('footer-info', [FooterInfoController::class, 'index'])->name('footer-info.index');
+    Route::post('footer-info', [FooterInfoController::class, 'update'])->name('footer-info.update');
+
+
     /** Settings Routes */
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/general-settings', [SettingController::class, 'updateGeneralSetting'])->name('general-settings.update');

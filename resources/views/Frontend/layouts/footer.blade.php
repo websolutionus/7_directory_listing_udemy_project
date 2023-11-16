@@ -1,11 +1,13 @@
+@php
+    $footerInfo = \App\Models\FooterInfo::first();
+@endphp
 <footer>
     <div class="container">
         <div class="row text-white">
             <div class="col-xl-3 col-sm-12 col-md-6 col-lg-6">
                 <div class="footer_text">
                     <h3>About Us</h3>
-                    <p>In publishing and graphic designLorem Ipsum dummy and typesetting Degital Marketeing. has
-                        been the industry's standard dummy text ever since.</p>
+                    <p>{!! $footerInfo?->short_description !!}</p>
                     <ul class="footer_icon">
                         <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                         <li><a href="#"><i class="fab fa-twitter"></i></a></li>
@@ -49,12 +51,12 @@
                     <h3>Information</h3>
                     <ul class="footer_link">
                         <li>
-                            <p><i class="far fa-map-marker-alt"></i> San Francisco City Hall, San Francisco</p>
+                            <p><i class="far fa-map-marker-alt"></i> {{ $footerInfo?->address }}</p>
                         </li>
-                        <li><a href="#"><a href="mailto:example@gmail.com"><i class="fal fa-envelope"></i>
-                                    example@gmail.com</a></li>
-                        <li><a href="#"><a href="callto:+6985224411026"><i class="fal fa-phone-alt"></i>
-                                    +6985224411026</a></li>
+                        <li><a href="#"><a href="mailto:{{ $footerInfo?->email }}"><i class="fal fa-envelope"></i>
+                            {{ $footerInfo?->email }}</a></li>
+                        <li><a href="#"><a href="callto:{{ $footerInfo?->phone }}"><i class="fal fa-phone-alt"></i>
+                            {{ $footerInfo?->phone }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -67,11 +69,7 @@
                     <p>&#64; 2021 <a href="#">DB.Card</a> All Rights Reserved.</p>
                 </div>
                 <div class="col-xl-6 col-md-7">
-                    <ul class="footer_bottom_link">
-                        <li><a href="#">Terms and Conditions</a></li>
-                        <li><a href="#">Privacy Policy </a></li>
-                        <li><a href="#"> Contact </a></li>
-                    </ul>
+                    
                 </div>
             </div>
         </div>
