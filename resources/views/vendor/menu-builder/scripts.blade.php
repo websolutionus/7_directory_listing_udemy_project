@@ -32,3 +32,12 @@
 <script type="text/javascript" src="{{asset('vendor/menu-builder/scripts.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendor/menu-builder/scripts2.js')}}"></script>
 <script type="text/javascript" src="{{asset('vendor/menu-builder/menu.js')}}"></script>
+<script>
+    $(document).ready(function(){
+        $('.page-box').on('change', function(){
+            $('.url-box').val($(this).val());
+            $('.title-box').val($(this).find(":selected").text());
+
+        })
+    })
+</script>

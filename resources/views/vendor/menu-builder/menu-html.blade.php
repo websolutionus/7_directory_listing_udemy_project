@@ -53,7 +53,7 @@ $currentUrl = url()->current();
                                                                             <span>URL</span>&nbsp;&nbsp;&nbsp;
                                                                             <input id="custom-menu-item-url" name="url"
                                                                                    type="text"
-                                                                                   class="menu-item-textbox "
+                                                                                   class="menu-item-textbox url-box"
                                                                                    placeholder="URL">
                                                                         </label>
                                                                     </p>
@@ -64,10 +64,25 @@ $currentUrl = url()->current();
                                                                             <span>@lang("menu-builder::messages.label")</span>&nbsp;
                                                                             <input id="custom-menu-item-name"
                                                                                    name="label" type="text"
-                                                                                   class="regular-text menu-item-textbox input-with-default-title"
+                                                                                   style="color: black"
+                                                                                   class="regular-text menu-item-textbox input-with-default-title title-box"
                                                                                    title="@lang("menu-builder::messages.menu_label")">
                                                                         </label>
                                                                     </p>
+
+                                                                    <p id="menu-item-name-wrap">
+                                                                        <label class="howto"
+                                                                               for="custom-menu-item-name">
+                                                                            <span>Pages</span>&nbsp;
+                                                                            <select style="color: black" name="" id="" class="regular-text menu-item-textbox input-with-default-title page-box">
+                                                                                <option value="">Select</option>
+                                                                                @foreach (config('menu-builder') as $key => $value)
+                                                                                <option value="{{ $value }}">{{ $key }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </label>
+                                                                    </p>
+
 
                                                                     @if(!empty($roles))
                                                                         <p id="menu-item-role_id-wrap">
