@@ -31,43 +31,23 @@
                                 </div>
 
                                 <hr>
-
+                                @foreach ($permissions as $groupName => $permission)
                                 <div class="form-group">
-                                    <h6>Section Permissions</h6>
+                                    <h6>{{ $groupName }} Permissions</h6>
                                     <div class="row">
+                                        @foreach ($permission as $item)
                                         <div class="col-md-2">
                                             <label class="custom-switch mt-2">
-                                                <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
+                                                <input type="checkbox" name="permissions[]" class="custom-switch-input" value="{{ $item->name }}">
                                                 <span class="custom-switch-indicator"></span>
-                                                <span class="custom-switch-description">Section Index</span>
+                                                <span class="custom-switch-description">{{ $item->name }}</span>
                                             </label>
                                         </div>
-                                        <div class="col-md-2">
-                                            <label class="custom-switch mt-2">
-                                                <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-                                                <span class="custom-switch-indicator"></span>
-                                                <span class="custom-switch-description">Section Create</span>
-                                            </label>
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <label class="custom-switch mt-2">
-                                                <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-                                                <span class="custom-switch-indicator"></span>
-                                                <span class="custom-switch-description">Section Update</span>
-                                            </label>
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <label class="custom-switch mt-2">
-                                                <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-                                                <span class="custom-switch-indicator"></span>
-                                                <span class="custom-switch-description">Section Delete</span>
-                                            </label>
-                                        </div>
+                                        @endforeach
                                     </div>
                                     <hr>
                                 </div>
+                                @endforeach
 
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">Update</button>

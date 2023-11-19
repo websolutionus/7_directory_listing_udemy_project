@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Spatie\Permission\Models\Permission;
 
 class RolePermissionController extends Controller
 {
@@ -23,7 +24,8 @@ class RolePermissionController extends Controller
      */
     public function create() : View
     {
-        return view('admin.role-permission.create');
+        $permissions = Permission::all()->groupBy('group_name');
+        return view('admin.role-permission.create', compact('permissions'));
     }
 
     /**
