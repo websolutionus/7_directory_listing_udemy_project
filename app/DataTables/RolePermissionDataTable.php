@@ -31,8 +31,12 @@ class RolePermissionDataTable extends DataTable
             })
             ->addColumn('permissions', function($query) {
                 $html = '';
-                foreach($query->permissions as $permission) {
-                    $html .= "<span class='badge badge-primary m-1'>".$permission->name."</span>";
+                if(auth()->user()->hasRole('Super Admin')){
+                    $html .= "<span class='badge badge-danger m-1'>All Permissions</span>";
+                }else {
+                    foreach($query->permissions as $permission) {
+                        $html .= "<span class='badge badge-primary m-1'>".$permission->name."</span>";
+                    }
                 }
                 return $html;
             })
