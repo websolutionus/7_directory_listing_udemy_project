@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\PendingListingController;
 use App\Http\Controllers\Admin\PrivacyPolicyController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\Admin\RolePermissionController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialLinkController;
 use App\Http\Controllers\Admin\TermsAndCondition;
@@ -145,6 +146,9 @@ Route::group([
     Route::post('footer-info', [FooterInfoController::class, 'update'])->name('footer-info.update');
     /** Social link Route */
     Route::resource('social-link', SocialLinkController::class);
+
+    /** Role Route */
+    Route::resource('role', RolePermissionController::class);
 
     /** Settings Routes */
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
