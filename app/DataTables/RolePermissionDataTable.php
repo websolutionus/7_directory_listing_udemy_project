@@ -24,14 +24,16 @@ class RolePermissionDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function($query){
-                $edit = '<a href="'.route('admin.role.edit', $query->id).'" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>';
-                $delete = '<a href="'.route('admin.role.destroy', $query->id).'" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
+                if($query->name !== 'Super Admin'){
+                    $edit = '<a href="'.route('admin.role.edit', $query->id).'" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>';
+                    $delete = '<a href="'.route('admin.role.destroy', $query->id).'" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
 
-                return $edit.$delete;
+                    return $edit.$delete;
+                }
             })
             ->addColumn('permissions', function($query) {
                 $html = '';
-                if(auth()->user()->hasRole('Super Admin')){
+                if($query->name === 'Super Admin'){
                     $html .= "<span class='badge badge-danger m-1'>All Permissions</span>";
                 }else {
                     foreach($query->permissions as $permission) {
@@ -63,7 +65,7 @@ class RolePermissionDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0, 'asc')
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),

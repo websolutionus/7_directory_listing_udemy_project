@@ -70,6 +70,9 @@ class RolePermissionController extends Controller
         ]);
 
         $role = Role::findOrFail($id);
+        if($role->name === 'Super Admin'){
+            abort(403);
+        }
         $role->name = $request->role_name;
         $role->save();
 
@@ -86,8 +89,11 @@ class RolePermissionController extends Controller
     public function destroy(string $id)
     {
         try {
-            Role::findOrFail($id)->delete();
-
+            $role = Role::findOrFail($id);
+            if($role->name === 'Super Admin'){
+                abort(403);
+            }
+            $role->delete();
             return response(['status' => 'success', 'message' => 'Deleted successfully!']);
         } catch (\Exception $e) {
             logger($e);
