@@ -22,7 +22,7 @@
                             <h4>Create Role</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('admin.about-us.update') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.role.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="form-group">
@@ -50,7 +50,7 @@
                                 @endforeach
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    <button type="submit" class="btn btn-primary">Create</button>
                                 </div>
 
                             </form>
