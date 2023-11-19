@@ -16,7 +16,7 @@ class RolePermissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(RolePermissionDataTable $dataTable) : View|JsonResponse
+    public function index(RolePermissionDataTable $dataTable): View|JsonResponse
     {
         return $dataTable->render('admin.role-permission.index');
     }
@@ -24,7 +24,7 @@ class RolePermissionController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create() : View
+    public function create(): View
     {
         $permissions = Permission::all()->groupBy('group_name');
         return view('admin.role-permission.create', compact('permissions'));
@@ -33,7 +33,7 @@ class RolePermissionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) : RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'role_name' => ['required', 'max:40', 'unique:roles,name'],
@@ -49,19 +49,14 @@ class RolePermissionController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id): View
     {
-        //
+        $role = Role::findOrFail($id);
+        $rolePermissions = $role->permissions->pluck('name')->toArray();
+        $permissions = Permission::all()->groupBy('group_name');
+        return view('admin.role-permission.edit', compact('permissions', 'role', 'rolePermissions'));
     }
 
     /**
@@ -69,7 +64,20 @@ class RolePermissionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'role_name' => ['required', 'max:40', 'unique:roles,name,' . $id],
+            'permissions' => ['required']
+        ]);
+
+        $role = Role::findOrFail($id);
+        $role->name = $request->role_name;
+        $role->save();
+
+        $role->syncPermissions($request->permissions);
+
+        toastr()->success('Created Successfully!');
+
+        return to_route('admin.role.index');
     }
 
     /**
@@ -77,6 +85,13 @@ class RolePermissionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            Role::findOrFail($id)->delete();
+
+            return response(['status' => 'success', 'message' => 'Deleted successfully!']);
+        } catch (\Exception $e) {
+            logger($e);
+            return response(['status' => 'error', 'message' => $e->getMessage()]);
+        }
     }
 }
