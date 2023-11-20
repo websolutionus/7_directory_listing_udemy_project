@@ -178,6 +178,7 @@
             <li class="menu-header">Starter</li>
             <li class="{{ setSidebarActive(['admin.dashboard.index']) }}"><a class="nav-link" href="{{ route('admin.dashboard.index') }}"><i class="far fa-square"></i> <span>Dashboard</span></a></li>
 
+            @can('section index')
             <li class="dropdown {{ setSidebarActive(['admin.hero.index']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                         class="fas fa-columns"></i> <span>Sections</span></a>
@@ -188,8 +189,9 @@
                     <li class="{{ setSidebarActive(['admin.counter.index']) }}"><a class="nav-link" href="{{ route('admin.counter.index') }}">Counter</a></li>
                 </ul>
             </li>
+            @endcan
 
-
+            @canany(['listing index', 'pending listing', 'listing review', 'listing claims'])
             <li class="dropdown {{
                 setSidebarActive([
                     'admin.category.*',
@@ -202,19 +204,27 @@
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                         class="fas fa-columns"></i> <span>Listings</span></a>
                 <ul class="dropdown-menu">
+                    @can('listing index')
                     <li class="{{ setSidebarActive(['admin.category.*']) }}"><a class="nav-link" href="{{ route('admin.category.index') }}">Categories</a></li>
                     <li class="{{ setSidebarActive(['admin.location.*']) }}"><a class="nav-link" href="{{ route('admin.location.index') }}">Lcoation</a></li>
                     <li class="{{ setSidebarActive(['admin.amenity.*']) }}"><a class="nav-link" href="{{ route('admin.amenity.index') }}">Amenities</a></li>
 
                     <li class="{{ setSidebarActive(['admin.listing.*']) }}"><a class="nav-link" href="{{ route('admin.listing.index') }}">All Listing</a></li>
+                    @endcan
+                    @can('pending listing')
                     <li class="{{ setSidebarActive(['admin.pending-listing.*']) }}"><a class="nav-link" href="{{ route('admin.pending-listing.index') }}">Pending Listings</a></li>
+                    @endcan
+                    @can('listing review')
                     <li class="{{ setSidebarActive(['admin.listing-reviews.index']) }}"><a class="nav-link" href="{{ route('admin.listing-reviews.index') }}">Listing Reviews</a></li>
+                    @endcan
+                    @can('listing claims')
                     <li class="{{ setSidebarActive(['admin.listing-claims.index']) }}"><a class="nav-link" href="{{ route('admin.listing-claims.index') }}">Claims</a></li>
-
+                    @endcan
                 </ul>
             </li>
+            @endcanany
 
-
+            @can('package index')
             <li class="dropdown {{ setSidebarActive(['admin.hero.index']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                         class="fas fa-columns"></i> <span>Manage Packages</span></a>
@@ -225,16 +235,27 @@
                 ]) }}
                 >
                     <li class="{{ setSidebarActive(['admin.packages.*']) }}"><a class="nav-link" href="{{ route('admin.packages.index') }}">Packages</a></li>
+                    @can('payment settings index')
                     <li class="{{ setSidebarActive(['admin.packages.*']) }}"><a class="nav-link" href="{{ route('admin.payment-settings.index') }}">Payment Settings</a></li>
+                    @endcan
                 </ul>
             </li>
+            @endcan
+
+            @can('order index')
             <li><a class="nav-link" href="{{ route('admin.orders.index') }}"><i class="far fa-square"></i> <span>Order</span></a></li>
-
+            @endcan
+            @can('message index')
             <li><a class="nav-link" href="{{ route('admin.messages.index') }}"><i class="far fa-square"></i> <span>Messages</span></a></li>
+            @endcan
 
+            @can('testimonial index')
             <li><a class="nav-link" href="{{ route('admin.testimonials.index') }}"><i class="far fa-square"></i> <span>Testimonials</span></a></li>
+            @endcan
 
+            @can('blog index')
             <li class="dropdown {{ setSidebarActive(['admin.hero.index']) }}">
+
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                         class="fas fa-columns"></i> <span>Manage Blog</span></a>
 
@@ -249,7 +270,9 @@
 
                 </ul>
             </li>
+            @endcan
 
+            @canany(['about index', 'contact index', 'parivacy policy index', 'terms and condition index'])
             <li class="dropdown {{ setSidebarActive(['admin.hero.index']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                         class="fas fa-columns"></i> <span>Pages</span></a>
@@ -259,15 +282,24 @@
                     'admin.packages.*',
                 ]) }}
                 >
-                    <li class="{{ setSidebarActive(['admin.blog-category.*']) }}"><a class="nav-link" href="{{ route('admin.about-us.index') }}">About Us</a></li>
-                    <li class="{{ setSidebarActive(['admin.blog-category.*']) }}"><a class="nav-link" href="{{ route('admin.contact.index') }}">Contact</a></li>
-                    <li class="{{ setSidebarActive(['admin.blog-category.*']) }}"><a class="nav-link" href="{{ route('admin.privacy-policy.index') }}">Privacy Policy</a></li>
-                    <li class="{{ setSidebarActive(['admin.blog-category.*']) }}"><a class="nav-link" href="{{ route('admin.terms-and-condition.index') }}">Terms and Conditions</a></li>
-
+                @can('about index')
+                <li class="{{ setSidebarActive(['admin.blog-category.*']) }}"><a class="nav-link" href="{{ route('admin.about-us.index') }}">About Us</a></li>
+                @endcan
+                @can('contact index')
+                <li class="{{ setSidebarActive(['admin.blog-category.*']) }}"><a class="nav-link" href="{{ route('admin.contact.index') }}">Contact</a></li>
+                @endcan
+                @can('parivacy policy index')
+                <li class="{{ setSidebarActive(['admin.blog-category.*']) }}"><a class="nav-link" href="{{ route('admin.privacy-policy.index') }}">Privacy Policy</a></li>
+                @endcan
+                @can('terms and condition index')
+                <li class="{{ setSidebarActive(['admin.blog-category.*']) }}"><a class="nav-link" href="{{ route('admin.terms-and-condition.index') }}">Terms and Conditions</a></li>
+                @endcan
 
                 </ul>
             </li>
+            @endcanany
 
+            @can('footer index')
             <li class="dropdown {{ setSidebarActive(['admin.hero.index']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                         class="fas fa-columns"></i> <span>Manage Footer</span></a>
@@ -283,7 +315,9 @@
 
                 </ul>
             </li>
+            @endcan
 
+            @can('access management index')
             <li class="dropdown {{ setSidebarActive(['admin.hero.index']) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                         class="fas fa-columns"></i> <span>Access Management</span></a>
@@ -299,10 +333,15 @@
 
                 </ul>
             </li>
+            @endcan
 
+            @can('menu builder index')
             <li><a class="nav-link" href="{{ route('admin.menu-builder.index') }}"><i class="far fa-square"></i> <span>Menu Builder</span></a></li>
+            @endcan
 
+            @can('settings index')
             <li><a class="nav-link" href="{{ route('admin.settings.index') }}"><i class="far fa-square"></i> <span>Settings</span></a></li>
+            @endcan
 
 
         </ul>
