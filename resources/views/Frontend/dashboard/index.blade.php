@@ -44,10 +44,11 @@
                     <h4>Active Package</h4>
                     <div class="table-responsive">
                       <table class="table dashboard_table">
+                        @if ($subscription?->package)
                         <tbody>
                           <tr>
                             <td class="active_left">Package name</td>
-                            <td class="package_right">{{ $subscription->package->name }}</td>
+                            <td class="package_right">{{ $subscription?->package?->name }}</td>
                           </tr>
                           <tr>
                             <td class="active_left">Price</td>
@@ -63,27 +64,67 @@
                           </tr>
                           <tr>
                             <td class="active_left">Maximum Listing </td>
-                            <td class="package_right">{{ $subscription->package->num_of_listing }}</td>
+                            <td class="package_right">
+                                @if ($subscription->package->num_of_listing === -1)
+                                Unlimited
+                                @else
+                                {{ $subscription->package->num_of_listing }}
+                                @endif
+                            </td>
                           </tr>
                           <tr>
                             <td class="active_left">Maximum Aminities</td>
-                            <td class="package_right">{{ $subscription->package->num_of_amenities }}</td>
+                            <td class="package_right">
+                                @if ($subscription->package->num_of_amenities === -1)
+                                Unlimited
+                                @else
+                                {{ $subscription->package->num_of_amenities }}
+                                @endif
+                            </td>
                           </tr>
                           <tr>
                             <td class="active_left">Maximum Photo</td>
-                            <td class="package_right">{{ $subscription->package->num_of_photos }}</td>
+                            <td class="package_right">
+
+                                @if ($subscription->package->num_of_photos === -1)
+                                Unlimited
+                                @else
+                                {{ $subscription->package->num_of_photos }}
+                                @endif
+
+                            </td>
                           </tr>
                           <tr>
                             <td class="active_left">Maximum Video</td>
-                            <td class="package_right">{{ $subscription->package->num_of_video }}</td>
+                            <td class="package_right">
+
+                                @if ($subscription->package->num_of_video === -1)
+                                Unlimited
+                                @else
+                                {{ $subscription->package->num_of_video }}
+                                @endif
+                            </td>
 
                           </tr>
                           <tr>
                             <td class="active_left">Featured Listing Available</td>
-                            <td class="package_right">{{ $subscription->package->num_of_featured_listing }}</td>
+                            <td class="package_right">
+                                @if ($subscription->package->num_of_video === -1)
+                                Unlimited
+                                @else
+                                {{ $subscription->package->num_of_featured_listing }}
+                                @endif
+                            </td>
 
                           </tr>
                         </tbody>
+                        @else
+                        <tbody>
+                            <tr>
+                                <td class="w-100">No Package Found!</td>
+                            </tr>
+                        </tbody>
+                        @endif
                       </table>
                     </div>
                   </div>
