@@ -24,10 +24,12 @@ class RoleUserDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function($query){
-                $edit = '<a href="'.route('admin.role-user.edit', $query->id).'" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>';
-                $delete = '<a href="'.route('admin.role-user.destroy', $query->id).'" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
+                if($query->getRoleNames()->first() !== 'Super Admin'){
+                    $edit = '<a href="'.route('admin.role-user.edit', $query->id).'" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>';
+                    $delete = '<a href="'.route('admin.role-user.destroy', $query->id).'" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
 
-                return $edit.$delete;
+                    return $edit.$delete;
+                }
             })
             ->addColumn('role', function($query) {
                 return "<span class='badge badge-primary'>".$query->getRoleNames()->first()."</span>";

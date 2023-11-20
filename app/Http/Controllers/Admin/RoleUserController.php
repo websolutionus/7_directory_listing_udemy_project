@@ -16,6 +16,10 @@ use function Ramsey\Uuid\v1;
 
 class RoleUserController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['permission:access management index']);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -52,19 +56,13 @@ class RoleUserController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        //
+        $roles = Role::all();
+        $user = User::findOrFail($id);
+        return view('admin.role-permission.role-user.edit', compact('roles', 'user'));
     }
 
     /**
@@ -72,7 +70,17 @@ class RoleUserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $request->filled('password') ?? $user->password = bcrypt($request->password);
+        $user->user_type = 'admin';
+        $user->save();
+
+        $user->syncRoles($request->role);
+
+        toastr()->success('Update Successfully!');
+        return to_route('admin.role-user.index');
     }
 
     /**
@@ -80,6 +88,13 @@ class RoleUserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            User::findOrFail($id)->delete();
+
+            return response(['status' => 'success', 'message' => 'Deleted successfully!']);
+        }catch(\Exception $e){
+            logger($e);
+            return response(['status' => 'error', 'message' => $e->getMessage()]);
+        }
     }
 }
