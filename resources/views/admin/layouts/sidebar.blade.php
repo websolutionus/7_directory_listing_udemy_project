@@ -293,6 +293,8 @@
                     'admin.packages.*',
                 ]) }}
                 >
+                    <li class="{{ setSidebarActive(['admin.blog-category.*']) }}"><a class="nav-link" href="{{ route('admin.role-user.index') }}">Roles Users</a></li>
+
                     <li class="{{ setSidebarActive(['admin.blog-category.*']) }}"><a class="nav-link" href="{{ route('admin.role.index') }}">Roles and Permissions</a></li>
 
                 </ul>
