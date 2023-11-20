@@ -11,6 +11,13 @@ use Illuminate\View\View;
 
 class OrderController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['permission:order index'])->only(['index', 'show', 'update']);
+        $this->middleware(['permission:order delete'])->only(['destroy']);
+
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -19,21 +26,6 @@ class OrderController extends Controller
         return $dataTable->render('admin.order.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.

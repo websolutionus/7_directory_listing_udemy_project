@@ -15,6 +15,14 @@ use Illuminate\View\View;
 
 class ListingScheduleController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['permission:listing index'])->only(['index']);
+        $this->middleware(['permission:listing create'])->only(['create', 'store']);
+        $this->middleware(['permission:listing update'])->only(['edit', 'update']);
+        $this->middleware(['permission:listing delete'])->only(['destroy']);
+    }
+    
     public function index(ListingScheduleDataTable $dataTable, string $listingId) : view | JsonResponse
     {
         $dataTable->with('listingId', $listingId);

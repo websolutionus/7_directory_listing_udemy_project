@@ -10,6 +10,11 @@ use Illuminate\Http\Response;
 
 class PendingListingController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['permission:pending listing']);
+    }
+
     function index(PendingListingDataTable $dataTable) {
         return $dataTable->render('admin.pending-listing.index');
     }

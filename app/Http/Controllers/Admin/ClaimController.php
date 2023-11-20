@@ -12,6 +12,11 @@ use Illuminate\View\View;
 
 class ClaimController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['permission:listing claims']);
+    }
+
     function index(ClaimDataTable $dataTable) : View | JsonResponse {
         return $dataTable->render('admin.claim.index');
     }

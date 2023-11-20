@@ -13,6 +13,14 @@ use Illuminate\View\View;
 class ListingImageGalleryController extends Controller
 {
     use FileUploadTrait;
+
+    function __construct()
+    {
+        $this->middleware(['permission:listing index'])->only(['index']);
+        $this->middleware(['permission:listing create'])->only(['store']);
+        $this->middleware(['permission:listing delete'])->only(['destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      */
