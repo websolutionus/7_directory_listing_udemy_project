@@ -16,6 +16,16 @@ use Illuminate\View\View;
 class BlogController extends Controller
 {
     use FileUploadTrait;
+
+    function __construct()
+    {
+        $this->middleware(['permission:blog index'])->only(['index']);
+        $this->middleware(['permission:blog create'])->only(['create', 'store']);
+        $this->middleware(['permission:blog update'])->only(['edit', 'update']);
+        $this->middleware(['permission:blog delete'])->only(['destroy']);
+
+    }
+    
     /**
      * Display a listing of the resource.
      */

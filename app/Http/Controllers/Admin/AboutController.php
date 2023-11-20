@@ -14,6 +14,11 @@ class AboutController extends Controller
 {
     use FileUploadTrait;
 
+    function __construct()
+    {
+        $this->middleware(['permission:about index']);
+    }
+
     function index() : View {
         $about = AboutUs::first();
         return view('admin.about.index', compact('about'));

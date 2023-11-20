@@ -11,6 +11,11 @@ use Illuminate\View\View;
 
 class FooterInfoController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['permission:footer index']);
+    }
+
     function index() : View {
         $footerInfo = FooterInfo::first();
         return view('admin.footer-info.index', compact('footerInfo'));

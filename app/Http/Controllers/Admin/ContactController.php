@@ -11,6 +11,11 @@ use Illuminate\View\View;
 
 class ContactController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['permission:contact index']);
+    }
+
     function index() : View {
         $contact = Contact::first();
         return view('admin.contact.index', compact('contact'));

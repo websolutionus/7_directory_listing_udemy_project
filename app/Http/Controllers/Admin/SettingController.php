@@ -13,6 +13,11 @@ use Redirect;
 
 class SettingController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['permission:settings index']);
+    }
+
     function index() : View {
         return view('admin.setting.index');
     }

@@ -16,6 +16,15 @@ use Illuminate\View\View;
 class TestimonialController extends Controller
 {
     use FileUploadTrait;
+
+    function __construct()
+    {
+        $this->middleware(['permission:testimonial index'])->only(['index']);
+        $this->middleware(['permission:testimonial create'])->only(['create', 'store']);
+        $this->middleware(['permission:testimonial update'])->only(['edit', 'update']);
+        $this->middleware(['permission:testimonial delete'])->only(['destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      */

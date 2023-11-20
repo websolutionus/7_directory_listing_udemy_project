@@ -10,6 +10,11 @@ use Illuminate\View\View;
 
 class TermsAndConditionController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['permission:terms and condition index']);
+    }
+
     function index() : View {
         $TermsAndCondition = TermsAndCondition::first();
         return view('admin.terms-and-condition.index', compact('TermsAndCondition'));

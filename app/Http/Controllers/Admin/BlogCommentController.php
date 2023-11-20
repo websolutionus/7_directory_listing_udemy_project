@@ -13,6 +13,11 @@ use Illuminate\View\View;
 
 class BlogCommentController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['permission:blog comment']);
+    }
+
     function index(BlogCommentDataTable $dataTable) : View | JsonResponse
     {
         return $dataTable->render('admin.blog.blog-comment.index');

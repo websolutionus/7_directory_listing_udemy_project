@@ -10,6 +10,11 @@ use Illuminate\View\View;
 
 class ChatController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['permission:message index']);
+    }
+
     function index() : View {
         $receiverId = auth()->user()->id;
 
