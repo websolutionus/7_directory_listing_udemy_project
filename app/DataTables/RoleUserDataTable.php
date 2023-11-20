@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\RoleUser;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -22,16 +23,25 @@ class RoleUserDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'roleuser.action')
+            ->addColumn('action', function($query){
+                $edit = '<a href="'.route('admin.role-user.edit', $query->id).'" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>';
+                $delete = '<a href="'.route('admin.role-user.destroy', $query->id).'" class="delete-item btn btn-sm btn-danger ml-2"><i class="fas fa-trash"></i></a>';
+
+                return $edit.$delete;
+            })
+            ->addColumn('role', function($query) {
+                return "<span class='badge badge-primary'>".$query->getRoleNames()->first()."</span>";
+            })
+            ->rawColumns(['role', 'action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(RoleUser $model): QueryBuilder
+    public function query(User $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->where('user_type', 'admin')->newQuery();
     }
 
     /**
@@ -62,15 +72,16 @@ class RoleUserDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+
             Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('name'),
+            Column::make('email'),
+            Column::make('role'),
+            Column::computed('action')
+            ->exportable(false)
+            ->printable(false)
+            ->width(100)
+            ->addClass('text-center'),
         ];
     }
 
