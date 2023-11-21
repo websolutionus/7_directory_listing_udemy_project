@@ -10,6 +10,7 @@ use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\ProfileController;
+use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -88,6 +89,9 @@ Route::group(['middleware' => 'auth', 'prefix' => 'user', 'as' => 'user.'], func
     /** Order Routes */
     Route::get('orders', [OrderController::class, 'index'])->name('order.index');
     Route::get('orders/{id}', [OrderController::class, 'show'])->name('order.show');
+
+    /** Review Routes */
+    Route::resource('reviews', ReviewController::class);
 
 });
 
