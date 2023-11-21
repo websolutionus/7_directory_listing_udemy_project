@@ -14,29 +14,29 @@
                 <div class="col-xl-6 col-12 col-sm-6 col-lg-6 col-xxl-3">
                   <div class="manage_dashboard_single">
                     <i class="far fa-star"></i>
-                    <h3>116</h3>
+                    <h3>{{ $reviewsCount }}</h3>
                     <p>Total Reviews</p>
                   </div>
                 </div>
                 <div class="col-xl-6 col-12 col-sm-6 col-lg-6 col-xxl-3">
-                  <div class="manage_dashboard_single orange">
+                  <div class="manage_dashboard_single green">
                     <i class="fas fa-list-ul"></i>
-                    <h3>21</h3>
+                    <h3>{{ $activeListingCount }}</h3>
                     <p>active listing</p>
                   </div>
                 </div>
                 <div class="col-xl-6 col-12 col-sm-6 col-lg-6 col-xxl-3">
-                  <div class="manage_dashboard_single green">
+                  <div class="manage_dashboard_single orange">
                     <i class="far fa-heart"></i>
-                    <h3>35</h3>
-                    <p>wishlist</p>
+                    <h3>{{ $pendingListingCount }}</h3>
+                    <p>Pending Listing</p>
                   </div>
                 </div>
                 <div class="col-xl-6 col-12 col-sm-6 col-lg-6 col-xxl-3">
                   <div class="manage_dashboard_single red">
                     <i class="fal fa-comment-alt-dots"></i>
-                    <h3>120</h3>
-                    <p>message</p>
+                    <h3>{{ $listingCount }}</h3>
+                    <p>Total Listings</p>
                   </div>
                 </div>
                 <div class="col-xl-12">
