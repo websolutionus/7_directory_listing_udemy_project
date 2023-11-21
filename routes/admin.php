@@ -169,6 +169,7 @@ Route::group([
 
     /** Database Clear Route */
     Route::get('/clear-database', [ClearDatabaseController::class, 'index'])->name('clear-database.index');
+    Route::post('/clear-database', [ClearDatabaseController::class, 'createDB'])->name('clear-database');
 
 
 });

@@ -33,12 +33,9 @@
 
                                 <form class="mt-2 clear_db" action="{{ route('admin.about-us.update') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    <button class="btn btn-danger">Wipe Database</button>
+                                    <button class="btn btn-danger" type="submit">Wipe Database</button>
                                 </form>
                             </div>
-
-
-
                         </div>
                     </div>
                 </div>
@@ -50,8 +47,49 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function() {
+        $('.clear_db').on('submit', function(e) {
+            e.preventDefault();
+            let url = "{{ route('admin.clear-database') }}";
 
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        method: 'POST',
+                        url: url,
+                        data: {_token: "{{ csrf_token() }}"},
+                        success: function(response) {
+                            if(response.status === 'success'){
+                                Swal.fire(
+                                    'Deleted!',
+                                    response.message,
+                                    'success'
+                                )
+                                window.location.reload();
+                            }else if (response.status === 'error'){
+                                Swal.fire(
+                                    'Somthing wen\'t wrong!',
+                                    response.message,
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function(xhr, status, error){
+                            console.log(error);
+                        }
+
+                    })
+
+                }
+            })
 
         })
     </script>
