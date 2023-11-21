@@ -22,6 +22,12 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
     <!-- <link rel="stylesheet" href="css/rtl.css"> -->
+    <style>
+        :root {
+            --colorPrimary: {{ config('settings.site_default_color') }};
+        }
+    </style>
+
     @stack('styles')
     <script>
         var PUSHER_APP_KEY = "{{ config('settings.pusher_app_key') }}";

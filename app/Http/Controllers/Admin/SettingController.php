@@ -102,4 +102,25 @@ class SettingController extends Controller
         Artisan::call('config:cache');
         return redirect()->back();
     }
+
+    function appearanceSetting(Request $request) {
+        $validatedData = $request->validate([
+            'site_default_color' => ['required'],
+
+        ]);
+
+        foreach($validatedData as $key => $value) {
+            Setting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value]
+            );
+        }
+
+        $settingsService = app(SettingsService::class);
+        $settingsService->clearCachedSettings();
+
+        toastr()->success('Updated Successfully');
+        Artisan::call('config:cache');
+        return redirect()->back();
+    }
 }
