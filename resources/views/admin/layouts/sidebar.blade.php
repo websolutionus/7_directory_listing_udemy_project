@@ -343,6 +343,10 @@
             <li><a class="nav-link" href="{{ route('admin.settings.index') }}"><i class="far fa-square"></i> <span>Settings</span></a></li>
             @endcan
 
+            @can('settings index')
+            <li><a class="nav-link" href="{{ route('admin.clear-database.index') }}"><i class="far fa-square"></i> <span>Wipe Database</span></a></li>
+            @endcan
+
 
         </ul>
     </aside>
