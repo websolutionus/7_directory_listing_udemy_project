@@ -141,7 +141,7 @@ class FrontendController extends Controller
         $listing = Listing::withAvg(['reviews' => function($query){
                 $query->where('is_approved', 1);
             }], 'rating')
-            ->where(['status' => 1, 'is_verified' => 1])->where('slug', $slug)->first();
+            ->where(['status' => 1])->where('slug', $slug)->firstOrFail();
 
         $listing->increment('views');
         $openStatus = $this->listingScheduleStatus($listing);

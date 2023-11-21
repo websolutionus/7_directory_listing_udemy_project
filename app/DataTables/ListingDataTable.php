@@ -61,7 +61,7 @@ class ListingDataTable extends DataTable
                 }
             })
             ->addColumn('is_verified', function($query){
-                if($query->status === 1){
+                if($query->is_verified === 1){
                     return "<span class='badge badge-primary'>Yes</span>";
                 }else{
                     return "<span class='badge badge-danger'>No</span>";

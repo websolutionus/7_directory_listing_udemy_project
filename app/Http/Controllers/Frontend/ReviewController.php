@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Listing;
+use App\Models\Review;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -16,9 +17,14 @@ class ReviewController extends Controller
     public function index() : View
     {
         $user = Auth::user();
-        $listings = Listing::with('reviews')->where('user_id', $user->id)->get();
+        // $listings = Listing::with('reviews')->where('user_id', $user->id)->get();
+        $reviews = Review::with('listing')
+        ->whereHas('listing', function($query) {
+            $query->where('user_id', auth()->user()->id);
+        })
+        ->where('is_approved', 1)->orderBy('id', 'DESC')->paginate();
 
-        return view('frontend.dashboard.review.index', compact('listings'));
+        return view('frontend.dashboard.review.index', compact('reviews'));
     }
 
     /**
