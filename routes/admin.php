@@ -157,6 +157,7 @@ Route::group([
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/general-settings', [SettingController::class, 'updateGeneralSetting'])->name('general-settings.update');
     Route::post('/pusher-settings', [SettingController::class, 'updatePusherSetting'])->name('pusher-settings.update');
+    Route::post('/logo-settings', [SettingController::class, 'logoSettings'])->name('logo-settings.update');
 
     /** Payment Settings Routes */
     Route::get('/payment-settings', [PaymentSettingController::class, 'index'])->name('payment-settings.index');

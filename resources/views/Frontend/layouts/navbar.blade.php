@@ -30,7 +30,7 @@
     <nav class="navbar navbar-expand-lg main_menu">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <img src="images/logo.png" alt="DB.Card">
+                <img src="{{ config('settings.logo') }}" alt="DB.Card">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -57,7 +57,7 @@
                         @endif
                     </li>
                     @endforeach
-                    
+
 
                 </ul>
                 <a class="user_btn" href="dsahboard.html"><i class="far fa-plus"></i> add listing</a>

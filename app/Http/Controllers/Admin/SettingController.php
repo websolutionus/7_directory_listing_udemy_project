@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use App\Services\SettingsService;
+use App\Traits\FileUploadTrait;
 use Artisan;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,6 +14,8 @@ use Redirect;
 
 class SettingController extends Controller
 {
+    use FileUploadTrait;
+
     function __construct()
     {
         $this->middleware(['permission:settings index']);
@@ -63,6 +66,34 @@ class SettingController extends Controller
                 ['value' => $value]
             );
         }
+
+        $settingsService = app(SettingsService::class);
+        $settingsService->clearCachedSettings();
+
+        toastr()->success('Updated Successfully');
+        Artisan::call('config:cache');
+        return redirect()->back();
+    }
+
+    function logoSettings(Request $request) {
+        $request->validate([
+            'logo' => ['nullable', 'image', 'max:3000'],
+            'favicon' => ['nullable', 'image', 'max:3000'],
+        ]);
+
+        $logoPath = $this->uploadImage($request, 'logo', $request->old_image);
+        $faviconPath = $this->uploadImage($request, 'favicon', $request->old_favicon);
+
+        Setting::updateOrCreate(
+            ['key' => 'logo'],
+            ['value' => !empty($logoPath) ? $logoPath : $request->old_image]
+        );
+
+        Setting::updateOrCreate(
+            ['key' => 'favicon'],
+            ['value' => !empty($faviconPath) ? $faviconPath : $request->old_favicon]
+        );
+
 
         $settingsService = app(SettingsService::class);
         $settingsService->clearCachedSettings();
