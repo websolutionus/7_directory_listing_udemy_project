@@ -22,6 +22,7 @@ use App\Models\OurFeature;
 use App\Models\Package;
 use App\Models\PrivacyPolicy;
 use App\Models\Review;
+use App\Models\SectionTitle;
 use App\Models\TermsAndCondition;
 use App\Models\Testimonial;
 use Illuminate\Http\RedirectResponse;
@@ -37,6 +38,7 @@ class FrontendController extends Controller
 {
     function index() : View
     {
+        $sectionTitle = SectionTitle::first();
         $hero = Hero::first();
         $ourFeatures = OurFeature::where('status', 1)->get();
         $categories = Category::where('status', 1)->get();
@@ -80,7 +82,8 @@ class FrontendController extends Controller
                 'ourFeatures',
                 'counter',
                 'testimonials',
-                'blogs'
+                'blogs',
+                'sectionTitle'
             ));
     }
 
@@ -283,13 +286,14 @@ class FrontendController extends Controller
     }
 
     function aboutIndex() : View {
+        $sectionTitle = SectionTitle::first();
         $about = AboutUs::first();
         $ourFeatures = OurFeature::where('status', 1)->get();
         $featuredCategories = Category::withCount(['listings'=> function($query){
             $query->where('is_approved', 1);
         }])->where(['show_at_home' => 1, 'status' => 1])->take(6)->get();
         $counter = Counter::first();
-        return view('frontend.pages.about', compact('about', 'ourFeatures', 'featuredCategories', 'counter'));
+        return view('frontend.pages.about', compact('about', 'ourFeatures', 'featuredCategories', 'counter', 'sectionTitle'));
     }
 
     function contactIndex() : View {
