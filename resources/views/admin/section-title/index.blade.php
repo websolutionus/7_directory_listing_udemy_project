@@ -22,18 +22,18 @@
                             <h4>Section Title</h4>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('admin.about-us.update') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.section-title.update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
 
                                 <h6>Our Feature:</h6>
                                 <div class="form-group">
                                     <label for="">Our Feature Title <span class="text-danger"></span></label>
-                                    <input type="text" class="form-control" name="our_feature_title" value="">
+                                    <input type="text" class="form-control" name="our_feature_title" value="{{ $title?->our_feature_title }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="">Our Feature Sub Title <span class="text-danger"></span></label>
-                                    <textarea name="our_feature_sub_title" class="form-control"></textarea>
+                                    <textarea name="our_feature_sub_title" class="form-control">{{ $title?->our_feature_sub_title }}</textarea>
                                 </div>
 
                                 <hr>
@@ -41,12 +41,12 @@
                                 <h6>Our Categoires:</h6>
                                 <div class="form-group">
                                     <label for="">Our Categories Title <span class="text-danger"></span></label>
-                                    <input type="text" class="form-control" name="our_categories_title" value="">
+                                    <input type="text" class="form-control" name="our_categories_title" value="{{ $title?->our_categories_title }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="">Our Categories Sub Title <span class="text-danger"></span></label>
-                                    <textarea name="our_categories_sub_title" class="form-control"></textarea>
+                                    <textarea name="our_categories_sub_title" class="form-control">{{ $title?->our_categories_sub_title }}</textarea>
                                 </div>
 
                                 <hr>
@@ -54,38 +54,26 @@
                                 <h6>Our Location :</h6>
                                 <div class="form-group">
                                     <label for="">Our Location Title <span class="text-danger"></span></label>
-                                    <input type="text" class="form-control" name="our_location_title" value="">
+                                    <input type="text" class="form-control" name="our_location_title" value="{{ $title?->our_location_title }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="">Our Location Sub Title <span class="text-danger"></span></label>
-                                    <textarea name="our_location_sub_title" class="form-control"></textarea>
+                                    <textarea name="our_location_sub_title" class="form-control">{{ $title?->our_location_sub_title }}</textarea>
                                 </div>
 
-                                <hr>
-
-                                <h6>Our Location :</h6>
-                                <div class="form-group">
-                                    <label for="">Our Location Title <span class="text-danger"></span></label>
-                                    <input type="text" class="form-control" name="our_location_title" value="">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="">Our Location Sub Title <span class="text-danger"></span></label>
-                                    <textarea name="our_location_sub_title" class="form-control"></textarea>
-                                </div>
 
                                 <hr>
 
                                 <h6>Our Featured Listing :</h6>
                                 <div class="form-group">
                                     <label for="">Our Featured Listing Title <span class="text-danger"></span></label>
-                                    <input type="text" class="form-control" name="our_featured_listing_title" value="">
+                                    <input type="text" class="form-control" name="our_featured_listing_title" value="{{ $title?->our_featured_listing_title }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="">Our Featured Listing Sub Title <span class="text-danger"></span></label>
-                                    <textarea name="our_featured_listing_sub_title" class="form-control"></textarea>
+                                    <textarea name="our_featured_listing_sub_title" class="form-control">{{ $title?->our_featured_listing_sub_title }}</textarea>
                                 </div>
 
 
@@ -94,12 +82,12 @@
                                 <h6>Our Pricing :</h6>
                                 <div class="form-group">
                                     <label for="">Our Pricing Title <span class="text-danger"></span></label>
-                                    <input type="text" class="form-control" name="our_our_pricing_title" value="">
+                                    <input type="text" class="form-control" name="our_our_pricing_title" value="{{ $title?->our_our_pricing_title }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="">Our Pricing Sub Title <span class="text-danger"></span></label>
-                                    <textarea name="our_our_pricing_sub_title" class="form-control"></textarea>
+                                    <textarea name="our_our_pricing_sub_title" class="form-control">{{ $title?->our_our_pricing_sub_title }}</textarea>
                                 </div>
 
                                 <hr>
@@ -107,12 +95,12 @@
                                 <h6>Our Testimonial :</h6>
                                 <div class="form-group">
                                     <label for="">Our Testimonial Title <span class="text-danger"></span></label>
-                                    <input type="text" class="form-control" name="our_testimonial_title" value="">
+                                    <input type="text" class="form-control" name="our_testimonial_title" value="{{ $title?->our_testimonial_title }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="">Our Testimonial Sub Title <span class="text-danger"></span></label>
-                                    <textarea name="our_testimonial_sub_title" class="form-control"></textarea>
+                                    <textarea name="our_testimonial_sub_title" class="form-control">{{ $title?->our_testimonial_sub_title }}</textarea>
                                 </div>
 
                                 <hr>
@@ -120,12 +108,12 @@
                                 <h6>Our Blog :</h6>
                                 <div class="form-group">
                                     <label for="">Our Blog Title <span class="text-danger"></span></label>
-                                    <input type="text" class="form-control" name="our_blog_title" value="">
+                                    <input type="text" class="form-control" name="our_blog_title" value="{{ $title?->our_blog_title }}">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="">Our Blog Sub Title <span class="text-danger"></span></label>
-                                    <textarea name="our_blog_title" class="form-control"></textarea>
+                                    <textarea name="our_blog_sub_title" class="form-control">{{ $title?->our_blog_sub_title }}</textarea>
                                 </div>
 
                                 <div class="form-group">

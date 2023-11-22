@@ -64,6 +64,8 @@ Route::group([
 
     /** section title routes */
     Route::get('/section-titles', [SectionTitleController::class, 'index'])->name('section-title.index');
+    Route::post('/section-titles', [SectionTitleController::class, 'update'])->name('section-title.update');
+
 
     /** Category Routes */
     Route::resource('/category', CategoryController::class);
