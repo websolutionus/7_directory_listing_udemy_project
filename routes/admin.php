@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ReviewController;
 use App\Http\Controllers\Admin\RolePermissionController;
 use App\Http\Controllers\Admin\RoleUserController;
+use App\Http\Controllers\Admin\SectionTitleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SocialLinkController;
 use App\Http\Controllers\Admin\TermsAndCondition;
@@ -60,6 +61,9 @@ Route::group([
     /** Hero Routes */
     Route::get('/hero', [HeroController::class, 'index'])->name('hero.index');
     Route::put('/hero', [HeroController::class, 'update'])->name('hero.update');
+
+    /** section title routes */
+    Route::get('/section-titles', [SectionTitleController::class, 'index'])->name('section-title.index');
 
     /** Category Routes */
     Route::resource('/category', CategoryController::class);

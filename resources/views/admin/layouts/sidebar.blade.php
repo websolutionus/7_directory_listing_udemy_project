@@ -49,7 +49,12 @@
             <li class="{{ setSidebarActive(['admin.dashboard.index']) }}"><a class="nav-link" href="{{ route('admin.dashboard.index') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
 
             @can('section index')
-            <li class="dropdown {{ setSidebarActive(['admin.hero.index']) }}">
+            <li class="dropdown {{ setSidebarActive([
+                'admin.hero.index',
+                'admin.our-features.index',
+                'admin.counter.index',
+                'admin.section-title.index'
+                ]) }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                         class="fas fa-columns"></i> <span>Sections</span></a>
 
@@ -57,6 +62,8 @@
                     <li class="{{ setSidebarActive(['admin.hero.index']) }}"><a class="nav-link" href="{{ route('admin.hero.index') }}">Hero</a></li>
                     <li class="{{ setSidebarActive(['admin.our-features.index']) }}"><a class="nav-link" href="{{ route('admin.our-features.index') }}">Our Features</a></li>
                     <li class="{{ setSidebarActive(['admin.counter.index']) }}"><a class="nav-link" href="{{ route('admin.counter.index') }}">Counter</a></li>
+                    <li class="{{ setSidebarActive(['admin.section-title.index']) }}"><a class="nav-link" href="{{ route('admin.section-title.index') }}">Section Titles</a></li>
+
                 </ul>
             </li>
             @endcan
