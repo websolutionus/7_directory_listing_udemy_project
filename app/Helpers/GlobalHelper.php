@@ -16,7 +16,7 @@ if(!function_exists('setSidebarActive')){
 
 /** get yt thumbnail*/
 if(!function_exists('getYtThumbnail')){
-    function getYtThumbnail(string $url) : ?string
+    function getYtThumbnail(?string $url) : ?string
     {
         $pattern = '/[?&]v=([a-zA-Z0-9_-]{11})/';
 

@@ -32,7 +32,7 @@
     <section id="wsus__custom_page">
         <div class="container">
             <div class="row">
-                {!! $privacyPolicy->description !!}
+                {!! $privacyPolicy?->description !!}
             </div>
         </div>
     </section>

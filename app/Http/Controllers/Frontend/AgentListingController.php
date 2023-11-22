@@ -17,6 +17,7 @@ use Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Str;
 
@@ -36,10 +37,13 @@ class AgentListingController extends Controller
      */
     public function create() : View
     {
+        $subscription = Subscription::with('package')->where('user_id', auth()->user()->id)->first();
+        if(!$subscription) {
+            throw ValidationException::withMessages(['Please Subscribe to a package for create listing']);
+        }
         $categories = Category::all();
         $locations = Location::all();
         $amenities = Amenity::all();
-        $subscription = Subscription::with('package')->where('user_id', auth()->user()->id)->first();
         return view('frontend.dashboard.listing.create', compact('categories', 'locations', 'amenities', 'subscription'));
     }
 

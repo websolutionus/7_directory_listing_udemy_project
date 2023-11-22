@@ -32,7 +32,7 @@
     <section id="wsus__custom_page">
         <div class="container">
             <div class="row">
-                {!! $termsAndCondition->description !!}
+                {!! $termsAndCondition?->description !!}
             </div>
         </div>
     </section>

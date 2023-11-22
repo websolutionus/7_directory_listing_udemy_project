@@ -27,7 +27,7 @@
 
                                 <div class="form-group">
                                     <label for="">Description <span class="text-danger">*</span></label>
-                                    <textarea name="description" class="summernote">{!! $privacyPolicy->description !!}</textarea>
+                                    <textarea name="description" class="summernote">{!! $privacyPolicy?->description !!}</textarea>
                                 </div>
 
                                 <div class="form-group">
