@@ -58,8 +58,24 @@ class FrontendController extends Controller
                 $query->where('is_approved', 1);
             }], 'rating')->withCount(['reviews' => function($query) {
                 $query->where('is_approved', 1);
-            }])->where(['status' => 1, 'is_approved' => 1])->orderBy('id', 'desc')->limit(8);
+            }])->where(['status' => 1, 'is_approved' => 1])->orderBy('id', 'desc');
         }])->where(['show_at_home' => 1, 'status' => 1])->get();
+
+        $featuredLocations = Location::where(['show_at_home' => 1, 'status' => 1])->get();
+
+        $featuredLocations->each(function($location) {
+            $location->listings = $location->listings()
+            ->withAvg(['reviews' => function($query) {
+                $query->where('is_approved', 1);
+            }], 'rating')
+            ->withCount(['reviews' => function($query) {
+                $query->where('is_approved', 1);
+            }])
+            ->where(['status' => 1, 'is_approved' => 1])
+            ->orderBy('id', 'desc')
+            ->take(8)->get();
+        });
+
 
         // featured listings
         $featuredListings = Listing::withAvg(['reviews' => function($query) {

@@ -12,9 +12,8 @@
             <div class="row">
                 <div class="col-12 text-center">
                     <div class="wsus__location_filter">
-                        <button class="active" data-filter="*">All City</button>
                         @foreach ($featuredLocations as $location)
-                        <button data-filter=".{{ $location->slug }}">{{ $location->name }}</button>
+                        <button class="{{ $loop->index === 0 ? 'l_first_tab' : '' }}" data-filter=".{{ $location->slug }}">{{ $location->name }}</button>
                         @endforeach
 
                     </div>
@@ -54,3 +53,15 @@
         </div>
     </div>
 </section>
+
+@push('scripts')
+    <script>
+
+        $(document).ready(function(){
+            setTimeout(function(){
+                $('.l_first_tab').trigger('click');
+            }, 1000);
+        })
+
+    </script>
+@endpush
