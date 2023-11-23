@@ -14,6 +14,7 @@ class ListingUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+       
         return [
             'image' => ['image', 'max:3000'],
             'thumbnail_image' => [ 'image', 'max:3000'],

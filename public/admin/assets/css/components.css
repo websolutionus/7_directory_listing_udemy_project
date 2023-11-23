@@ -395,43 +395,6 @@
   display: block;
 }
 
-/* 1.8 DataTables */
-table.dataTable {
-  border-collapse: collapse !important;
-}
-table.dataTable thead th, table.dataTable thead td {
-  border-bottom: 1px solid #ddd !important;
-}
-table.dataTable.no-footer {
-  border-bottom: 1px solid #ddd !important;
-}
-
-.dataTables_wrapper {
-  padding: 0 !important;
-  font-size: 13px !important;
-}
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-  padding: 0 !important;
-  margin: 0 !important;
-  float: left;
-}
-
-div.dataTables_wrapper div.dataTables_processing {
-  font-size: 0 !important;
-  background-image: url("../img/spinner.svg") !important;
-  background-color: #fff;
-  background-size: 100%;
-  width: 50px !important;
-  height: 50px;
-  border: none;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
-  top: 50% !important;
-  left: 50% !important;
-  -webkit-transform: translate(-50%, -50%) !important;
-  transform: translate(-50%, -50%) !important;
-  margin: 0 !important;
-  opacity: 1 !important;
-}
 
 /* 1.9 Date Range Picker */
 .daterangepicker.dropdown-menu {
