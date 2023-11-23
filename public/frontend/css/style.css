@@ -274,7 +274,7 @@ button {
 }
 
 .wsus__topbar_right a {
-	width: 80px;
+	width: 20%;
 	height: 35px;
 	background: var(--colorWhite);
 	color: var(--colorPrimary);

@@ -1,4 +1,4 @@
-<section id="wsus__counter" style="background: {{ asset(@$counter->background) }}">
+<section id="wsus__counter" style="background: url({{ asset(@$counter->background) }})">
     <div class="wsus__counter_overlay">
         <div class="container">
             <div class="row">
