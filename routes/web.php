@@ -12,6 +12,12 @@ use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\PaymentController;
+use App\Models\Amenity;
+use App\Models\Listing;
+use App\Models\ListingAmenity;
+use App\Models\ListingImageGallery;
+use App\Models\ListingSchedule;
+use App\Models\ListingVideoGallery;
 use Illuminate\Support\Facades\Route;
 
 /*
