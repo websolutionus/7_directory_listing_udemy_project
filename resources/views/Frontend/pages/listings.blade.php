@@ -82,7 +82,7 @@
                             <div class="wsus__featured_single">
                                 <div class="wsus__featured_single_img">
                                     <img src="{{ asset($listing->image) }}" alt="{{ $listing->title }}" class="img-fluid w-100">
-                                    <a href="#" class="love"><i class="fas fa-heart"></i></a>
+                                    {{-- <a href="#" class="love"><i class="fas fa-heart"></i></a> --}}
                                     <a href="{{ route('listings', ['category' => $listing->category->slug]) }}" class="small_text">{{ $listing->category->name }}</a>
                                 </div>
                                 <a class="map" onclick="showListingModal('{{ $listing->id }}')" data-bs-toggle="modal" data-bs-target="#exampleModal2"

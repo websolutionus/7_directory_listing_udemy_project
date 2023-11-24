@@ -32,7 +32,7 @@ if(!function_exists('getYtThumbnail')){
 
 /** get yt thumbnail*/
 if(!function_exists('truncate')){
-    function truncate(string $text, int $limit = 25) : ?string
+    function truncate(string $text, int $limit = 23) : ?string
     {
         return \Str::of($text)->limit($limit);
     }
